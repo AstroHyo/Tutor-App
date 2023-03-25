@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Chatbot from './routes/Chatbot';
 import ChatStart from './routes/ChatStart'
+import ChatSituation from './routes/ChatSituation';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Container, Row, Col, Stack } from 'react-bootstrap';
 
@@ -46,6 +47,8 @@ function App() {
         <Route path="/chatStart" element={<ChatStart/>}/>
 
         <Route path="/chatWithTutor" element={<Chatbot/>}/>
+
+        <Route path="/chatSituation" element={<ChatSituation/>}/>
 
       </Routes>
     </div>

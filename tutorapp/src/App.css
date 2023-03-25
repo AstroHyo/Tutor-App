@@ -3,6 +3,17 @@
   src: url("./assets/fonts/Product\ Sans\ Regular.ttf");
 }
 
+@keyframes fadeInUp {
+  0% {
+      opacity: 0;
+      transform: translate3d(0, 30%, 0);
+  }
+  to {
+      opacity: 1;
+      transform: translateZ(0);
+  }
+}
+
 .App {
   text-align: center;
   background-image: linear-gradient(to bottom, #32415f, #788ca3, #9bb7cf); /*bottom right  , #788ca3, #32415f*/
@@ -14,6 +25,8 @@ body {
 }
 
 .container{
+  position: relative;
+  animation: fadeInUp 1s;
   padding-top: 100px;
   height: 100vh;
 }
@@ -53,9 +66,11 @@ body {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;
+  color: white;
   background-image: linear-gradient(to bottom right, #9bb7cf, #3182f6, #9bb7cf); /*bottom right  , #788ca3, #32415f*/
   /*background: #3182f6;*/
   border-radius: 30px;
+  border: none;
 }
 
 .click{

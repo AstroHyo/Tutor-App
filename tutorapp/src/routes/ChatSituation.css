@@ -1,4 +1,4 @@
-.ChatSituation {
+.ChatStart {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,8 +26,10 @@
 
 .situationInput{
     width: 70%;
+    height: 100px;
     margin-left: 15%;
     margin-right: 15%;
+    border-radius: 15px;
 }
 
 Stack{
