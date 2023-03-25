@@ -1,0 +1,88 @@
+.Chatbot {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #e8e8e8;
+  position: sticky;
+  top: 0;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  color: #007aff;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 1rem;
+}
+
+ul.message-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+li.user {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  background-color: #e8e8e8;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+li.user .message-bubble {
+  background-color: #007aff;
+  color: white;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  background-color: #f7f7f7;
+  border-top: 1px solid #e8e8e8;
+  padding: 0.5rem 1rem;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  background-color: white;
+}
+
+button[type="submit"] {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #007aff;
+}

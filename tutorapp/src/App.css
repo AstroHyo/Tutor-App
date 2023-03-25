@@ -1,0 +1,85 @@
+@font-face {
+  font-family: "Product Sans";
+  src: url("./assets/fonts/Product\ Sans\ Regular.ttf");
+}
+
+.App {
+  text-align: center;
+  background-image: linear-gradient(to bottom, #32415f, #788ca3, #9bb7cf); /*bottom right  , #788ca3, #32415f*/
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+}
+
+.container{
+  padding-top: 100px;
+  height: 100vh;
+}
+
+.title{
+  font-size: 28px;
+  font-weight: 800;
+  font-family: "Product Sans";
+  color: white;
+}
+
+.brand{
+  font-size: 36px;
+  font-weight: bold;
+  color: #3182f6; /*#93A9DA;*/
+  margin-bottom: 30px;
+}
+
+.content{
+  color: white;
+  font-family: "Product Sans";
+  margin-bottom: 30px;
+}
+
+.example{
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.exampleContainer{
+}
+
+.exampleBox{
+  width: 200px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  background-image: linear-gradient(to bottom right, #9bb7cf, #3182f6, #9bb7cf); /*bottom right  , #788ca3, #32415f*/
+  /*background: #3182f6;*/
+  border-radius: 30px;
+}
+
+.click{
+  background: #3182f6;
+  margin-top: 30px;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  border-radius: 15px;
+  border: none;
+}
+
+.click:hover {
+  background: #4d94f7;
+  transform: scale(1.1);
+  transition-duration: 0.3s;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
