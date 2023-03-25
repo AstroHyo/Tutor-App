@@ -39,7 +39,6 @@ function ChatStart() {
                   <button className="exampleBox" onClick={() =>{ navigate('/chatWithTutor') }}>💬회사 동료랑 스몰토크!</button>
                 </Stack>
               </Stack>
-              <Form.Control type="text"  placeholder="예)OPIC 대화를 연습하고 싶어" className="situationInput" />
             </Col>
             </Form.Group>
 

@@ -31,11 +31,17 @@
 }
 
 Stack{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .exampleBox:hover{
     background: #4d94f7;
     transform: scale(1.1);
     transition-duration: 0.3s;
+}
+
+.click{
+    margin-top: 10px;
+    height: 70px;
+    border-radius: 30px;
 }

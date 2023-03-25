@@ -21,7 +21,7 @@
 }
 
 .formDesc{
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .situationInput{
@@ -30,14 +30,4 @@
     margin-left: 15%;
     margin-right: 15%;
     border-radius: 15px;
-}
-
-Stack{
-    margin-bottom: 20px;
-}
-
-.exampleBox:hover{
-    background: #4d94f7;
-    transform: scale(1.1);
-    transition-duration: 0.3s;
 }
