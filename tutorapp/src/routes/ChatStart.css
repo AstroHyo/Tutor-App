@@ -1,0 +1,22 @@
+.ChatStart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.userForm {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.formTitle{
+    font-size: 28px;
+}
+
+Stack{
+    margin-bottom: 20px;
+}
