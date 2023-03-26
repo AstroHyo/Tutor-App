@@ -23,12 +23,12 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 //POST 요청이 오먼 3000번 포트에 돌려준다.
 app.get('/tutoringSpeak', async function (req, res) {
-    const situation = ["job interview, and you are a interviewer", "a movie date", "first day of college"]
+    const situation = ["small talk with friend","job interview, and you are a interviewer", "a movie date", "first day of college"]
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       //parameter 조정
-      max_tokens: 100,
+      //max_tokens: 100,
       temperature: 0.5,
       //system이랑 user의 초기 prompt 넣어주기
       messages: [
