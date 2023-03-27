@@ -5,20 +5,20 @@ import { useNavigate } from 'react-router-dom';
 function Test() {
   async function getTutoring() {
     try {
-        const response = await fetch('http://localhost:3000/tutoringSpeak', {
+        const response = await fetch('https://3000-astrohyo-tutorapp-uife88f4ccs.ws-us92.gitpod.io/tutoringSpeak', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: 'John' }) // replace with your desired data
+            body: JSON.stringify({ user : 'John' }) // replace with your desired data
         });
         const data = await response.json();
         console.log(data);
         return data;
     } catch (error) {
-        console.error(error);
+        console.error("somethingwrongbabe"+error);
     }
-}
+  }
 
   return (
     <div className="Test">
