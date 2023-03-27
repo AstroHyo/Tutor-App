@@ -6,8 +6,8 @@ var cors = require('cors')
 const app = express()
 
 const configuration = new Configuration({
-  apiKey: apiKey,
-});
+    apiKey: apiKey,
+  });
 const openai = new OpenAIApi(configuration);
 
 //CORS 이슈 해결
@@ -40,7 +40,7 @@ app.post('/tutoringSpeak', async function (req, res) {
     });
     
     //대답을 tutoring 변수에 저장
-    let tutoring = completion.data.choices[0].message['content'];
+    let tutoring = completion.data.choices[0].message['content']
 
     console.log(tutoring);
     //response를 JSON으로 바꿔줌 
