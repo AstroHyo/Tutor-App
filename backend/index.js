@@ -22,8 +22,8 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 //POST 요청이 오먼 3000번 포트에 돌려준다.
-app.get('/tutoringSpeak', async function (req, res) {
-    const situation = ["small talk with friend","job interview, and you are a interviewer", "a movie date", "first day of college"]
+app.post('/tutoringSpeak', async function (req, res) {
+    const situation = ["small talk with friend", "job interview, and you are a interviewer", "a movie date", "first day of college"]
 
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -40,10 +40,11 @@ app.get('/tutoringSpeak', async function (req, res) {
     });
     
     //대답을 tutoring 변수에 저장
-    let tutoring  = completion.data.choices[0].message['content'];
+    let tutoring = completion.data.choices[0].message['content'];
 
     console.log(tutoring);
-    res.send(tutoring);
+    //response를 JSON으로 바꿔줌 
+    res.json({"assistant": tutoring});
 });
 
 app.listen(3000)
