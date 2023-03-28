@@ -1,4 +1,5 @@
 const apiKey = "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";
+const serverless = require('serverless-http');
 const { Configuration, OpenAIApi } = require("openai");
 //express를 불러와서 이걸 app으로 만든다.
 const express = require('express')
@@ -10,12 +11,12 @@ const configuration = new Configuration({
   });
 const openai = new OpenAIApi(configuration);
 
-//CORS 이슈 해결
+// //CORS 이슈 해결
 // let corsOptions = {
 //   origin: 'https://tutor-app.pages.dev/test',
 //   credentials: true
 //  }
-app.use(cors());
+// app.use(cors(corsOptions));
 
 //POST 요청을 받을 수 있게 해주는 코드 (JSON 데이터 읽기)
 app.use(express.json()) // for parsing application/json
@@ -49,4 +50,7 @@ app.get('/tutoringSpeak', async function (req, res) {
     res.json({"assistant": tutoring});
 });
 
-app.listen(3000)
+//server less 모듈로 export
+module.exports.handler = serverless(app);
+
+//app.listen(3000)
