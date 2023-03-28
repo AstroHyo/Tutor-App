@@ -20,7 +20,7 @@ function Test() {
     setMessageInput('');
 
     try {
-      const response = await fetch('https://3000-astrohyo-tutorapp-uife88f4ccs.ws-us92.gitpod.io/tutoringSpeak', {
+      const response = await fetch('REDACTED_AWS_ENDPOINT', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
