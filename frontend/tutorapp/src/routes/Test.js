@@ -23,6 +23,7 @@ function Test() {
       const response = await fetch('REDACTED_AWS_ENDPOINT', {
         method: 'POST',
         headers: {
+          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
