@@ -38,13 +38,13 @@ function Test() {
       console.error(error);
     }
   }
-
+//332 555
   return (
     <div className="chat-container">
       <div className="chat-box">
         {messages.map((message, index) => (
           <div key={index} className={`chat-message ${message.type}`}>
-            <p>{message.text}</p>
+            <p className="assistant">{message.text}</p>
           </div>
         ))}
       </div>
