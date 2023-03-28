@@ -11,12 +11,12 @@ const configuration = new Configuration({
   });
 const openai = new OpenAIApi(configuration);
 
-// //CORS 이슈 해결
-// let corsOptions = {
-//   origin: 'https://tutor-app.pages.dev/test',
-//   credentials: true
-//  }
-app.use(cors());
+//CORS 이슈 해결
+let corsOptions = {
+  origin: 'https://tutor-app.pages.dev/test',
+  credentials: true
+}
+app.use(cors(corsOptions));
 
 //POST 요청을 받을 수 있게 해주는 코드 (JSON 데이터 읽기)
 app.use(express.json()) // for parsing application/json
