@@ -20,8 +20,8 @@ function App() {
 
         <Route path="/" element={
           <div className="container">
-            <h1 className="title">나만의 영어 튜터</h1>
-            <p className="brand">Tutory</p>
+            <h1 className="title">진짜 같은 인공지능 영어 튜터</h1>
+            <p className="brand">TutoReal</p>
             <p className="content">  {text} </p>
 
             {/* <Stack gap={2} className="example">

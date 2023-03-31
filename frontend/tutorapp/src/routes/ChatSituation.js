@@ -30,7 +30,7 @@ function ChatSituation() {
             </Col>
             </Form.Group>
 
-            <button className="click" onClick={() =>{ navigate('/chatWithTutor')}}>
+            <button className="click" onClick={() =>{ navigate('/test')}}>
                 위 상황으로 대화 시작하기!
             </button>
         </Col>
