@@ -49,6 +49,8 @@ body {
   color: white;
   font-family: "Product Sans";
   margin-bottom: 30px;
+  font-size: 20px;
+  white-space: pre-wrap;
 }
 
 .example{
@@ -60,7 +62,7 @@ body {
 .exampleContainer{
 }
 
- .exampleBox{
+.exampleBox{
   width: 200px;
   height: 100px;
   margin-left: auto;
