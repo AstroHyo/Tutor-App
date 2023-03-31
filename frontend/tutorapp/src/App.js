@@ -12,6 +12,7 @@ function App() {
 
   let navigate = useNavigate();
   let [situation, setSituation] = useState('preparing for OPIC')
+  let text = "틀에서 벗어난 개인화된 \n 회화 튜터링을 제공합니다.";
 
   return (
     <div className="App" style={{  }}>
@@ -21,9 +22,9 @@ function App() {
           <div className="container">
             <h1 className="title">나만의 영어 튜터</h1>
             <p className="brand">Tutory</p>
-            <p className="content">아래 제시된 상황 중 하나를 택하거나, 원하는 상황에서 영어로 대화할 수 있어요</p>
+            <p className="content">  {text} </p>
 
-            <Stack gap={2} className="example">
+            {/* <Stack gap={2} className="example">
               <Stack direction="horizontal" gap={3}>
                 <div className="exampleBox"></div>
                 <div className="exampleBox"></div>
@@ -34,11 +35,12 @@ function App() {
                 <div className="exampleBox"></div>
                 <div className="exampleBox"></div>
               </Stack>
-            </Stack>
+            </Stack> */}
             
             <button className="click" onClick={() =>{ navigate('/chatStart') }}>
               대화 시작하기!
             </button>
+
             <button className="click" onClick={() =>{ navigate('/chatStart') }}>
               영어 작문 첨삭 받아볼래? (무료임)
             </button>

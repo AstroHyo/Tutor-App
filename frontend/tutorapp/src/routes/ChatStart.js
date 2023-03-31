@@ -9,17 +9,6 @@ function ChatStart() {
 
   return (
     <div className="ChatStart">
-      {/*
-      <div className="container">
-        <form className="userForm">
-          <div>
-            <h3>대화를 연습할 상황을 알려주세요!</h3>
-            <input placeholder="예)OPIC 대화를 연습하고 싶어" />
-            <button type="submit" id="submitBtn" className="click">다음</button>
-          </div>
-        </form>
-      </div>
-  */}
 
       <Form className="userForm">
         <Col>
