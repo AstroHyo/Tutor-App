@@ -24,8 +24,9 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 //POST 요청이 오먼 3000번 포트에 돌려준다.
 app.get('/tutoringSpeak', async function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
-    
+    //res.header("Access-Control-Allow-Origin", "*");
+    res.set('Access-Control-Allow-Origin', 'https://tutor-app.pages.dev');
+
     const situation = ["small talk with friend", "job interview, and you are a interviewer", "a movie date", "first day of college"]
 
     const completion = await openai.createChatCompletion({
