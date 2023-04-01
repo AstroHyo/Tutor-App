@@ -24,7 +24,8 @@ function Test() {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': 'https://nozo3khnyafreomenebxkfdbzi0tpqpk.lambda-url.ap-northeast-2.on.aws',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          credentials: "include",
         },
         body: JSON.stringify({
           message: messageInput
