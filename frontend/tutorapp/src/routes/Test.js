@@ -24,7 +24,8 @@ function Test() {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': 'REDACTED_AWS_ENDPOINT',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          credentials: "include",
         },
         body: JSON.stringify({
           message: messageInput
