@@ -14,6 +14,7 @@ const openai = new OpenAIApi(configuration);
 //CORS 이슈 해결
 let corsOptions = {
   origin: 'https://tutor-app.pages.dev',
+  methods : "GET, POST, PUT, DELETE",
   credentials: true
   }
 app.use(cors(corsOptions));
