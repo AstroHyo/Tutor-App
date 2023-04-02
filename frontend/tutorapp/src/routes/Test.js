@@ -29,6 +29,7 @@ function Test() {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': 'REDACTED_AWS_ENDPOINT',
+          'Access-Control-Allow-Headers': 'Content-Type',
           'Content-Type': 'application/json',
           credentials: "include",
         },
