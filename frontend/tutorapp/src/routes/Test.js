@@ -29,7 +29,7 @@ function Test() {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': 'https://nozo3khnyafreomenebxkfdbzi0tpqpk.lambda-url.ap-northeast-2.on.aws',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          //'Access-Control-Allow-Headers': 'Content-Type',
           'Content-Type': 'application/json',
           credentials: "include",
         },
@@ -42,6 +42,7 @@ function Test() {
       setMessages([...messages, tutorMessage]);
     } catch (error) {
       console.error(error);
+      alert('Failed to send message. Please try again later.');
     }
   }
 //332 555
