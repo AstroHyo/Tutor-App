@@ -28,7 +28,7 @@ function Test() {
       const response = await fetch('REDACTED_AWS_ENDPOINT', {
         method: 'POST',
         headers: {
-          'Access-Control-Allow-Origin': 'REDACTED_AWS_ENDPOINT',
+          'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
           //'Access-Control-Allow-Headers': 'Content-Type',
           'Content-Type': 'application/json',
           credentials: "include",
