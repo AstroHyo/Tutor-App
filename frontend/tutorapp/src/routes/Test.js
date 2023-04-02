@@ -1,8 +1,7 @@
 import { useState } from 'react';
+import './Test.css';
 //import { Stack, Form, Row, Col } from 'react-bootstrap';
 //import { useNavigate } from 'react-router-dom';
-import './Test.css';
-//https://3000-astrohyo-tutorapp-uife88f4ccs.ws-us92.gitpod.io/tutoringSpeak
 
 function Test() {
   const [messages, setMessages] = useState([]);
@@ -14,7 +13,8 @@ function Test() {
   }
 
   //Send 버튼 클릭 시, newMessage를 messages 배열에 update
-  const handleSend = async () => {
+  const handleSend = async (event) => {
+    event.preventDefault();
     const newMessage = { type: 'user', text: "user: " + messageInput };
     setMessages([...messages, newMessage]);
     setMessageInput('');
@@ -27,9 +27,7 @@ function Test() {
           'Content-Type': 'application/json',
           credentials: "include",
         },
-        body: JSON.stringify({
-          message: messageInput
-        })
+        body: JSON.stringify({ message: messageInput })
       });
 
       const data = await response.json();
@@ -50,10 +48,12 @@ function Test() {
           </div>
         ))}
       </div>
-      <div className="chat-input">
-        <input type="text" placeholder="Type your message here..." value={messageInput} onChange={handleInputChange} />
-        <button onClick={handleSend}>Send</button>
-      </div>
+      <form onSubmit={handleSend}>
+        <div className="chat-input">
+          <input type="text" placeholder="Type your message here..." value={messageInput} onChange={handleInputChange} />
+          <button onClick={handleSend}>Send</button>
+        </div>
+      </form>
     </div>
   );
 }
