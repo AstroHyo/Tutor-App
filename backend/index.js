@@ -11,23 +11,39 @@ const configuration = new Configuration({
   });
 const openai = new OpenAIApi(configuration);
 
+const whitelist = ["https://tutor-app.pages.dev"];
+
 //CORS 이슈 해결
-let corsOptions = {
-  origin: 'https://tutor-app.pages.dev',
-  methods : "GET, POST, PUT, DELETE",
-  credentials: true
-}
+const corsOptions = {
+  origin:  function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not Allowed Origin!"));
+    }
+  },
+  methods : "GET, POST, PUT, DELETE, OPTIONS",
+  credentials: true,
+  enablePreflight: true
+};
 app.use(cors(corsOptions));
+
+app.options('*', cors())
 
 //POST 요청을 받을 수 있게 해주는 코드 (JSON 데이터 읽기)
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
+app.header("Access-Control-Allow-Origin", "https://tutor-app.pages.dev");
+
 //POST 요청이 오먼 3000번 포트에 돌려준다.
 app.get('/tutoringSpeak', async function (req, res) {
-    //res.header("Access-Control-Allow-Origin", "*");
-    res.set('Access-Control-Allow-Origin', 'https://tutor-app.pages.dev');
-
+    //res.set('Access-Control-Allow-Origin', 'https://tutor-app.pages.dev');
+    res.setHeader("Access-Control-Allow-Origin", "https://tutor-app.pages.dev");
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    
     const situation = ["small talk with friend", "job interview, and you are a interviewer", "a movie date", "first day of college"]
 
     const completion = await openai.createChatCompletion({
@@ -47,7 +63,6 @@ app.get('/tutoringSpeak', async function (req, res) {
     //대답을 tutoring 변수에 저장
     let tutoring = completion.data.choices[0].message['content']
 
-    console.log(tutoring);
     //response를 JSON으로 바꿔줌 
     res.json({"assistant": tutoring});
 });
