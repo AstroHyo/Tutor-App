@@ -38,6 +38,19 @@ app.header("Access-Control-Allow-Origin", "https://tutor-app.pages.dev");
 
 //POST 요청이 오먼 3000번 포트에 돌려준다.
 app.get('/tutoringSpeak', async function (req, res) {
+  //OPTIONS 메소드 관
+  if(req.method==="OPTIONS"){
+    res.writeHead(204, headers);
+    res.end();
+  }
+
+  const headers = {
+    'access-control-allow-origin': '*',
+    'access-control-allow-methods': 'GET, POST  PUT, DELETE, OPTIONS',
+    'access-control-allow-headers': 'content-type, accept',
+    'access-control-max-age': 10
+  };
+  
     //res.set('Access-Control-Allow-Origin', 'https://tutor-app.pages.dev');
     res.setHeader("Access-Control-Allow-Origin", "https://tutor-app.pages.dev");
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
