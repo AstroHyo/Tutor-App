@@ -16,7 +16,7 @@ let corsOptions = {
   origin: 'https://tutor-app.pages.dev',
   methods : "GET, POST, PUT, DELETE",
   credentials: true
-  }
+}
 app.use(cors(corsOptions));
 
 //POST 요청을 받을 수 있게 해주는 코드 (JSON 데이터 읽기)

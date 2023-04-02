@@ -12,9 +12,14 @@ function Test() {
     setMessageInput(event.target.value);
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      handleSend();
+    }
+  }
+
   //Send 버튼 클릭 시, newMessage를 messages 배열에 update
-  const handleSend = async (event) => {
-    event.preventDefault();
+  const handleSend = async () => {
     const newMessage = { type: 'user', text: "user: " + messageInput };
     setMessages([...messages, newMessage]);
     setMessageInput('');
@@ -48,12 +53,10 @@ function Test() {
           </div>
         ))}
       </div>
-      <form onSubmit={handleSend}>
         <div className="chat-input">
-          <input type="text" placeholder="Type your message here..." value={messageInput} onChange={handleInputChange} />
+          <input type="text" placeholder="Type your message here..." value={messageInput} onChange={handleInputChange} onKeyPress={handleKeyPress} />
           <button onClick={handleSend}>Send</button>
         </div>
-      </form>
     </div>
   );
 }

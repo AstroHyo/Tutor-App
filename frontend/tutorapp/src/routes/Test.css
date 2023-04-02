@@ -6,7 +6,7 @@ body {
 }
 
 .chat-container {
-    max-width: 500px;
+    max-width: 70%;
     margin: 0 auto;
     padding: 20px;
 }
