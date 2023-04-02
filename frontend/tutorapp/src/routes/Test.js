@@ -29,7 +29,7 @@ function Test() {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': 'REDACTED_AWS_ENDPOINT',
-          'Access-Control-Allow-Headers': 'Content-Type',
+          //'Access-Control-Allow-Headers': 'Content-Type',
           'Content-Type': 'application/json',
           credentials: "include",
         },
@@ -42,6 +42,7 @@ function Test() {
       setMessages([...messages, tutorMessage]);
     } catch (error) {
       console.error(error);
+      alert('Failed to send message. Please try again later.');
     }
   }
 //332 555
