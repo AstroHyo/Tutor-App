@@ -77,6 +77,6 @@ app.get('/tutoringSpeak', async function (req, res) {
 });
 
 //server less 모듈로 export
-//module.exports.handler = serverless(app);
+module.exports.handler = serverless(app);
 
-app.listen(3000)
+//app.listen(3000)
