@@ -25,8 +25,8 @@ function Test() {
 
   //Send 버튼 클릭 시, newMessage를 messages 배열에 update
   const handleSend = async () => {
-    const userMessage = { type: 'user', text: "user: " + messageInput };
-    setMessages([...messages, userMessage]);
+    const newMessage = { type: 'user', text: "user: " + messageInput };
+    setMessages([...messages, newMessage]);
     setMessageInput('');
 
     try {
