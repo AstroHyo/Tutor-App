@@ -47,7 +47,7 @@ function Test() {
   }
 
   // CORS 설정을 위한 useEffect Hook
-  useEffect(() => {
+  /*useEffect(() => {
     const setHeaders = async () => {
       try {
         await axios.get('REDACTED_AWS_ENDPOINT', {
@@ -62,7 +62,7 @@ function Test() {
       }
     };
     setHeaders();
-  }, []);
+  }, []);*/
 
   return (
     <div className="chat-container">
