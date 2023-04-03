@@ -1,12 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Test.css';
-//import { Stack, Form, Row, Col } from 'react-bootstrap';
-//import { useNavigate } from 'react-router-dom';
 
 function Test() {
   const [messages, setMessages] = useState([]);
   const [messageInput, setMessageInput] = useState('');
+  const chatBoxRef = useRef(null);
+
+  //scroll을 아래로 내려주기 위한 코드
+  useEffect(() => {
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }, [messages]);
 
   //유저가 채팅 입력 시 setMessageInput
   const handleInputChange = (event) => {
@@ -30,11 +34,7 @@ function Test() {
         { message: messageInput },
         {
           headers: {
-            //'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
-            //'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            //'Access-Control-Allow-Headers': 'Content-Type',
             'Content-Type': 'application/json',
-            //credentials: "include",
           },
         });
 
@@ -46,27 +46,9 @@ function Test() {
     }
   }
 
-  // CORS 설정을 위한 useEffect Hook
-  /*useEffect(() => {
-    const setHeaders = async () => {
-      try {
-        await axios.get('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
-          headers: {
-            'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type',
-          },
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    setHeaders();
-  }, []);*/
-
   return (
     <div className="chat-container">
-      <div className="chat-box">
+      <div className="chat-box" ref={chatBoxRef}>
         {messages.map((message, index) => (
           <div key={index} className={`chat-message ${message.type}`}>
             <p className="assistant">{message.text}</p>
