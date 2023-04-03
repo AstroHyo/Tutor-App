@@ -27,7 +27,7 @@ app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
 //POST 요청이 오먼 3000번 포트에 돌려준다.
-app.get('/tutoringSpeak', async function (req, res) {
+app.post('/tutoringSpeak', async function (req, res) {
   //OPTIONS 메소드 관
   if(req.method === "OPTIONS"){
     res.writeHead(204);
