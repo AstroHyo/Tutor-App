@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Test.css';
 //import { Stack, Form, Row, Col } from 'react-bootstrap';
 //import { useNavigate } from 'react-router-dom';
@@ -25,27 +26,43 @@ function Test() {
     setMessageInput('');
 
     try {
-      const response = await fetch('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
-        method: 'POST',
-        headers: {
-          'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
-          'Access-Control-Allow-Headers': 'Content-Type',
-          'Content-Type': 'application/json',
-          credentials: "include",
-        },
-        body: JSON.stringify({ message: messageInput })
-      });
+      const response = await axios.post('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak',
+        { message: messageInput },
+        {
+          headers: {
+            'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Content-Type': 'application/json',
+            credentials: "include",
+          },
+        });
 
-      const data = await response.json();
-
-      const tutorMessage = { type: 'assistant', text: "Tutor: " + data.assistant };
+      const tutorMessage = { type: 'assistant', text: "Tutor: " + response.data.assistant };
       setMessages([...messages, tutorMessage]);
     } catch (error) {
       console.error(error);
       alert('Failed to send message. Please try again later.');
     }
   }
-//332 555
+
+  // CORS 설정을 위한 useEffect Hook
+  useEffect(() => {
+    const setHeaders = async () => {
+      try {
+        await axios.get('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
+          headers: {
+            'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+          },
+        });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    setHeaders();
+  }, []);
+
   return (
     <div className="chat-container">
       <div className="chat-box">

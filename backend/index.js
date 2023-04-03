@@ -36,7 +36,7 @@ app.post('/tutoringSpeak', async function (req, res) {
   const headers = {
     'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
     'Access-Control-Allow-Methods': 'GET, POST  PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Accept',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     'Access-Control-Allow-Credentials': true
   };
 
