@@ -29,7 +29,7 @@ function Test() {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
-          //'Access-Control-Allow-Headers': 'Content-Type',
+          'Access-Control-Allow-Headers': 'Content-Type',
           'Content-Type': 'application/json',
           credentials: "include",
         },
