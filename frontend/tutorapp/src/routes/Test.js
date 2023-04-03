@@ -47,7 +47,7 @@ function Test() {
   }
 
   // CORS 설정을 위한 useEffect Hook
-  useEffect(() => {
+  /*useEffect(() => {
     const setHeaders = async () => {
       try {
         await axios.get('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
@@ -62,7 +62,7 @@ function Test() {
       }
     };
     setHeaders();
-  }, []);
+  }, []);*/
 
   return (
     <div className="chat-container">
