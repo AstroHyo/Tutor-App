@@ -13,6 +13,7 @@ function Chatbot() {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
   }, [messages]);
 
+  //엔터 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       sendMessage();
@@ -29,10 +30,12 @@ function Chatbot() {
         message: inputValue
       })
     });
+
+    setInputValue('');
+
     const data = await response.json();
     const astrologerMessage = { text: data.assistant, sender: "assistant" };
     setMessages([...messages, { text: inputValue, sender: "user" }, astrologerMessage]);
-    setInputValue('');
   }
 
   return (
