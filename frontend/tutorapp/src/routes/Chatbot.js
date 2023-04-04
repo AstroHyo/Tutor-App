@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
 
 function Chatbot() {
@@ -6,6 +6,18 @@ function Chatbot() {
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
   const [inputValue, setInputValue] = useState("");
+  const chatBoxRef = useRef(null);
+
+  //scroll을 아래로 내려주기 위한 코드
+  useEffect(() => {
+    chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  }, [messages]);
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      sendMessage();
+    }
+  }
 
   const sendMessage = async () => {
     const response = await fetch('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
@@ -25,7 +37,7 @@ function Chatbot() {
 
   return (
     <div className="chat-container">
-      <div className="chat-box">
+      <div className="chat-box" ref={chatBoxRef}>
         {messages.map((message, index) => (
           <div className={`chat-message ${message.sender}`} key={index}>
             <p>{message.text}</p>
@@ -33,7 +45,7 @@ function Chatbot() {
         ))}
       </div>
       <div className="chat-input">
-        <input type="text" placeholder="Type your message here..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+        <input type="text" placeholder="Type your message here..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={sendMessage}>Send</button>
       </div>
     </div>
