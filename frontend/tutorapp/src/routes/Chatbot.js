@@ -31,8 +31,9 @@ function Chatbot() {
       })
     });
     const data = await response.json();
-    const astrologerMessage = { text: data.assistant, sender: "assistant" };
-    setMessages([...messages, { text: inputValue, sender: "user" }, astrologerMessage]);
+    console.log(data);
+    const tutorMessage = { text: data.assistant, sender: "assistant" };
+    setMessages([...messages, { text: inputValue, sender: "user" }, tutorMessage]);
     setInputValue('');
   }
 
