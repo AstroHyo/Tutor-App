@@ -5,6 +5,8 @@ function Chatbot() {
   const [messages, setMessages] = useState([
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
+  let [userMessage, setUserMessage] = useState([]);
+  let [tutorMessage, setTutorMessage] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const chatBoxRef = useRef(null);
 
@@ -31,13 +33,11 @@ function Chatbot() {
       })
     });
     const data = await response.json();
-    console.log(inputValue);
-    console.log(data);
     const tutorMessage = { text: data.assistant, sender: "assistant" };
     setMessages([...messages, { text: inputValue, sender: "user" }, tutorMessage]);
     setInputValue('');
   }
-
+  //345
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
