@@ -21,7 +21,9 @@ function Chatbot() {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
-      sendMessage();
+      console.log(userMessage);
+      console.log(inputValue);
+      //sendMessage();
     }
   }
 
