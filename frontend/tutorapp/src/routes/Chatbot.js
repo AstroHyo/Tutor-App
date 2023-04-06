@@ -29,6 +29,7 @@ function Chatbot() {
     const response = await fetch('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
       method: 'POST',
       headers: {
+        'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
@@ -44,13 +45,13 @@ function Chatbot() {
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
-        {userMessage.map((message, index) => (
-          <div className="chat-message user" key={index}>
+        {tutorMessage.map((message, index) => (
+          <div className="chat-message assistant" key={index}>
             <p>{message.text}</p>
           </div>
         ))}
-        {tutorMessage.map((message, index) => (
-          <div className="chat-message assistant" key={index}>
+        {userMessage.map((message, index) => (
+          <div className="chat-message user" key={index}>
             <p>{message.text}</p>
           </div>
         ))}
