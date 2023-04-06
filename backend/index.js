@@ -36,13 +36,19 @@ app.post('/tutoringSpeak', async function (req, res) {
   const headers = {
     'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
     'Access-Control-Allow-Methods': 'GET, POST, HEAD, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    'Access-Control-Allow-Headers': 'Access-Control-Allow-Origin, Origin, X-Requested-With, Content-Type, Accept, Authorization, ',
     'Access-Control-Allow-Credentials': true
   };
 
   res.set(headers);
   
-  let { userMessages, assistantMessages} = req.body
+  res.set('Access-Control-Allow-Origin', 'https://tutor-app.pages.dev');
+  res.setHeader("Access-Control-Allow-Origin", "https://tutor-app.pages.dev");
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  
+  let { userMessages, assistantMessages } = req.body
   
   const situation = [
     "small talk with friend",
