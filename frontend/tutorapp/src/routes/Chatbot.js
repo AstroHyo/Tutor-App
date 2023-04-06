@@ -5,7 +5,7 @@ function Chatbot() {
   const [messages, setMessages] = useState([
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
-  let [userMessage, setUserMessage] = useState();
+  let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
@@ -20,14 +20,15 @@ function Chatbot() {
   //엔터 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
-      console.log(userMessage);
-      console.log(inputValue);
-      //sendMessage();
+      sendMessage(inputValue);
+      setInputValue('');
     }
   }
 
-  const sendMessage = async () => {
+  const sendMessage = async (message) => {
+    setUserMessage([...userMessage, { text: message, sender: "user" }]);
+    console.log("1" + userMessage);
+
     const response = await fetch('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
       method: 'POST',
       headers: {
@@ -39,7 +40,7 @@ function Chatbot() {
         tutorMessage: tutorMessage,
       })
     });
-    console.log(userMessage);
+    console.log("2" + userMessage);
     console.log(userMessage[0]);
     const data = await response.json();
     setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
@@ -62,7 +63,7 @@ function Chatbot() {
       </div>
       <div className="chat-input">
         <input type="text" placeholder="Type your message here..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyPress={handleKeyPress} />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={sendMessage(inputValue)}>Send</button>
       </div>
     </div>
   );
