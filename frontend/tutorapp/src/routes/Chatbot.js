@@ -20,8 +20,8 @@ function Chatbot() {
   //엔터 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      sendMessage();
       setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
+      sendMessage();
     }
   }
 
