@@ -6,22 +6,19 @@ function Chatbot() {
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
   let [userMessage, setUserMessage] = useState([]);
-  let [tutorMessage, setTutorMessage] = useState([
-    { text: "Let's start conversation!", sender: "assistant" }
-  ]);
+  let [tutorMessage, setTutorMessage] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const chatBoxRef = useRef(null);
 
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [tutorMessage]);
+  }, [messages]);
 
   //엔터 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       sendMessage();
-      setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
     }
   }
 
@@ -29,30 +26,23 @@ function Chatbot() {
     const response = await fetch('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
       method: 'POST',
       headers: {
-        'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userMessage: userMessage,
-        //tutorMessage: tutorMessage,
+        message: inputValue
       })
     });
-
     const data = await response.json();
-    setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
+    const tutorMessage = { text: data.assistant, sender: "assistant" };
+    setMessages([...messages, { text: inputValue, sender: "user" }, tutorMessage]);
     setInputValue('');
   }
   //345
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
-        {tutorMessage.map((message, index) => (
-          <div className="chat-message assistant" key={index}>
-            <p>{message.text}</p>
-          </div>
-        ))}
-        {userMessage.map((message, index) => (
-          <div className="chat-message user" key={index}>
+        {messages.map((message, index) => (
+          <div className={`chat-message ${message.sender}`} key={index}>
             <p>{message.text}</p>
           </div>
         ))}
