@@ -37,7 +37,8 @@ function Chatbot() {
         tutorMessage: tutorMessage,
       })
     });
-
+    console.log(userMessage);
+    console.log(userMessage[0]);
     const data = await response.json();
     setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
     setInputValue('');
