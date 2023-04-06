@@ -29,7 +29,7 @@ function Chatbot() {
     const response = await fetch('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
       method: 'POST',
       headers: {
-        //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
+        'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
