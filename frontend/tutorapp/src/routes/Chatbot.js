@@ -20,15 +20,14 @@ function Chatbot() {
   //엔터 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      sendMessage(inputValue);
-      setInputValue('');
+      setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
+      console.log(userMessage);
+      console.log(inputValue);
+      //sendMessage();
     }
   }
 
-  const sendMessage = async (message) => {
-    setUserMessage([...userMessage, { text: message, sender: "user" }]);
-    console.log("1" + userMessage);
-
+  const sendMessage = async () => {
     const response = await fetch('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
       method: 'POST',
       headers: {
@@ -40,7 +39,7 @@ function Chatbot() {
         tutorMessage: tutorMessage,
       })
     });
-    console.log("2" + userMessage);
+    console.log(userMessage);
     console.log(userMessage[0]);
     const data = await response.json();
     setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
@@ -63,7 +62,7 @@ function Chatbot() {
       </div>
       <div className="chat-input">
         <input type="text" placeholder="Type your message here..." value={inputValue} onChange={(e) => setInputValue(e.target.value)} onKeyPress={handleKeyPress} />
-        <button onClick={sendMessage(inputValue)}>Send</button>
+        <button onClick={sendMessage}>Send</button>
       </div>
     </div>
   );
