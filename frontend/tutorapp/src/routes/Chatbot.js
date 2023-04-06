@@ -34,7 +34,7 @@ function Chatbot() {
       },
       body: JSON.stringify({
         userMessage: userMessage,
-        tutorMessage: tutorMessage,
+        //tutorMessage: tutorMessage,
       })
     });
 
