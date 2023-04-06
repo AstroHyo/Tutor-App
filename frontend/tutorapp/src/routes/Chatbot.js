@@ -26,7 +26,7 @@ function Chatbot() {
   }
 
   const sendMessage = async () => {
-    const response = await fetch('https://b3uiuqz870.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
+    const response = await fetch('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
       method: 'POST',
       headers: {
         //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
