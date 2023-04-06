@@ -5,7 +5,7 @@ function Chatbot() {
   const [messages, setMessages] = useState([
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
-  let [userMessage, setUserMessage] = useState([]);
+  let [userMessage, setUserMessage] = useState();
   let [tutorMessage, setTutorMessage] = useState([
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
