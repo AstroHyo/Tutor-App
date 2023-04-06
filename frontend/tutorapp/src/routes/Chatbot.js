@@ -6,19 +6,22 @@ function Chatbot() {
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
   let [userMessage, setUserMessage] = useState([]);
-  let [tutorMessage, setTutorMessage] = useState([]);
+  let [tutorMessage, setTutorMessage] = useState([
+    { text: "Let's start conversation!", sender: "assistant" }
+  ]);
   const [inputValue, setInputValue] = useState("");
   const chatBoxRef = useRef(null);
 
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [messages]);
+  }, [tutorMessage]);
 
   //엔터 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       sendMessage();
+      setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
     }
   }
 
@@ -29,20 +32,25 @@ function Chatbot() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        message: inputValue
+        userMessage: userMessage,
+        tutorMessage: tutorMessage,
       })
     });
     const data = await response.json();
-    const tutorMessage = { text: data.assistant, sender: "assistant" };
-    setMessages([...messages, { text: inputValue, sender: "user" }, tutorMessage]);
+    setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
     setInputValue('');
   }
   //345
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
-        {messages.map((message, index) => (
-          <div className={`chat-message ${message.sender}`} key={index}>
+        {userMessage.map((message, index) => (
+          <div className="chat-message user" key={index}>
+            <p>{message.text}</p>
+          </div>
+        ))}
+        {tutorMessage.map((message, index) => (
+          <div className="chat-message assistant" key={index}>
             <p>{message.text}</p>
           </div>
         ))}
