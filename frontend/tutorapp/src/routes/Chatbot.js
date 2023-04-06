@@ -20,14 +20,17 @@ function Chatbot() {
   //엔터 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
       console.log(userMessage);
       console.log(inputValue);
-      //sendMessage();
+      sendMessage();
     }
   }
 
   const sendMessage = async () => {
+    setUserMessage([...userMessage, { text: inputValue, sender: "user" }]);
+    console.log(userMessage);
+    console.log(inputValue);
+
     const response = await fetch('REDACTED_AWS_ENDPOINT', {
       method: 'POST',
       headers: {
