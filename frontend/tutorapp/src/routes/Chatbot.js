@@ -29,7 +29,7 @@ function Chatbot() {
     const response = await fetch('REDACTED_AWS_ENDPOINT', {
       method: 'POST',
       headers: {
-        'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
+        //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
