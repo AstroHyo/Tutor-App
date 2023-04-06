@@ -18,14 +18,14 @@ function ChatStart() {
               <p className="formDesc">아래 상황 중 하나를 선택하거나 원하는 상황을 알려주세요!</p>
               <Stack gap={2} className="example">
                 <Stack direction="horizontal" gap={3}>
-                  <button className="exampleBox" onClick={() =>{ navigate('/test') }}>📚OPIC 공부 좀 도와줘!</button>
-                  <button className="exampleBox" onClick={() =>{ navigate('/test') }}>💘두근두근 소개팅 하루 전날!</button>
-                  <button className="exampleBox" onClick={() =>{ navigate('/test') }}>🤝네..? 외국계 회사랑 비즈니스 미팅이요?</button>
+                  <button className="exampleBox" onClick={() =>{ navigate('/chatWithTutor') }}>📚OPIC 공부 좀 도와줘!</button>
+                  <button className="exampleBox" onClick={() =>{ navigate('/chatWithTutor') }}>💘두근두근 소개팅 하루 전날!</button>
+                  <button className="exampleBox" onClick={() =>{ navigate('/chatWithTutor') }}>🤝네..? 외국계 회사랑 비즈니스 미팅이요?</button>
                 </Stack>
                 <Stack direction="horizontal" gap={3} className="exampleContainer">
-                  <button className="exampleBox" onClick={() =>{ navigate('/test') }}>📈영어로 진행하는 회사 인터뷰</button>
-                  <button className="exampleBox" onClick={() =>{ navigate('/test') }}>☕오랜만에 만난 외국인 친구랑</button>
-                  <button className="exampleBox" onClick={() =>{ navigate('/test') }}>💬회사 동료랑 스몰토크!</button>
+                  <button className="exampleBox" onClick={() =>{ navigate('/chatWithTutor') }}>📈영어로 진행하는 회사 인터뷰</button>
+                  <button className="exampleBox" onClick={() =>{ navigate('/chatWithTutor') }}>☕오랜만에 만난 외국인 친구랑</button>
+                  <button className="exampleBox" onClick={() =>{ navigate('/chatWithTutor') }}>💬회사 동료랑 스몰토크!</button>
                 </Stack>
               </Stack>
             </Col>

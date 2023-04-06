@@ -38,7 +38,7 @@ function Chatbot() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userMessage: userInput,
+        //userMessage: userInput,
         tutorMessage: tutorMessage,
       })
     });
