@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
+import axios from 'axios';
 
 function Chatbot() {
   let [userMessage, setUserMessage] = useState([]);
@@ -21,34 +22,35 @@ function Chatbot() {
     if (event.key === 'Enter') {
       setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
       setCheckUpdate(true);
+      setUserInput('');
     }
   }
   //버튼 클릭시 사용
   function handleSendButton() {
     setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
     setCheckUpdate(true);
+    setUserInput('');
   }
 
   const sendMessage = async () => {
     console.log(userMessage);
     console.log(userInput);
 
-    const response = await fetch('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
-      method: 'POST',
-      headers: {
-        //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
+    try {
+      const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
         userMessage: userMessage,
         tutorMessage: tutorMessage,
-      })
-    });
-    console.log(userMessage);
-    console.log(userMessage[0]);
-    const data = await response.json();
-    setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
-    setUserInput('');
+      }, {
+        headers: {
+          //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = response.data;
+      setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   //useEffect 이용해서 userMessage 업데이트 되고 checkUpdate true로 바뀌면 sendMessage 실행되도록 함
@@ -60,6 +62,7 @@ function Chatbot() {
     }
   }, [checkUpdate]);
 
+  //채팅 ui에 tutor랑 user 메세지 순서대로 불러올 수 있도록 message로 합치는 부분
   let messages = [];
   let userIndex = 0;
   let tutorIndex = 0;
