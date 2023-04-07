@@ -87,7 +87,7 @@ function Chatbot() {
         ))}
       </div>
       <div className="chat-input">
-        <input type="text" placeholder="Type your message here..." onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
+        <input type="text" placeholder="Type your message here..." value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={handleSendButton}>Send</button>
       </div>
     </div>
