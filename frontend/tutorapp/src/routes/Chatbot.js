@@ -2,9 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
 
 function Chatbot() {
-  const [messages, setMessages] = useState([
-    { text: "Let's start conversation!", sender: "assistant" }
-  ]);
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([
     { text: "Let's start conversation!", sender: "assistant" }
@@ -38,8 +35,8 @@ function Chatbot() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userMessage: "I want lunch.",
-        tutorMessage: "hello ",
+        //userMessage: "I want lunch.",
+        //tutorMessage: "hello ",
       })
     });
     console.log(userMessage);
