@@ -82,7 +82,7 @@ function Chatbot() {
           <p>Let's start conversation!</p>
         </div>
         {messages.map((message, index) => (
-          <div className="chat-message" key={index}>
+          <div className={`chat-message ${index % 2 === 0 ? 'tutor' : 'user'}`} key={index}>
             <p>{message}</p>
           </div>
         ))}
