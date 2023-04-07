@@ -28,18 +28,16 @@ body {
 }
 
 .chat-message {
-  width: 40%;
+  width: 51%;
   margin: 0;
   padding: 0;
 }
 
 .tutor {
-  text-align: left;
   color: blue;
 }
 
 .user {
-  text-align: right;
   float: right;
 }
 
