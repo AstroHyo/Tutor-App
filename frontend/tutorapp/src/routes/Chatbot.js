@@ -60,20 +60,20 @@ function Chatbot() {
     }
   }, [checkUpdate]);
 
-  //채팅 ui에 tutor랑 user 메세지 순서대로 불러올 수 있도록 message로 합치는 부분
+  //채팅 ui에 tutor랑 user 메세지 순서대로 불러올 수 있도록 message로 integrate하는 부분
   let messages = [];
   let userIndex = 0;
   let tutorIndex = 0;
-  while (tutorIndex < tutorMessage.length && userIndex < userMessage.length) {
-    if (tutorIndex <= userIndex) {
-      messages.push(tutorMessage[tutorIndex]);
-      tutorIndex++;
-    } else {
+  while (userIndex < userMessage.length && tutorIndex < tutorMessage.length) {
+    if (userIndex <= tutorIndex) {
       messages.push(userMessage[userIndex]);
       userIndex++;
+    } else {
+      messages.push(tutorMessage[tutorIndex]);
+      tutorIndex++;
     }
   }
-  messages = messages.concat(tutorMessage.slice(tutorIndex)).concat(userMessage.slice(userIndex));
+  messages = messages.concat(userMessage.slice(userIndex)).concat(tutorMessage.slice(tutorIndex));
 
   return (
     <div className="chat-container">
