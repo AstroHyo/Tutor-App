@@ -32,12 +32,12 @@ body {
   padding: 0;
 }
 
-.assistant{
+.tutor {
   text-align: left;
   color: blue;
 }
 
-.user{
+.user {
   text-align: right;
 }
 
