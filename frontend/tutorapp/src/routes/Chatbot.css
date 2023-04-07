@@ -32,6 +32,15 @@ body {
   padding: 0;
 }
 
+.chat-message assistant{
+  text-align: left;
+  color: blue;
+}
+
+.chat-message user{
+  text-align: rigth;
+}
+
 .chat-input {
   display: flex;
   margin-top: 20px;
