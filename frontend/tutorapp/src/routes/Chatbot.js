@@ -4,9 +4,7 @@ import axios from 'axios';
 
 function Chatbot() {
   let [userMessage, setUserMessage] = useState([]);
-  let [tutorMessage, setTutorMessage] = useState([
-    { text: "Let's start conversation!", sender: "assistant" }
-  ]);
+  let [tutorMessage, setTutorMessage] = useState([]);
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
   let [userInput, setUserInput] = useState("");
@@ -20,14 +18,14 @@ function Chatbot() {
   //엔터 입력 시 userMessage 업데이트하고 chechupdate true
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
+      setUserMessage([...userMessage, userInput]);
       setCheckUpdate(true);
       setUserInput('');
     }
   }
   //버튼 클릭시 사용
   function handleSendButton() {
-    setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
+    setUserMessage([...userMessage, userInput]);
     setCheckUpdate(true);
     setUserInput('');
   }
@@ -47,7 +45,7 @@ function Chatbot() {
         }
       });
       const data = response.data;
-      setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
+      setTutorMessage([...tutorMessage, data.assistant]);
     } catch (error) {
       console.error(error);
     }
@@ -80,8 +78,11 @@ function Chatbot() {
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
+        <div className="chat-message assistant">
+          <p>Let's start conversation!</p>
+        </div>
         {messages.map((message, index) => (
-          <div className={'chat-message ${message.sender}'} key={index}>
+          <div className="chat-message" key={index}>
             <p>{message.text}</p>
           </div>
         ))}
