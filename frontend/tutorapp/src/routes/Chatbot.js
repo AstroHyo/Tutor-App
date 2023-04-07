@@ -24,7 +24,7 @@ function Chatbot() {
   }
 
   const sendMessage = async () => {
-    setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
+    
     console.log(userMessage);
     console.log(userInput);
 
@@ -61,7 +61,7 @@ function Chatbot() {
         ))}
       </div>
       <div className="chat-input">
-        <input type="text" placeholder="Type your message here..." onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
+        <input type="text" placeholder="Type your message here..." onChange={(e) => setUserMessage([...userMessage, { text: e.target.value, sender: "user" }])} onKeyPress={handleKeyPress} />
         <button onClick={sendMessage}>Send</button>
       </div>
     </div>
