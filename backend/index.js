@@ -63,23 +63,20 @@ app.post('/tutoringSpeak', async function (req, res) {
     {role: "system", content: "You are the world's best English conversation tutor. Nothing is impossible for you, and you can answer any question. You teach English very well and help me to have a good conversation in English. You have extensive knowledge in various fields and carry on conversations well. You role-play for situations I present and wait for my response after saying only one sentence. If I use a grammatically incorrect or awkward sentence, you help me make it sound natural in conversation and give me a chance to say it correctly."},
     {role: "user", content: "You are the world's best English conversation tutor. Nothing is impossible for you, and you can answer any question. You teach English very well and help me to have a good conversation in English. You have extensive knowledge in various fields and carry on conversations well. You role-play for situations I present and wait for my response after saying only one sentence. If I use a grammatically incorrect or awkward sentence, you help me make it sound natural in conversation and give me a chance to say it correctly."},
     {role: "assistant", content: "Thank you for your kind words! I'll do my best to help you improve your English conversation skills. Please feel free to ask me any questions or present any situations you'd like to practice, and I'll be happy to role-play with you and provide feedback to help you improve.To start, let's have a conversation. You can begin by saying a sentence, and I'll respond and we'll take it from there."},
-    {role: "user", content: "test."},
   ];
   
-  // // while (userMessage.length != 0 || tutorMessage.length != 0) {
-  // //   if (userMessage.length != 0) {
-  // //       messages.push(
-  // //           //JSON.parse('{"role": "user", "content": "'+String(userMessage.shift()).replace(/\n/g,"")+'"}')
-  // //           JSON.parse('{"role": "user", "content": "'+String(userMessage).replace(/\n/g,"")+'"}')
-  // //       )
-  // //   }
-  // //   if (tutorMessage.length != 0) {
-  // //       messages.push(
-  // //           //JSON.parse('{"role": "assistant", "content": "'+String(tutorMessage.shift()).replace(/\n/g,"")+'"}')
-  // //           JSON.parse('{"role": "assistant", "content": "'+String(tutorMessage).replace(/\n/g,"")+'"}')
-  // //       )
-  // //   }
-  // // }
+  while (userMessage.length != 0 || tutorMessage.length != 0) {
+    if (userMessage.length != 0) {
+        messages.push(
+            JSON.parse('{"role": "user", "content": "'+String(userMessage.shift()).replace(/\n/g,"")+'"}')
+        )
+    }
+    if (tutorMessage.length != 0) {
+        messages.push(
+            JSON.parse('{"role": "assistant", "content": "'+String(tutorMessage.shift()).replace(/\n/g,"")+'"}')
+        )
+    }
+  }
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
