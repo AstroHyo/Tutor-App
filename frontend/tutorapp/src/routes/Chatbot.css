@@ -27,17 +27,17 @@ body {
   margin-bottom: 10px;
 }
 
-.chat-message p {
+.chat-message {
   margin: 0;
   padding: 0;
 }
 
-.chat-message assistant{
+.chat-message assistant p{
   text-align: left;
   color: blue;
 }
 
-.chat-message user{
+.chat-message user p{
   text-align: rigth;
 }
 
