@@ -28,6 +28,7 @@ body {
 }
 
 .chat-message {
+  width: 40%;
   margin: 0;
   padding: 0;
 }

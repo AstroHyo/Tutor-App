@@ -78,7 +78,7 @@ function Chatbot() {
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
-        <div className="chat-message assistant">
+        <div className="chat-message tutor">
           <p>Let's start conversation!</p>
         </div>
         {messages.map((message, index) => (
