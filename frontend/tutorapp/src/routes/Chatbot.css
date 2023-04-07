@@ -32,13 +32,13 @@ body {
   padding: 0;
 }
 
-.chat-message assistant p{
+.assistant{
   text-align: left;
   color: blue;
 }
 
-.chat-message user p{
-  text-align: rigth;
+.user{
+  text-align: right;
 }
 
 .chat-input {
