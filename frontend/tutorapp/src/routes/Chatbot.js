@@ -6,25 +6,30 @@ function Chatbot() {
   let [tutorMessage, setTutorMessage] = useState([
     { text: "Let's start conversation!", sender: "assistant" }
   ]);
-  const [userInput, setUserInput] = useState("");
+  //만약 userMessage 값이 업데이트되면 true
+  let [checkUpdate, setCheckUpdate] = useState(false);
+  let [userInput, setUserInput] = useState("");
   const chatBoxRef = useRef(null);
-
+  
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
   }, [tutorMessage]);
 
-  //엔터 
+  //엔터 입력 시 userMessage 업데이트하고 chechupdate true
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      console.log(userMessage);
-      console.log(userInput);
-      sendMessage();
+      setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
+      setCheckUpdate(true);
     }
+    // if (event.key === 'Enter') {
+    //   console.log(userMessage);
+    //   console.log(userInput);
+    //   sendMessage();
+    // }
   }
 
   const sendMessage = async () => {
-    
     console.log(userMessage);
     console.log(userInput);
 
@@ -45,23 +50,40 @@ function Chatbot() {
     setTutorMessage([...tutorMessage, { text: data.assistant, sender: "assistant" }]);
     setUserInput('');
   }
-  //345
+
+  useEffect(() => {
+    if (checkUpdate) {
+      sendMessage().then(() => {
+        setCheckUpdate(false);
+      });
+    }
+  }, [checkUpdate]);
+
+  let messages = [];
+  let userIndex = 0;
+  let tutorIndex = 0;
+  while (userIndex < userMessage.length && tutorIndex < tutorMessage.length) {
+    if (userIndex <= tutorIndex) {
+      messages.push(userMessage[userIndex]);
+      userIndex++;
+    } else {
+      messages.push(tutorMessage[tutorIndex]);
+      tutorIndex++;
+    }
+  }
+  messages = messages.concat(userMessage.slice(userIndex)).concat(tutorMessage.slice(tutorIndex));
+
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
-        {tutorMessage.map((message, index) => (
-          <div className="chat-message assistant" key={index}>
-            <p>{message.text}</p>
-          </div>
-        ))}
-        {userMessage.map((message, index) => (
-          <div className="chat-message user" key={index}>
+        {messages.map((message, index) => (
+          <div className={'chat-message ${message.sender}'} key={index}>
             <p>{message.text}</p>
           </div>
         ))}
       </div>
       <div className="chat-input">
-        <input type="text" placeholder="Type your message here..." onChange={(e) => setUserMessage([...userMessage, { text: e.target.value, sender: "user" }])} onKeyPress={handleKeyPress} />
+        <input type="text" placeholder="Type your message here..." onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={sendMessage}>Send</button>
       </div>
     </div>
