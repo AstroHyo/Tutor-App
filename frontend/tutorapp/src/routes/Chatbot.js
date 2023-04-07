@@ -22,11 +22,11 @@ function Chatbot() {
       setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
       setCheckUpdate(true);
     }
-    // if (event.key === 'Enter') {
-    //   console.log(userMessage);
-    //   console.log(userInput);
-    //   sendMessage();
-    // }
+  }
+  //버튼 클릭시 사용
+  function handleSendButton() {
+    setUserMessage([...userMessage, { text: userInput, sender: "user" }]);
+    setCheckUpdate(true);
   }
 
   const sendMessage = async () => {
@@ -40,8 +40,8 @@ function Chatbot() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        //userMessage: "I want lunch.",
-        //tutorMessage: "hello ",
+        userMessage: userMessage,
+        tutorMessage: tutorMessage,
       })
     });
     console.log(userMessage);
@@ -51,6 +51,7 @@ function Chatbot() {
     setUserInput('');
   }
 
+  //useEffect 이용해서 userMessage 업데이트 되고 checkUpdate true로 바뀌면 sendMessage 실행되도록 함
   useEffect(() => {
     if (checkUpdate) {
       sendMessage().then(() => {
@@ -62,16 +63,16 @@ function Chatbot() {
   let messages = [];
   let userIndex = 0;
   let tutorIndex = 0;
-  while (userIndex < userMessage.length && tutorIndex < tutorMessage.length) {
-    if (userIndex <= tutorIndex) {
-      messages.push(userMessage[userIndex]);
-      userIndex++;
-    } else {
+  while (tutorIndex < tutorMessage.length && userIndex < userMessage.length) {
+    if (tutorIndex <= userIndex) {
       messages.push(tutorMessage[tutorIndex]);
       tutorIndex++;
+    } else {
+      messages.push(userMessage[userIndex]);
+      userIndex++;
     }
   }
-  messages = messages.concat(userMessage.slice(userIndex)).concat(tutorMessage.slice(tutorIndex));
+  messages = messages.concat(tutorMessage.slice(tutorIndex)).concat(userMessage.slice(userIndex));
 
   return (
     <div className="chat-container">
@@ -84,7 +85,7 @@ function Chatbot() {
       </div>
       <div className="chat-input">
         <input type="text" placeholder="Type your message here..." onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
-        <button onClick={sendMessage}>Send</button>
+        <button onClick={handleSendButton}>Send</button>
       </div>
     </div>
   );
