@@ -12,68 +12,77 @@ const AudioRecord = () => {
   const onRecAudio = async () => {
     setDisabled(true);
 
-    // create an audio context and an audio worklet
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    await audioContext.audioWorklet.addModule('audio-worklet-processor.js');
-    const audioWorkletNode = new AudioWorkletNode(audioContext, 'recorder');
-    audioContext.resume();
+    try {
+      const audioCtx = new AudioContext();
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.start();
 
-    function makeSound(stream) {
-      // create a media stream source from the stream
-      const source = audioContext.createMediaStreamSource(stream);
+      const source = audioCtx.createMediaStreamSource(stream);
+      const audioWorkletUrl = "audioWorklet.js";
+      await audioCtx.audioWorklet.addModule(audioWorkletUrl);
+      const analyser = new AudioWorkletNode(audioCtx, "analyser-processor");
+      setAnalyser(analyser);
+
+      source.connect(analyser).connect(audioCtx.destination);
+
+      analyser.port.onmessage = (event) => {
+        if (event.data.playbackTime > 180) {
+          stream.getTracks().forEach((track) => track.stop());
+
+          mediaRecorder.stop();
+          mediaRecorder.ondataavailable = (e) => {
+            setAudioUrl(e.data);
+            setOnRec(true);
+          };
+
+          analyser.disconnect();
+          source.disconnect();
+        } else {
+          setOnRec(false);
+        }
+      };
+
+      setStream(stream);
+      setMedia(mediaRecorder);
       setSource(source);
-      // connect the source to the worklet node
-      source.connect(audioWorkletNode);
-      audioWorkletNode.connect(audioContext.destination);
+    } catch (err) {
+      console.error(err);
     }
-
-    // request microphone access
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.start();
-    setStream(stream);
-    setMedia(mediaRecorder);
-    makeSound(stream);
-
-    const chunks = [];
-    mediaRecorder.ondataavailable = function (e) {
-      chunks.push(e.data);
-      if (mediaRecorder.state === "inactive") {
-        const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
-        setAudioUrl(blob);
-        setOnRec(true);
-      }
-    };
-
-    mediaRecorder.onstop = function () {
-      // disconnect the nodes when recording stops
-      audioWorkletNode.disconnect();
-      source.disconnect();
-    };
   };
 
-  // when the user stops the recording
   const offRecAudio = () => {
+    media.ondataavailable = (e) => {
+      setAudioUrl(e.data);
+      setOnRec(true);
+    };
+
+    stream.getTracks().forEach((track) => track.stop());
     media.stop();
 
-    // stop all audio tracks in the stream
-    stream.getAudioTracks().forEach(function (track) {
-      track.stop();
-    });
+    analyser.disconnect();
+    source.disconnect();
 
     if (audioUrl) {
-      URL.createObjectURL(audioUrl); // this link can be used to download the recorded audio
+      URL.createObjectURL(audioUrl); // 출력된 링크에서 녹음된 오디오 확인 가능
     }
 
+    const sound = new File([audioUrl], "soundBlob", {
+      lastModified: new Date().getTime(),
+      type: "audio",
+    });
+
     setDisabled(false);
+    console.log(sound); // File 정보 출력
   };
 
-  const play = () => { 
-    const audio = new Audio(URL.createObjectURL(audioUrl)); 
+  const play = () => {
+    const audio = new Audio(URL.createObjectURL(audioUrl));
     audio.loop = false;
     audio.volume = 1;
     audio.play();
   };
+
 
   return (
     <>
