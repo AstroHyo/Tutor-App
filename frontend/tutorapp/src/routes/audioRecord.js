@@ -11,48 +11,67 @@ const AudioRecord = () => {
 
   const onRecAudio = () => {
 
-    setDisabled(true) // 😀😀😀
+    setDisabled(true)
     
     // 음원정보를 담은 노드를 생성하거나 음원을 실행또는 디코딩 시키는 일을 한다
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    // 자바스크립트를 통해 음원의 진행상태에 직접접근에 사용된다.
-    const analyser = audioCtx.createScriptProcessor(0, 1, 1);
-    setAnalyser(analyser);
-
-    function makeSound(stream) {
-      // 내 컴퓨터의 마이크나 다른 소스를 통해 발생한 오디오 스트림의 정보를 보여준다.
-      const source = audioCtx.createMediaStreamSource(stream);
-      setSource(source);
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
-    }
-    // 마이크 사용 권한 획득
-    navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-      const mediaRecorder = new MediaRecorder(stream);
-      mediaRecorder.start();
-      setStream(stream);
-      setMedia(mediaRecorder);
-      makeSound(stream);
-
-      analyser.onaudioprocess = function (e) {
-        // 3분(180초) 지나면 자동으로 음성 저장 및 녹음 중지
-        if (e.playbackTime > 180) {
-          stream.getAudioTracks().forEach(function (track) {
-            track.stop();
-          });
-          mediaRecorder.stop();
-          // 메서드가 호출 된 노드 연결 해제
-          analyser.disconnect();
-          audioCtx.createMediaStreamSource(stream).disconnect();
-
-          mediaRecorder.ondataavailable = function (e) {
-            setAudioUrl(e.data);
-            setOnRec(true);
-          };
-        } else {
-          setOnRec(false);
+    const workletProcessor = `class RecorderWorkletProcessor extends AudioWorkletProcessor {
+      constructor() {
+        super();
+        this.port.onmessage = this.handleMessage_.bind(this);
+        this.recordedData_ = [];
+      }
+      handleMessage_(event) {
+        const data = event.data;
+        if (data.type === "data") {
+          this.recordedData_.push(data.buffer);
+        } else if (data.type === "done") {
+          const blob = new Blob(this.recordedData_, {type: "audio/wav"});
+          this.port.postMessage(blob);
+          this.recordedData_ = [];
         }
-      };
+      }
+      process(inputs, outputs, parameters) {
+        const input = inputs[0];
+        if (input.length > 0) {
+          const buffer = input[0];
+          this.port.postMessage({
+            type: "buffer",
+            buffer: buffer
+          });
+          this.recordedData_.push(buffer);
+        }
+        return true;
+      }
+    }
+    registerProcessor("recorder-worklet-processor", RecorderWorkletProcessor);
+    `;
+    // register the worklet processor
+    audioCtx.audioWorklet.addModule(
+      URL.createObjectURL(new Blob([workletProcessor], { type: "application/javascript" }))
+    ).then(() => {
+      // create an AudioWorkletNode object
+      const recorderNode = new AudioWorkletNode(audioCtx, "recorder-worklet-processor");
+      setAnalyser(recorderNode);
+      // getUserMedia() method to request access to a user's microphone
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+        const mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.start();
+        setStream(stream);
+        setMedia(mediaRecorder);
+        // create a MediaStreamAudioSourceNode object
+        const source = audioCtx.createMediaStreamSource(stream);
+        setSource(source);
+        // connect the AudioWorkletNode and the MediaStreamAudioSourceNode
+        source.connect(recorderNode);
+        recorderNode.connect(audioCtx.destination);
+        mediaRecorder.ondataavailable = function (e) {
+          setAudioUrl(e.data);
+          setOnRec(true);
+        };
+      });
+    }).catch((err) => {
+      console.log(err);
     });
   };
 
@@ -96,7 +115,7 @@ const AudioRecord = () => {
     audio.volume = 1;
     audio.play();
   };
-  
+
   return (
     <>
       <button onClick={onRecAudio}>녹음 시작</button>
