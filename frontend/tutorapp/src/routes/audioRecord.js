@@ -83,7 +83,8 @@ const AudioRecord = () => {
 
   return (
     <>
-      <button onClick={onRec ? onRecAudio : offRecAudio}>녹음</button>
+      <button onClick={onRecAudio}>녹음 시작</button>
+      <button onClick={offRecAudio}>녹음 종료</button>
       <button onClick={onSubmitAudioFile}>결과 확인</button>
     </>
   );
