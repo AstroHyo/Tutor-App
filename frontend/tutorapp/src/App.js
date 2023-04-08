@@ -55,9 +55,6 @@ function App() {
 
         <Route path="/test" element={<Test/>}/>
 
-
-        <Route path="/*" element={<h1>404page, but you can enjoy</h1>}/>
-
       </Routes>
     </div>
   );
