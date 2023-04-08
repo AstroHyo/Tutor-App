@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
 import axios from 'axios';
+import AudioRecord from './audioRecord.js';
 
 function Chatbot() {
   let [userMessage, setUserMessage] = useState([]);
@@ -90,6 +91,9 @@ function Chatbot() {
       <div className="chat-input">
         <input type="text" placeholder="Type your message here..." value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={handleSendButton}>Send</button>
+      </div>
+      <div className='user-record'>
+        <AudioRecord/>
       </div>
     </div>
   );
