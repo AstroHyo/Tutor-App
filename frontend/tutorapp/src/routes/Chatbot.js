@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
 import axios from 'axios';
-import AudioRecord from './audioRecord.js';
+import AudioRecorder from './audioRecord.js';
 
 function Chatbot() {
   let [userMessage, setUserMessage] = useState([]);
@@ -93,7 +93,7 @@ function Chatbot() {
         <button onClick={handleSendButton}>Send</button>
       </div>
       <div className='user-record'>
-        <AudioRecord/>
+        <AudioRecorder/>
       </div>
     </div>
   );
