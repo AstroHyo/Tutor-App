@@ -39,15 +39,16 @@ const VoiceRecorder = () => {
 
   return (
     <div>
-      <button className="recordStartBtn" onClick={handleStartRecording} disabled={recording}>
-        ▶
-      </button>
-      <button className="recordStopBtn" onClick={handleStopRecording} disabled={!recording}>
-        ■
-      </button>
-      <button className="recordPlayBtn" onClick={handlePlayRecording} disabled={!audioBlob}>
-        Play
-      </button>
+      <div>
+        {recording ? (
+          <button className="recordStopBtn" onClick={handleStopRecording} disabled={!recording}>■</button>
+        ) : (
+          <button className="recordStartBtn" onClick={handleStartRecording} disabled={recording}>▶</button>
+        )}
+        <button className="recordPlayBtn" onClick={handlePlayRecording} disabled={!audioBlob}>
+          Play
+        </button>
+      </div>
       <audio controls ref={audioRef}></audio>
     </div>
   );
