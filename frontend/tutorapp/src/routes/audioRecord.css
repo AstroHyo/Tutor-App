@@ -1,0 +1,58 @@
+.recordStartBtn{
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    color: white;
+    background: #13a83381; /*bottom right  , #788ca3, #32415f 3182f6*/
+    /*background: #3182f6;*/
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+.recordStartBtn:hover{
+    background: #71e089c5;
+    transform: scale(1.05);
+    transition-duration: 0.3s;
+}
+
+.recordStopBtn{
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    color: white;
+    background: #da2f2fb2; /*bottom right  , #788ca3, #32415f 3182f6*/
+    /*background: #3182f6;*/
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+.recordStopBtn:hover{
+    background: #d67979de;
+    transform: scale(1.05);
+    transition-duration: 0.3s;
+}
+
+.recordPlayBtn{
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    color: white;
+    background: #110dfd73; /*bottom right  , #788ca3, #32415f 3182f6*/
+    /*background: #3182f6;*/
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+.recordPlayBtn:hover{
+    background: #6562ffa1;
+    transform: scale(1.05);
+    transition-duration: 0.3s;
+}
