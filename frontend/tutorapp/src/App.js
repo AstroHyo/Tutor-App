@@ -36,14 +36,16 @@ function App() {
                 <div className="exampleBox"></div>
               </Stack>
             </Stack> */}
-            
-            <button className="click" onClick={() =>{ navigate('/chatStart') }}>
-              대화 시작하기!
-            </button>
-
-            <button className="click" onClick={() =>{ navigate('/chatStart') }}>
-              영어 작문 첨삭 받아볼래? (무료임)
-            </button>
+            <div>
+              <button className="click" onClick={() =>{ navigate('/chatStart') }}>
+                대화 시작하기!
+              </button>
+            </div>
+            <div>
+              <button className="click" onClick={() =>{ navigate('/chatStart') }}>
+                영어 작문 첨삭 받아볼래? (무료임)
+              </button>
+            </div>
           </div>
         }/>
 
