@@ -76,13 +76,13 @@ body {
 } 
 
 .click{
-  background: #3182f6;
+  background: #313b58;
   margin-top: 30px;
   padding: 10px;
   font-size: 15px;
   font-weight: bold;
   color: white;
-  border-radius: 15px;
+  border-radius: 10px;
   border: none;
 }
 
