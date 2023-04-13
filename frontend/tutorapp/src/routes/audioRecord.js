@@ -22,7 +22,7 @@ const VoiceRecorder = () => {
           setAudioBlob(event.data);
           //녹음본 저장
           const audioUrl = URL.createObjectURL(event.data);
-          const sound = new File(audioUrl, "soundBlob", { lastModified: new Date().getTime(), type: "audio" });
+          const sound = new File([event.data], "soundBlob", { lastModified: new Date().getTime(), type: "audio/mpeg" });
           setAudioFile(sound);
         }
       });
