@@ -49,7 +49,6 @@ const VoiceRecorder = () => {
         console.log(audioFile);
         const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', {
           file: audioFile,
-          model: "whipser-1",
         }, {
           headers: {
             //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
@@ -77,7 +76,7 @@ const VoiceRecorder = () => {
           Play
         </button>
         <button className="recordSendBtn" onClick={handleSendRecording} disabled={!audioFile}>
-          Play
+          Send
         </button>
       </div>
       <audio controls ref={audioRef}></audio>
