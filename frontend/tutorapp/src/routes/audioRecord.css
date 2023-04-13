@@ -5,8 +5,7 @@
     margin-left: 10px;
     margin-bottom: 20px;
     color: white;
-    background: #13a83381; /*bottom right  , #788ca3, #32415f 3182f6*/
-    /*background: #3182f6;*/
+    background: #13a83381; 
     border-radius: 30px;
     border: none;
     font-weight: bold;
@@ -25,8 +24,7 @@
     margin-left: 10px;
     margin-bottom: 20px;
     color: white;
-    background: #da2f2fb2; /*bottom right  , #788ca3, #32415f 3182f6*/
-    /*background: #3182f6;*/
+    background: #da2f2fb2; 
     border-radius: 30px;
     border: none;
     font-weight: bold;
@@ -44,8 +42,7 @@
     margin-left: 10px;
     margin-bottom: 20px;
     color: white;
-    background: #110dfd73; /*bottom right  , #788ca3, #32415f 3182f6*/
-    /*background: #3182f6;*/
+    background: #110dfd73; 
     border-radius: 30px;
     border: none;
     font-weight: bold;
@@ -53,6 +50,24 @@
 
 .recordPlayBtn:hover{
     background: #6562ffa1;
+    transform: scale(1.05);
+    transition-duration: 0.3s;
+}
+
+.recordSendBtn{
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    color: black;
+    background: #ffffff; 
+    border-radius: 30px;
+    border: none;
+    font-weight: bold;
+}
+
+.recordSendBtn:hover{
+    background: #fcfcfc5b;
     transform: scale(1.05);
     transition-duration: 0.3s;
 }
