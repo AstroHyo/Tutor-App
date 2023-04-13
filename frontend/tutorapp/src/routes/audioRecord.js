@@ -47,6 +47,7 @@ const VoiceRecorder = () => {
   const handleSendRecording = async () => {
     try {
       if (audioFile !== null) {
+        console.log(audioFile);
         const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', {
           file: audioFile,
         }, {
@@ -75,7 +76,7 @@ const VoiceRecorder = () => {
         <button className="recordPlayBtn" onClick={handlePlayRecording} disabled={!audioBlob}>
           Play
         </button>
-        <button className="recordSendBtn" onClick={handlePlayRecording} disabled={!audioBlob}>
+        <button className="recordSendBtn" onClick={handleSendRecording} disabled={!audioFile}>
           Play
         </button>
       </div>
