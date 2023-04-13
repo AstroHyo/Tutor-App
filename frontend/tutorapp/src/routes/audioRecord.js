@@ -1,11 +1,14 @@
 import React, { useState, useRef } from "react";
 import './audioRecord.css';
+import axios from 'axios';
 
 const VoiceRecorder = () => {
   const [recording, setRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioBlob, setAudioBlob] = useState(null);
+  const [audioFile, setAudioFile] = useState(null);
   const audioRef = useRef(null);
+  const [recordText, setRecodeText] = useState('');
 
   const handleStartRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
@@ -17,6 +20,10 @@ const VoiceRecorder = () => {
       mediaRecorder.addEventListener("dataavailable", (event) => {
         if (event.data.size > 0) {
           setAudioBlob(event.data);
+          //녹음본 저장
+          const audioUrl = URL.createObjectURL(event.data);
+          const sound = new File(audioUrl, "soundBlob", { lastModified: new Date().getTime(), type: "audio" });
+          setAudioFile(sound);
         }
       });
     });
@@ -37,6 +44,26 @@ const VoiceRecorder = () => {
     }
   };
 
+  const handleSendRecording = async () => {
+    try {
+      if (audioFile !== null) {
+        const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', {
+          file: audioFile,
+        }, {
+          headers: {
+            //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
+            'Content-Type': 'audio/mpeg'
+          }
+        });
+        const data = response.data;
+        setRecodeText(data.text);
+      } 
+    }
+    catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -48,8 +75,12 @@ const VoiceRecorder = () => {
         <button className="recordPlayBtn" onClick={handlePlayRecording} disabled={!audioBlob}>
           Play
         </button>
+        <button className="recordSendBtn" onClick={handlePlayRecording} disabled={!audioBlob}>
+          Play
+        </button>
       </div>
       <audio controls ref={audioRef}></audio>
+      <p>{recordText}</p>
     </div>
   );
 };
