@@ -20,8 +20,7 @@ const VoiceRecorder = () => {
       mediaRecorder.addEventListener("dataavailable", (event) => {
         if (event.data.size > 0) {
           setAudioBlob(event.data);
-          //녹음본 저장
-          const audioUrl = URL.createObjectURL(event.data);
+          //녹음본 -> 파일 변환
           const sound = new File([event.data], "soundBlob", { lastModified: new Date().getTime(), type: "audio/mpeg" });
           setAudioFile(sound);
         }
@@ -50,6 +49,7 @@ const VoiceRecorder = () => {
         console.log(audioFile);
         const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', {
           file: audioFile,
+          model: "whipser-1",
         }, {
           headers: {
             //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",

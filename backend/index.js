@@ -11,6 +11,12 @@ const configuration = new Configuration({
   });
 const openai = new OpenAIApi(configuration);
 
+const whisper = new WhisperClient({
+  key: apiKey,
+  debug:"" // for debugging. Options: true or false
+})
+
+
 //CORS 이슈 해결
 const corsOptions = {
   origin: 'https://tutor-app.pages.dev/',
@@ -106,6 +112,34 @@ app.post('/tutoringSpeak', async function (req, res) {
   // //response를 JSON으로 바꿔줌 
   res.json({"assistant": tutoring});
 });
+
+
+
+app.post('/recordToText', async function (req, res) {
+  //OPTIONS 메소드 관련
+  if(req.method === "OPTIONS"){
+    res.writeHead(204);
+  }
+
+  const headers = {
+    'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
+    'Access-Control-Allow-Methods': 'GET, POST, HEAD, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    'Access-Control-Allow-Credentials': true
+  };
+
+  res.set(headers);
+  
+  let {file, model} = req.body
+  
+  const resp = await openai.createTranscription(
+    fs.createReadStream(file),
+    "whisper-1"
+  );
+
+  res.json({"text": resp});
+});
+
 
 //server less 모듈로 export
 module.exports.handler = serverless(app);
