@@ -47,12 +47,13 @@ const VoiceRecorder = () => {
     try {
       if (audioFile !== null) {
         console.log(audioFile);
-        const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', {
-          file: audioFile,
-        }, {
+        const formData = new FormData();
+        formData.append('file', audioFile);
+
+        const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', formData, {
           headers: {
             //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
-            'Content-Type': 'audio/mpeg'
+            'Content-Type': 'multipart/form-data'
           }
         });
         const data = response.data;
