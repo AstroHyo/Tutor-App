@@ -87,7 +87,7 @@ body {
 }
 
 .click:hover {
-  background: #4d94f7;
+  background: #474f64;
   transform: scale(1.1);
   transition-duration: 0.3s;
 }
