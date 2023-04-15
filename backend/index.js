@@ -11,12 +11,6 @@ const configuration = new Configuration({
   });
 const openai = new OpenAIApi(configuration);
 
-const whisper = new WhisperClient({
-  key: apiKey,
-  debug:"" // for debugging. Options: true or false
-})
-
-
 //CORS 이슈 해결
 const corsOptions = {
   origin: 'https://tutor-app.pages.dev/',
