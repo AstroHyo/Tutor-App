@@ -41,11 +41,12 @@ function Chatbot() {
         tutorMessage: tutorMessage,
       }, {
         headers: {
-          //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
+          //'Access-Control-Allow-Origin': "https://tutoreal.pages.dev/",
           'Content-Type': 'application/json'
         }
       });
       const data = response.data;
+      console.log(data);
       setTutorMessage([...tutorMessage, data.assistant]);
     } catch (error) {
       console.error(error);
