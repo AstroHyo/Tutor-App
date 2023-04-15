@@ -111,7 +111,7 @@ app.post('/recordToText', async function (req, res) {
 
   res.set(headers);
   
-  let {file, model} = req.body
+  let file = req.files.file;
 
   console.log(file);
   
@@ -120,7 +120,7 @@ app.post('/recordToText', async function (req, res) {
     "whisper-1"
   );
 
-  res.json({"text": resp});
+  res.json({resp});
 });
 
 
