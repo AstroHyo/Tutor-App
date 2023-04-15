@@ -50,14 +50,14 @@ const VoiceRecorder = () => {
         const formData = new FormData();
         formData.append('file', new Blob([audioFile], { type: 'audio/webm' }));
         console.log(formData.get('file'));
-
+        
         const response = await axios.post('REDACTED_AWS_ENDPOINT', formData, {
           headers: {
             //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
             'Content-Type': 'multipart/form-data'
           }
         });
-        const data = response.data;
+        const data = await response.data;
         setRecodeText(data.text);
       } 
     }
