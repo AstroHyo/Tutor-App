@@ -5,6 +5,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const express = require('express')
 var cors = require('cors')
 const app = express()
+const fs = require("fs")
 
 const configuration = new Configuration({
     apiKey: apiKey,
@@ -13,7 +14,7 @@ const openai = new OpenAIApi(configuration);
 
 //CORS 이슈 해결
 const corsOptions = {
-  origin: 'https://tutor-app.pages.dev/',
+  origin: 'https://tutoreal.pages.dev',
   methods : "GET, HEAD, POST, PUT, DELETE, OPTIONS",
   credentials: true,
   enablePreflight: true
@@ -28,13 +29,13 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 //POST 요청이 오먼 3000번 포트에 돌려준다.
 app.post('/tutoringSpeak', async function (req, res) {
-  //OPTIONS 메소드 관
+  //OPTIONS 메소드 관리
   if(req.method === "OPTIONS"){
     res.writeHead(204);
   }
 
   const headers = {
-    'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
+    'Access-Control-Allow-Origin': 'https://tutoreal.pages.dev',
     'Access-Control-Allow-Methods': 'GET, POST, HEAD, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     'Access-Control-Allow-Credentials': true
@@ -49,7 +50,7 @@ app.post('/tutoringSpeak', async function (req, res) {
   // res.setHeader('Access-Control-Allow-Credentials', true);
   
   let {userMessage, tutorMessage} = req.body
-
+  console.log(req.body)
   // const situation = [
   //   "small talk with friend",
   //   "job interview, and you are an interviewer",
@@ -77,20 +78,6 @@ app.post('/tutoringSpeak', async function (req, res) {
     }
   }
 
-  
-  // while (userMessage.length != 0 || tutorMessage.length != 0) {
-  //   if (userMessage.length != 0) {
-  //       messages.push(
-  //           JSON.parse('{"role": "user", "content": "'+String(userMessage.shift()).replace(/\n/g,"")+'"}')
-  //       )
-  //   }
-  //   if (tutorMessage.length != 0) {
-  //       messages.push(
-  //           JSON.parse('{"role": "assistant", "content": "'+String(tutorMessage.shift()).replace(/\n/g,"")+'"}')
-  //       )
-  //   }
-  // }
-
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     //parameter 조정
@@ -100,10 +87,10 @@ app.post('/tutoringSpeak', async function (req, res) {
     messages: messages,
   });
   
-  // //대답을 tutoring 변수에 저장
+  //대답을 tutoring 변수에 저장
   let tutoring = completion.data.choices[0].message['content']
 
-  // //response를 JSON으로 바꿔줌 
+  //response를 JSON으로 바꿔줌 
   res.json({"assistant": tutoring});
 });
 
@@ -125,6 +112,8 @@ app.post('/recordToText', async function (req, res) {
   res.set(headers);
   
   let {file, model} = req.body
+
+  console.log(file);
   
   const resp = await openai.createTranscription(
     fs.createReadStream(file),

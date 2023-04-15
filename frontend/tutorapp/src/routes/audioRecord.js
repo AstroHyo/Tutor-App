@@ -48,7 +48,7 @@ const VoiceRecorder = () => {
       if (audioFile !== null) {
         console.log(audioFile);
         const formData = new FormData();
-        formData.append('file', audioFile);
+        formData.append('file', new Blob([audioFile], { type: 'audio/webm' }));
 
         const response = await axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', formData, {
           headers: {
