@@ -36,7 +36,7 @@ function Chatbot() {
     console.log(userInput);
 
     try {
-      const response = await axios.post('https://t24pvn1ghl.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
+      const response = await axios.post('https://5j3ln14d9b.execute-api.ap-northeast-2.amazonaws.com/prod/%7Bproxy+%7D/tutoringSpeak', {
         userMessage: userMessage,
         tutorMessage: tutorMessage,
       }, {
