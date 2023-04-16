@@ -6,6 +6,10 @@ const express = require('express')
 var cors = require('cors')
 const app = express()
 const fs = require("fs")
+const multer = require("multer");
+const upload = multer({ dest: "/tmp" });
+const FormData = require('form-data');
+const axios = require('axios');
 
 const configuration = new Configuration({
     apiKey: apiKey,
@@ -96,31 +100,83 @@ app.post('/tutoringSpeak', async function (req, res) {
 
 
 
-app.post('/recordToText', async function (req, res) {
+app.post('/recordToText', upload.single('file'), async (req, res) => {
   //OPTIONS 메소드 관련
   if(req.method === "OPTIONS"){
     res.writeHead(204);
   }
 
   const headers = {
-    'Access-Control-Allow-Origin': 'https://tutor-app.pages.dev',
+    'Content-Type': 'multipart/form-data',
+    'Access-Control-Allow-Origin': 'https://tutoreal.pages.dev',
     'Access-Control-Allow-Methods': 'GET, POST, HEAD, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-    'Access-Control-Allow-Credentials': true
+    'Access-Control-Allow-Credentials': false,
   };
 
   res.set(headers);
   
-  let file = req.files.file;
+  const whisperTime = process.hrtime();
+  console.log('whisper', req.file);
 
-  console.log(file);
+  // try {
+  //   console.log("try")
+  //   const resp = await openai.createTranscription(
+  //     fs.createReadStream(req.file.path),
+  //     "whisper-1"
+  //   );
+  //   console.log(resp.text);
+  //   res.json({"text": resp.text});
+  //   //res.send({ apiCall: resp.data, time: process.hrtime(whisperTime) });
+  // } catch (e) {
+  //   console.error(e);
+  //   res.send(e);
+  // }
+    
+  try{
+    const formData = new FormData();
+    formData.append("model", "whisper-1");
+    formData.append("file", fs.createReadStream(req.file.path), {
+      filename: req.file.originalname,
+    });
+    
+    console.log(fs.createReadStream(req.file.path))
+    
+    const resp = await axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: "Bearer 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",
+        },
+      }
+    );
+    
+    console.log(resp);
   
-  const resp = await openai.createTranscription(
-    fs.createReadStream(file),
-    "whisper-1"
-  );
+    res.send({ apiCall: resp.data, time: process.hrtime(whisperTime) });
+  } catch (e) {
+    console.log('error', e);
+    res.send(new Error(e));
+  }
 
-  res.json({resp});
+  // console.log("check log")
+  // console.log(req);
+  
+  // const audioFile = req.file.buffer;
+  
+  
+  // console.log(audioFile);
+  
+  // try {
+  //   const resp = await openai.createTranscription(
+  //     audioFile,
+  //     "whisper-1"
+  //   );
+  //   res.json({text: resp.text});
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).json({error: err.message});
+  // }
+
 });
 
 
