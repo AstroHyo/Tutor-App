@@ -52,7 +52,7 @@ const VoiceRecorder = () => {
         console.log(formData.get('file'));
         console.log(formData);
         
-        const response = await axios.post('https://jqait94u49.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', formData, {
+        const response = await axios.post('https://a2e9fmj8s7.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', formData, {
           headers: {
             //'Access-Control-Allow-Origin': "https://tutor-app.pages.dev",
             'Content-Type': 'multipart/form-data'
