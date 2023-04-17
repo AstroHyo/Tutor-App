@@ -21,7 +21,7 @@ const VoiceRecorder = () => {
         if (event.data.size > 0) {
           setAudioBlob(event.data);
           //녹음본 -> 파일 변환
-          const sound = new File([event.data], "soundBlob", { lastModified: new Date().getTime(), type: "audio/mpeg" });
+          const sound = new File([event.data], "soundBlob.mp3", { lastModified: new Date().getTime(), type: "audio/mpeg" });
           setAudioFile(sound);
         }
       });
