@@ -7,9 +7,21 @@ var cors = require('cors')
 const app = express()
 const fs = require("fs")
 const multer = require("multer");
-const upload = multer({ dest: "/tmp" });
+//확장자 그대로 이름 저장
+const storage = multer.diskStorage({
+  destination: "/tmp",
+  filename: function (req, file, cb) {
+    cb(null, file.originalname); // keep the original filename
+  },
+});
+const upload = multer({ storage: storage });
+
+// const upload = multer({ dest: "/tmp" });
+
+
 const FormData = require('form-data');
 const axios = require('axios');
+const path = require('path');
 
 const configuration = new Configuration({
     apiKey: apiKey,
@@ -116,71 +128,58 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
 
   res.set(headers);
   
-  const whisperTime = process.hrtime();
-  console.log('whisper', req.file);
+  const filePath = req.file.path;
+  console.log(filePath);
+  //const fileExtension = path.extname(filePath);
+  //console.log('확장자', fileExtension);
+  //console.log(req.file.mimetype);
+  ////1. axios 사용 방법
+  //const whisperTime = process.hrtime();
+  //console.log('whisper', req.file);
 
-  // try {
-  //   console.log("try")
-  //   const resp = await openai.createTranscription(
-  //     fs.createReadStream(req.file.path),
-  //     "whisper-1"
+  // try{
+  //   const formData = new FormData();
+  //   formData.append("model", "whisper-1");
+  //   formData.append("file", fs.createReadStream("/tmp/recording.mp3"), {
+  //     filename: req.file.originalname,
+  //   });
+    
+  //   console.log(req.file.path)
+  //   console.log(fs.createReadStream(req.file.path))
+
+  //   const resp = await axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
+  //       headers: {
+  //         Authorization: "Bearer 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",
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     }
   //   );
-  //   console.log(resp.text);
-  //   res.json({"text": resp.text});
-  //   //res.send({ apiCall: resp.data, time: process.hrtime(whisperTime) });
-  // } catch (e) {
-  //   console.error(e);
-  //   res.send(e);
-  // }
-    
-  try{
-    const formData = new FormData();
-    formData.append("model", "whisper-1");
-    formData.append("file", fs.createReadStream(req.file.path), {
-      filename: req.file.originalname,
-    });
-    
-    console.log(fs.createReadStream(req.file.path))
-    
-    const resp = await axios.post('https://api.openai.com/v1/audio/transcriptions', formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: "Bearer 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",
-        },
-      }
-    );
-    
-    console.log(resp);
+  //             //"Content-Type": `${req.file.mimetype}`,
+
+  //   console.log(resp);
   
-    res.send({ apiCall: resp.data, time: process.hrtime(whisperTime) });
-  } catch (e) {
-    console.log('error', e);
-    res.send(new Error(e));
+  //   res.send({ apiCall: resp.data, time: process.hrtime(whisperTime) });
+  // } catch (e) {
+  //   console.log('error', e);
+  //   res.status(500).send(new Error(e));
+  // }
+////2. 일반 방법
+
+  try {
+    const resp = await openai.createTranscription(
+      fs.createReadStream('/tmp/recording.mp3'),
+      "whisper-1"
+    );
+    res.json({text: resp.text});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: err.message});
   }
 
-  // console.log("check log")
-  // console.log(req);
-  
-  // const audioFile = req.file.buffer;
-  
-  
-  // console.log(audioFile);
-  
-  // try {
-  //   const resp = await openai.createTranscription(
-  //     audioFile,
-  //     "whisper-1"
-  //   );
-  //   res.json({text: resp.text});
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(500).json({error: err.message});
-  // }
-
 });
-
 
 //server less 모듈로 export
 module.exports.handler = serverless(app);
 
 //app.listen(3000)
+
