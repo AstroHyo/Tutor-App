@@ -15,8 +15,10 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-
 // const upload = multer({ dest: "/tmp" });
+
+const blobToBuffer = require('blob-to-buffer')
+
 
 
 const FormData = require('form-data');
@@ -165,9 +167,30 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
   // }
 ////2. 일반 방법
 
+  // try {
+  //   const resp = await openai.createTranscription(
+  //     fs.createReadStream('/tmp/recording.mp3'),
+  //     "whisper-1"
+  //   );
+  //   res.json({text: resp.text});
+  // } catch (err) {
+  //   console.error(err);
+  //   res.status(500).json({error: err.message});
+  // }
+
+////3. blobtobutter 방법
   try {
+    const buffer = await new Promise((resolve, reject) => {
+      blobToBuffer(req.file, (err, buffer) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(buffer)
+        }
+      })
+    })
     const resp = await openai.createTranscription(
-      fs.createReadStream('/tmp/recording.mp3'),
+      buffer,
       "whisper-1"
     );
     res.json({text: resp.text});
@@ -175,7 +198,6 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
     console.error(err);
     res.status(500).json({error: err.message});
   }
-
 });
 
 //server less 모듈로 export
