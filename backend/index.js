@@ -177,18 +177,26 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
 
 ////3. openai community 방
 
-  var audioBuffer = req.file.buffer;
-  console.log('hi', audioBuffer);
-
-  const audioStream = Readable.from(audioBuffer);
+  //아래가 buffer
+   const buffer = fs.readFileSync('/tmp/recording.mp3');
+  // const base64String = buffer.toString('base64');
+  // const dataBuffer = Buffer.from(base64String, 'base64');
   
-    try {
-      const response = await openai.createTranscription(audioStream, "whisper-1");
-      res.json({text: response.text});
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Failed to transcribe audio." });
-    }
+  const audioReadStream = Readable.from(buffer);
+  audioReadStream.path = `/tmp/recording.mp3`;
+  
+  try {
+    const resp = await openai.createTranscription(
+      audioReadStream,
+      "whisper-1"
+    );
+    res.json({text: resp.text});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: err.message});
+  }
+
+
   
 });
 
