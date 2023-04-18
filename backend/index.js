@@ -16,10 +16,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 // const upload = multer({ dest: "/tmp" });
-
-const blobToBuffer = require('blob-to-buffer')
-
-
+const { Readable } = require('stream');
 
 const FormData = require('form-data');
 const axios = require('axios');
@@ -178,26 +175,21 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
   //   res.status(500).json({error: err.message});
   // }
 
-////3. blobtobutter 방법
-  try {
-    const buffer = await new Promise((resolve, reject) => {
-      blobToBuffer(req.file, (err, buffer) => {
-        if (err) {
-          reject(err)
-        } else {
-          resolve(buffer)
-        }
-      })
-    })
-    const resp = await openai.createTranscription(
-      buffer,
-      "whisper-1"
-    );
-    res.json({text: resp.text});
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({error: err.message});
-  }
+////3. openai community 방
+
+  var audioBuffer = req.file.buffer;
+  console.log('hi', audioBuffer);
+
+  const audioStream = Readable.from(audioBuffer);
+  
+    try {
+      const response = await openai.createTranscription(audioStream, "whisper-1");
+      res.json({text: response.text});
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Failed to transcribe audio." });
+    }
+  
 });
 
 //server less 모듈로 export
