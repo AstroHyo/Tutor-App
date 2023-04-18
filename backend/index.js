@@ -22,6 +22,10 @@ const FormData = require('form-data');
 const axios = require('axios');
 const path = require('path');
 
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+
+
 const configuration = new Configuration({
     apiKey: apiKey,
   });
@@ -164,31 +168,37 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
   // }
 ////2. 일반 방법
 
-  // try {
-  //   const resp = await openai.createTranscription(
-  //     fs.createReadStream('/tmp/recording.mp3'),
-  //     "whisper-1"
-  //   );
-  //   res.json({text: resp.text});
-  // } catch (err) {
-  //   console.error(err);
-  //   res.status(500).json({error: err.message});
-  // }
+  try {
+    const resp = await openai.createTranscription(
+      fs.createReadStream('/tmp/recording.mp3'),
+
+      "whisper-1"
+    );
+    res.json({text: resp.text});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: err.message});
+  }
 
 ////3. openai community 방
 
-  var audioBuffer = req.file.buffer;
-  console.log('hi', audioBuffer);
+  //   var chunks = [];
+  //   var stream = req.file.stream;
+  //   console.log(stream);
 
-  const audioStream = Readable.from(audioBuffer);
+
+  // var audioBuffer = req.file.buffer;
+  // console.log('hi', audioBuffer);
+
+  // const audioStream = Readable.from(audioBuffer);
   
-    try {
-      const response = await openai.createTranscription(audioStream, "whisper-1");
-      res.json({text: response.text});
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Failed to transcribe audio." });
-    }
+  //   try {
+  //     const response = await openai.createTranscription(audioStream, "whisper-1");
+  //     res.json({text: response.text});
+  //   } catch (error) {
+  //     console.error(error);
+  //     res.status(500).json({ error: "Failed to transcribe audio." });
+  //   }
   
 });
 
