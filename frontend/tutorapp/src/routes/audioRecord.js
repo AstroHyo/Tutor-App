@@ -58,8 +58,8 @@ const VoiceRecorder = () => {
             'Content-Type': 'multipart/form-data'
           }
         });
-        const data = await response.data;
-        setRecodeText(data.text);
+        const data = response.data;
+        setRecodeText(data);
       } 
     }
     catch (error) {
