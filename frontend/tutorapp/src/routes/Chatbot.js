@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Chatbot.css';
 import axios from 'axios';
-import AudioRecorder from './audioRecordTest.js';
+import AudioRecorder from './audioRecord.js';
 
 function Chatbot() {
   let [userMessage, setUserMessage] = useState([]);
