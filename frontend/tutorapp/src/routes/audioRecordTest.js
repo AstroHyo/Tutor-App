@@ -80,7 +80,7 @@ const VoiceRecorder = () => {
         <button className="recordPlayBtn" onClick={handlePlayRecording} disabled={!audioBlob}>
           Play
         </button>
-        <button className="recordSendBtn" onClick={handleSendRecording} disabled={!audioFile}>
+        <button className="recordSendBtn" onClick={handleSendRecording} disabled={!audioBlob}>
           Send
         </button>
       </div>
