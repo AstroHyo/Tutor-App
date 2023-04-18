@@ -36,7 +36,8 @@ function Chatbot() {
     console.log(userInput);
 
     try {
-      const response = await axios.post('REDACTED_AWS_ENDPOINT', {
+      // const response = await axios.post('REDACTED_AWS_ENDPOINT', {
+        const response = await axios.post('REDACTED_AWS_ENDPOINT', {
         userMessage: userMessage,
         tutorMessage: tutorMessage,
       }, {
