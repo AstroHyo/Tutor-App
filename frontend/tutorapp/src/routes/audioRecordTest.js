@@ -34,7 +34,7 @@ function AudioRecorder() {
   const upload = async () => {
     const formData = new FormData();
     formData.append('audio', new Blob(media, { type: 'audio/webm;codecs=opus' }), 'audio.webm');
-    await fetch('/', { method: 'POST', body: formData });
+    await fetch('REDACTED_AWS_ENDPOINT', { method: 'POST', body: formData });
     setUploading(false);
   };
 
