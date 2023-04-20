@@ -34,7 +34,7 @@ function AudioRecorder() {
   const upload = async () => {
     const formData = new FormData();
     formData.append('audio', new Blob(media, { type: 'audio/webm;codecs=opus' }), 'audio.webm');
-    await fetch('/', { method: 'POST', body: formData });
+    await fetch('https://jqait94u49.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', { method: 'POST', body: formData });
     setUploading(false);
   };
 
