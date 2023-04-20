@@ -25,10 +25,12 @@ function AudioRecorder() {
   };
 
   const stopRecording = () => {
-    mediaRecorder.stop();
-    setRecording(false);
-    setUploading(true);
-    upload();
+    if (mediaRecorder && mediaRecorder.state !== "inactive") {
+      mediaRecorder.stop();
+      setRecording(false);
+      setUploading(true);
+      upload();
+    }    
   };
 
   const upload = async () => {
