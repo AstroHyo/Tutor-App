@@ -17,7 +17,7 @@ const AudioRecorder= () => {
       setRecording(true);
       setMediaRecorder(mediaRecorder);
 
-      mediaRecorder.addEventListener("dataavailable", async (event) => {
+      mediaRecorder.addEventListener("dataavailable", (event) => {
         if (event.data.size > 0) {
           setAudioBlob(event.data);
           //녹음본 -> 파일 변환
@@ -46,11 +46,10 @@ const AudioRecorder= () => {
 
   const handleSendRecording = async () => {
     try {
-      if (audioFile !== null) {
-        console.log(audioFile);
+      if (audioBlob !== null) {
+        console.log(audioBlob);
         const formData = new FormData();
-        formData.append('audio', new Blob(audioBlob, { type: 'audio/webm;codecs=opus' }), 'audio.webm');
-        console.log(formData.get('file'));
+        formData.append('audio', new Blob([audioBlob], { type: 'audio/webm;codecs=opus' }), 'audio.webm');
         console.log(formData);
         const response = await fetch('https://jqait94u49.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', { method: 'POST', body: formData });
         const data = response.data;
