@@ -17,12 +17,12 @@ const AudioRecorder= () => {
       setRecording(true);
       setMediaRecorder(mediaRecorder);
 
-      mediaRecorder.addEventListener("dataavailable", (event) => {
+      mediaRecorder.addEventListener("dataavailable", async (event) => {
         if (event.data.size > 0) {
           setAudioBlob(event.data);
           //녹음본 -> 파일 변환
-          const sound = new File([event.data], "soundBlob.mp3", { lastModified: new Date().getTime(), type: "audio/mpeg" });
-          setAudioFile(sound);
+          // const sound = new File([event.data], "soundBlob.mp3", { lastModified: new Date().getTime(), type: "audio/mpeg" });
+          // setAudioFile(sound);
         }
       });
       
@@ -49,7 +49,7 @@ const AudioRecorder= () => {
       if (audioFile !== null) {
         console.log(audioFile);
         const formData = new FormData();
-        formData.append('audio', new Blob(audioFile, { type: 'audio/webm;codecs=opus' }), 'audio.webm');
+        formData.append('audio', new Blob(audioBlob, { type: 'audio/webm;codecs=opus' }), 'audio.webm');
         console.log(formData.get('file'));
         console.log(formData);
         const response = await fetch('https://jqait94u49.execute-api.ap-northeast-2.amazonaws.com/prod/recordToText', { method: 'POST', body: formData });
