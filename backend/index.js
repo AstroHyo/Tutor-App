@@ -129,6 +129,33 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
   
   const filePath = req.file.path;
   console.log(filePath);
+
+  //아래가 buffer
+  const buffer = fs.readFileSync('/tmp/recording.mp3');
+  // const base64String = buffer.toString('base64');
+  // const dataBuffer = Buffer.from(base64String, 'base64');
+  
+  const audioReadStream = Readable.from(buffer);
+  audioReadStream.path = `/tmp/recording.mp3`;
+  
+  try {
+    const resp = await openai.createTranscription(
+      audioReadStream,
+      "whisper-1"
+    );
+    res.json({text: resp.text});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({error: err.message});
+  }
+
+
+
+
+
+
+
+
   //const fileExtension = path.extname(filePath);
   //console.log('확장자', fileExtension);
   //console.log(req.file.mimetype);
@@ -177,27 +204,7 @@ app.post('/recordToText', upload.single('file'), async (req, res) => {
 
 ////3. openai community 방
 
-  //아래가 buffer
-   const buffer = fs.readFileSync('/tmp/recording.mp3');
-  // const base64String = buffer.toString('base64');
-  // const dataBuffer = Buffer.from(base64String, 'base64');
-  
-  const audioReadStream = Readable.from(buffer);
-  audioReadStream.path = `/tmp/recording.mp3`;
-  
-  try {
-    const resp = await openai.createTranscription(
-      audioReadStream,
-      "whisper-1"
-    );
-    res.json({text: resp.text});
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({error: err.message});
-  }
 
-
-  
 });
 
 //server less 모듈로 export

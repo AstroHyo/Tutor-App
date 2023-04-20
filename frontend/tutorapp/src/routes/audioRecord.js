@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import './audioRecord.css';
 import axios from 'axios';
 
-const VoiceRecorder = () => {
+const AudioRecorder= () => {
   const [recording, setRecording] = useState(false);
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [audioBlob, setAudioBlob] = useState(null);
@@ -25,6 +25,7 @@ const VoiceRecorder = () => {
           setAudioFile(sound);
         }
       });
+      
     });
   };
 
@@ -88,4 +89,4 @@ const VoiceRecorder = () => {
   );
 };
 
-export default VoiceRecorder;
+export default AudioRecorder;
