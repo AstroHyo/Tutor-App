@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SpeakChatbot from './routes/SpeackChatbot';
+import SpeakChatbot from './routes/SpeakChatbot';
 import ChatStart from './routes/ChatStart'
 import ChatSituation from './routes/ChatSituation';
 import Test from './routes/Test';
