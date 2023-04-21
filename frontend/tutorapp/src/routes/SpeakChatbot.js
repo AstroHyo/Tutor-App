@@ -10,6 +10,8 @@ function SpeakChatbot() {
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
   let [userInput, setUserInput] = useState("");
+  //record중인지 check
+  let [checkRecording, setCheckRecording] = useState(false);
   const chatBoxRef = useRef(null);
 
   const {
@@ -117,9 +119,11 @@ function SpeakChatbot() {
         <button onClick={handleSendButton}>Send</button>
       </div>
       <div>
-        <p>Transcribed Text: {transcript.text}</p>
-        <button className="recordStartBtn" onClick={() => startRecording()}>Record</button>
-        <button className="recordStopBtn" onClick={() => stopRecording()}>Send</button>
+        { checkRecording? (
+          <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Send</button>
+        ) : (
+          <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Record</button>
+        )}
       </div>
     </div>
   );
