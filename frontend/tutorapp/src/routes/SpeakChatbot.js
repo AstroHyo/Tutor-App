@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useWhisper } from '@chengsokdara/use-whisper'
 import './Chatbot.css';
+import './audioRecord.css'
 import axios from 'axios';
-import AudioRecorder from './audioRecord.js';
 
 function SpeakChatbot() {
   let [userMessage, setUserMessage] = useState([]);
@@ -43,12 +43,14 @@ function SpeakChatbot() {
     setCheckUpdate(true);
     setUserInput('');
   }
-  //녹음 시 사용
-  const handleRecord = (text) => {
-      setUserMessage([...userMessage, text]);
+
+  //transcrip.text가 존재하면(즉, 녹음 완료하면) UserMessage 업데이트하고 CheckUpdate(true)로 만들어주는 useEffect
+  useEffect(() => {
+    if (transcript.text) {
+      setUserMessage([...userMessage, transcript.text]);
       setCheckUpdate(true);
-      setUserInput('');
-  }
+    }
+  }, [transcript.text]);
 
   const sendMessage = async () => {
     console.log(userMessage);
@@ -77,6 +79,7 @@ function SpeakChatbot() {
     if (checkUpdate) {
       sendMessage().then(() => {
         setCheckUpdate(false);
+        transcript.text = null;
       });
     }
   }, [checkUpdate]);
@@ -116,7 +119,7 @@ function SpeakChatbot() {
       <div>
         <p>Transcribed Text: {transcript.text}</p>
         <button className="recordStartBtn" onClick={() => startRecording()}>Record</button>
-        <button className="recordStopBtn" onClick={ async () => { await stopRecording(); handleRecord(transcript.text)}}>Send</button>
+        <button className="recordStopBtn" onClick={() => stopRecording()}>Send</button>
       </div>
     </div>
   );
