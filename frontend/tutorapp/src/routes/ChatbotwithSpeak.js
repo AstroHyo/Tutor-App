@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useWhisper } from '@chengsokdara/use-whisper'
 import './Chatbot.css';
 import axios from 'axios';
+import AudioRecorder from './audioRecord.js';
 
 function Chatbot() {
   let [userMessage, setUserMessage] = useState([]);
@@ -9,11 +11,23 @@ function Chatbot() {
   let [checkUpdate, setCheckUpdate] = useState(false);
   let [userInput, setUserInput] = useState("");
   const chatBoxRef = useRef(null);
+
+  const {
+    recording,
+    speaking,
+    transcribing,
+    transcript,
+    pauseRecording,
+    startRecording,
+    stopRecording,
+  } = useWhisper({
+    apiKey: "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", // YOUR_OPEN_AI_TOKEN
+  })
   
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [tutorMessage]);
+  }, [tutorMessage, userMessage]);
 
   //엔터 입력 시 userMessage 업데이트하고 chechupdate true
   const handleKeyPress = (event) => {
@@ -28,6 +42,12 @@ function Chatbot() {
     setUserMessage([...userMessage, userInput]);
     setCheckUpdate(true);
     setUserInput('');
+  }
+  //녹음 시 사용
+  const handleRecord = (text) => {
+      setUserMessage([...userMessage, text]);
+      setCheckUpdate(true);
+      setUserInput('');
   }
 
   const sendMessage = async () => {
@@ -88,9 +108,15 @@ function Chatbot() {
           </div>
         ))}
       </div>
+
       <div className="chat-input">
         <input type="text" placeholder="Type your message here..." value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={handleSendButton}>Send</button>
+      </div>
+      <div>
+        <p>Transcribed Text: {transcript.text}</p>
+        <button className="recordStartBtn" onClick={() => startRecording()}>Record</button>
+        <button className="recordStopBtn" onClick={ async () => { await stopRecording(); handleRecord(transcript.text)}}>Send</button>
       </div>
     </div>
   );
