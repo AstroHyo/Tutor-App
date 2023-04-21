@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Chatbot from './routes/Chatbot';
+import SpeakChatbot from './routes/SpeackChatbot';
 import ChatStart from './routes/ChatStart'
 import ChatSituation from './routes/ChatSituation';
 import Test from './routes/Test';
@@ -51,7 +51,7 @@ function App() {
 
         <Route path="/chatStart" element={<ChatStart/>}/>
 
-        <Route path="/chatWithTutor" element={<Chatbot/>}/>
+        <Route path="/chatWithTutor" element={<SpeakChatbot/>}/>
 
         <Route path="/chatSituation" element={<ChatSituation/>}/>
 
