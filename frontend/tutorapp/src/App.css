@@ -100,3 +100,9 @@ body {
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 767px){
+  .logo{
+    width: 80%;
+  }
+}

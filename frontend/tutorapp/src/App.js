@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={
           <div className="container">
             <h1 className="title">진짜 같은 인공지능 영어 튜터</h1>
-            <img src={process.env.PUBLIC_URL + '/logo.png'} width="50%"/>
+            <img src={process.env.PUBLIC_URL + '/logo.png'} style={{ width: '50%' }} className="logo"/>
             <p className="content">  {text} </p>
 
             {/* <Stack gap={2} className="example">
