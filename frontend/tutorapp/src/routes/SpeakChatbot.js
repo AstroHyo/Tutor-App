@@ -4,7 +4,7 @@ import './Chatbot.css';
 import axios from 'axios';
 import AudioRecorder from './audioRecord.js';
 
-function Chatbot() {
+function SpeakChatbot() {
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
   //만약 userMessage 값이 업데이트되면 true
@@ -122,4 +122,4 @@ function Chatbot() {
   );
 }
 
-export default Chatbot;
+export default SpeakChatbot;
