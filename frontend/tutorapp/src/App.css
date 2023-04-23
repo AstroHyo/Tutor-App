@@ -59,9 +59,6 @@ body {
   margin-right: auto;
 }
 
-.exampleContainer{
-}
-
 .exampleBox{
   width: 200px;
   height: 100px;
@@ -101,12 +98,12 @@ body {
   }
 }
 
-@media (max-width: 767px){
+@media screen and (max-width: 768px){
   .logo{
-    width: '80%';
+    width: 80%;
   }
 
   .title{
-    font-size: medium;
+    font-size: large;
   }
 }
