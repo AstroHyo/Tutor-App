@@ -103,6 +103,10 @@ body {
 
 @media (max-width: 767px){
   .logo{
-    width: 80%;
+    width: '80%';
+  }
+
+  .title{
+    font-size: medium;
   }
 }

@@ -6,7 +6,6 @@ import ChatStart from './routes/ChatStart'
 import ChatSituation from './routes/ChatSituation';
 import Test from './routes/Test';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Stack } from 'react-bootstrap';
 
 function App() {
 
