@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useWhisper } from '@chengsokdara/use-whisper'
+import { getTTS }  from './TTS';
 import './Chatbot.css';
 import './audioRecord.css'
 import axios from 'axios';
@@ -14,6 +15,7 @@ function SpeakChatbot() {
   let [checkRecording, setCheckRecording] = useState(false);
   const chatBoxRef = useRef(null);
 
+  //STT
   const {
     recording,
     speaking,
@@ -23,9 +25,15 @@ function SpeakChatbot() {
     startRecording,
     stopRecording,
   } = useWhisper({
-    apiKey: "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", // YOUR_OPEN_AI_TOKEN
+    apiKey: "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",
   })
-  
+
+  //TTS
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, []);
+
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -71,6 +79,7 @@ function SpeakChatbot() {
       const data = response.data;
       console.log(data);
       setTutorMessage([...tutorMessage, data.assistant]);
+      getTTS(data.assistant); //받아온 튜터 메세지 음성으로 TTS
     } catch (error) {
       console.error(error);
     }
