@@ -6,7 +6,7 @@ body {
 }
 
 .chat-container {
-  max-width: 500px;
+  max-width: 70%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -18,17 +18,18 @@ body {
   margin-bottom: 20px;
   overflow-y: scroll;
   height: 300px;
+  text-align: left;
 }
 
 .chat-message {
   background-color: #fff;
+  width: 51%;
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 10px;
 }
 
-.chat-message {
-  width: 51%;
+.chat-message p {
   margin: 0;
   padding: 0;
 }
@@ -56,18 +57,17 @@ body {
 }
 
 .chat-input button {
-  background-color: #4CAF50;
+  background-color: #13a83381;
   color: #fff;
   border: none;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 30px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .chat-input button:hover {
-  background-color: #3e8e41;
-}
-
-.assistant {
-  color: blue;
+  background-color: #71e089c5;
+  transform: scale(1.03);
+  transition-duration: 0.3s;
 }

@@ -1,19 +1,43 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useWhisper } from '@chengsokdara/use-whisper'
+import { getTTS }  from './TTS';
 import './Chatbot.css';
+import './audioRecord.css'
 import axios from 'axios';
 
-function Chatbot() {
+function SpeakChatbot() {
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
   let [userInput, setUserInput] = useState("");
+  //record중인지 check
+  let [checkRecording, setCheckRecording] = useState(false);
   const chatBoxRef = useRef(null);
-  
+
+  //STT
+  const {
+    recording,
+    speaking,
+    transcribing,
+    transcript,
+    pauseRecording,
+    startRecording,
+    stopRecording,
+  } = useWhisper({
+    apiKey: "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",
+  })
+
+  //TTS
+  //음성 변환 목소리 preload
+  useEffect(() => {
+    window.speechSynthesis.getVoices();
+  }, []);
+
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [tutorMessage]);
+  }, [tutorMessage, userMessage]);
 
   //엔터 입력 시 userMessage 업데이트하고 chechupdate true
   const handleKeyPress = (event) => {
@@ -29,6 +53,14 @@ function Chatbot() {
     setCheckUpdate(true);
     setUserInput('');
   }
+
+  //transcrip.text가 존재하면(즉, 녹음 완료하면) UserMessage 업데이트하고 CheckUpdate(true)로 만들어주는 useEffect
+  useEffect(() => {
+    if (transcript.text) {
+      setUserMessage([...userMessage, transcript.text]);
+      setCheckUpdate(true);
+    }
+  }, [transcript.text]);
 
   const sendMessage = async () => {
     console.log(userMessage);
@@ -47,6 +79,7 @@ function Chatbot() {
       const data = response.data;
       console.log(data);
       setTutorMessage([...tutorMessage, data.assistant]);
+      getTTS(data.assistant); //받아온 튜터 메세지 음성으로 TTS
     } catch (error) {
       console.error(error);
     }
@@ -57,6 +90,7 @@ function Chatbot() {
     if (checkUpdate) {
       sendMessage().then(() => {
         setCheckUpdate(false);
+        transcript.text = null;
       });
     }
   }, [checkUpdate]);
@@ -88,12 +122,20 @@ function Chatbot() {
           </div>
         ))}
       </div>
+
       <div className="chat-input">
         <input type="text" placeholder="Type your message here..." value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={handleSendButton}>Send</button>
+      </div>
+      <div>
+        { checkRecording? (
+          <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Send</button>
+        ) : (
+          <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Record</button>
+        )}
       </div>
     </div>
   );
 }
 
-export default Chatbot;
+export default SpeakChatbot;
