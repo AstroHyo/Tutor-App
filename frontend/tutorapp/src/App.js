@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SpeakChatbot from './routes/SpeakChatbot';
 import ChatStart from './routes/ChatStart'
 import ChatSituation from './routes/ChatSituation';
-import Test from './routes/Test';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 function App() {
@@ -53,8 +52,6 @@ function App() {
         <Route path="/chatWithTutor" element={<SpeakChatbot/>}/>
 
         <Route path="/chatSituation" element={<ChatSituation/>}/>
-
-        <Route path="/test" element={<Test/>}/>
 
       </Routes>
     </div>
