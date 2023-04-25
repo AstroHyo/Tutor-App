@@ -26,6 +26,9 @@ function SpeakChatbot() {
     stopRecording,
   } = useWhisper({
     apiKey: "REDACTED_OPENAI_API_KEY",
+    // autoStart: true,
+    // nonStop: true,
+    // stopTimeout: 3000,
   })
 
   //TTS
