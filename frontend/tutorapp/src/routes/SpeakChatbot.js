@@ -66,9 +66,6 @@ function SpeakChatbot() {
   }, [transcript.text]);
 
   const sendMessage = async () => {
-    console.log(userMessage);
-    console.log(userInput);
-
     try {
       const response = await axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
         userMessage: userMessage,
@@ -80,7 +77,6 @@ function SpeakChatbot() {
         }
       });
       const data = response.data;
-      console.log(data);
       setTutorMessage([...tutorMessage, data.assistant]);
       getTTS(data.assistant); //받아온 튜터 메세지 음성으로 TTS
     } catch (error) {
