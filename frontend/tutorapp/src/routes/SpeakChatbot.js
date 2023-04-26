@@ -14,6 +14,28 @@ function SpeakChatbot() {
   //record중인지 check
   let [checkRecording, setCheckRecording] = useState(false);
   const chatBoxRef = useRef(null);
+  const [isMicrophoneConnected, setIsMicrophoneConnected] = useState(false);
+
+  useEffect(() => {
+    async function checkMicrophoneConnection() {
+      //mic 연결 가능 check
+      const isWebRTCSupported = navigator.mediaDevices && navigator.mediaDevices.getUserMedia;
+      if (!isWebRTCSupported) {
+        return;
+      }
+      //mic 허용 했는지 check
+      const isMicrophoneConnected = await navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          stream.getTracks().forEach(track => track.stop());
+          return true;
+        })
+        .catch(() => {
+          return false;
+        });
+      setIsMicrophoneConnected(isMicrophoneConnected);
+    }
+    checkMicrophoneConnection();
+  }, []);
 
   //STT
   const {
@@ -127,10 +149,18 @@ function SpeakChatbot() {
         <button onClick={handleSendButton}>Send</button>
       </div>
       <div>
-        { checkRecording? (
-          <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Send</button>
+        {isMicrophoneConnected ? (
+          <div>
+            { checkRecording? (
+              <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop Recording</button>
+            ) : (
+              <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Start Recording</button>
+            )}
+          </div>
         ) : (
-          <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Record</button>
+          <div>
+            Microphone not connected
+          </div>
         )}
       </div>
     </div>
