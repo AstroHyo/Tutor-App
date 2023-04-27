@@ -139,7 +139,7 @@ function SpeakChatbot() {
 
   const getFeedback = async () => {
     try {
-      const response = axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/getFeedback', {
+      const response = await axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/getFeedback', {
         conversation: conversation,
       }, {
         headers: {
