@@ -83,8 +83,9 @@ app.post('/tutoringSpeak', async function (req, res) {
   let tutoring = completion.data.choices[0].message['content']
 
   // //response를 JSON으로 바꿔줌 
-  res.json({"assistant": tutoring}, {"conversation": messages});
+  res.json({"assistant": tutoring, "conversation": messages});
 });
+
 
 app.post('/getFeedback', async function (req, res) {
   //OPTIONS 메소드 관리
@@ -101,7 +102,9 @@ app.post('/getFeedback', async function (req, res) {
 
   res.set(headers);
     
-  let conversation = req.body
+  let conversation = req.body;
+
+  console.log('대화목록 받아오기', conversation);
 
   let messages = [
     {role: "system", content: "너는 매우 훌륭한 영어 회화 튜터야. 앞으로 내가 너에게 보내줄 대화 내용은 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 양식에 맞게 정리해서 보내줘."},
@@ -115,7 +118,8 @@ app.post('/getFeedback', async function (req, res) {
   //   {role: "assistant", content: "얘 대답"},
   // ];
 
-  messages.push({role: "user", content: conversation.shift() });
+  messages.push(JSON.parse('{"role": "user", "content": "'+String(conversation).replace(/\n/g,"")+'"}'));
+  
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -125,8 +129,10 @@ app.post('/getFeedback', async function (req, res) {
   
   // //대답을 feedback 변수에 저장
   let feedback = completion.data.choices[0].message['content']
+  
+  console.log('받아온 피드백', feedback)
 
-  // //response를 JSON으로 바꿔줌 
+
   res.json({"feedback": feedback});
 });
 
