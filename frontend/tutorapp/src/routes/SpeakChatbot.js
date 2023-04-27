@@ -18,6 +18,7 @@ function SpeakChatbot() {
   //mic 연결 check
   const [isMicrophoneConnected, setIsMicrophoneConnected] = useState(false);
   const chatBoxRef = useRef(null);
+  const feedbackBtn = "대화 종료하고\n피드백 받기!";
 
 
   useEffect(() => {
@@ -136,7 +137,7 @@ function SpeakChatbot() {
   }
   messages = messages.concat(userMessage.slice(userIndex)).concat(tutorMessage.slice(tutorIndex));
 
-  const getFeedback = () => {
+  const getFeedback = async () => {
     try {
       const response = axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/getFeedback', {
         conversation: conversation,
@@ -187,7 +188,7 @@ function SpeakChatbot() {
       </div>
 
       <div>
-        <button className="convFinishBtn" onClick={getFeedback}>Finish conversation!</button>
+        <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
       </div>
       <div>{feedback}</div>
     </div>
