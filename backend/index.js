@@ -5,8 +5,6 @@ const { Configuration, OpenAIApi } = require("openai");
 const express = require('express')
 var cors = require('cors')
 const app = express()
-// const fs = require("fs")
-// const { PassThrough } = require("stream")
 
 const configuration = new Configuration({
     apiKey: apiKey,
@@ -28,7 +26,6 @@ app.options('*', cors(corsOptions))
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-//POST 요청이 오먼 3000번 포트에 돌려준다.
 app.post('/tutoringSpeak', async function (req, res) {
   //OPTIONS 메소드 관리
   if(req.method === "OPTIONS"){
@@ -43,13 +40,7 @@ app.post('/tutoringSpeak', async function (req, res) {
   };
 
   res.set(headers);
-  
-  //res.set('Access-Control-Allow-Origin', 'https://tutor-app.pages.dev');
-  // res.setHeader("Access-Control-Allow-Origin", "https://tutor-app.pages.dev");
-  // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  // res.setHeader('Access-Control-Allow-Credentials', true);
-  
+    
   let {userMessage, tutorMessage} = req.body
 
   // const situation = [
@@ -94,6 +85,51 @@ app.post('/tutoringSpeak', async function (req, res) {
   // //response를 JSON으로 바꿔줌 
   res.json({"assistant": tutoring}, {"conversation": messages});
 });
+
+app.post('/getFeedback', async function (req, res) {
+  //OPTIONS 메소드 관리
+  if(req.method === "OPTIONS"){
+    res.writeHead(204);
+  }
+
+  const headers = {
+    'Access-Control-Allow-Origin': 'https://tutoreal.pages.dev',
+    'Access-Control-Allow-Methods': 'GET, POST, HEAD, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+    'Access-Control-Allow-Credentials': true
+  };
+
+  res.set(headers);
+    
+  let conversation = req.body
+
+  let messages = [
+    {role: "system", content: "너는 매우 훌륭한 영어 회화 튜터야. 앞으로 내가 너에게 보내줄 대화 내용은 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 양식에 맞게 정리해서 보내줘."},
+    {role: "user", content: "너는 매우 훌륭한 영어 회화 튜터야. 앞으로 내가 너에게 보내줄 대화 내용은 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 양식에 맞게 정리해서 보내줘. 이제 내가 너한테 대화 스크립트를 보내줄게. 기다려봐."},
+    {role: "assistant", content: "네, 알겠습니다. 대화 스크립트를 받으면 문법, 자연스러움, 어휘 사용 등을 체크하고 피드백을 주도록 하겠습니다. 양식에 맞게 정리해서 보내드리도록 하겠습니다. 대화 스크립트를 기다리겠습니다."},
+  ];
+
+  // 영어로 피드백을 받기? or 한국어로 받기..? let messages = [
+  //   {role: "system", content: "너는 매우 훌륭한 영어 회화 튜터야. 내가 너에게 보내줄 대화 스크립트는 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 양식에 맞게 정리해서 보내줘."},
+  //   {role: "user", content: "너는 매우 훌륭한 영어 회화 튜터야. 내가 너에게 보내줄 대화 스크립트는 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 양식에 맞게 정리해서 보내줘."},
+  //   {role: "assistant", content: "얘 대답"},
+  // ];
+
+  messages.push({role: "user", content: conversation.shift() });
+
+  const completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    temperature: 0.5,
+    messages: messages,
+  });
+  
+  // //대답을 feedback 변수에 저장
+  let feedback = completion.data.choices[0].message['content']
+
+  // //response를 JSON으로 바꿔줌 
+  res.json({"feedback": feedback});
+});
+
 
 //server less 모듈로 export
 module.exports.handler = serverless(app);

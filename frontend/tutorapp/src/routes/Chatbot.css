@@ -71,3 +71,22 @@ body {
   transform: scale(1.03);
   transition-duration: 0.3s;
 }
+
+.convFinishBtn{
+  width: 160px;
+  height: 40px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  color: white;
+  background: #00000081; 
+  border-radius: 30px;
+  border: none;
+  font-weight: bold;
+}
+
+.convFinishBtn:hover{
+  background: #00000050;
+  transform: scale(1.05);
+  transition-duration: 0.3s;
+}

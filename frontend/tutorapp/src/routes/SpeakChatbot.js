@@ -8,13 +8,17 @@ import axios from 'axios';
 function SpeakChatbot() {
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
+  let [userInput, setUserInput] = useState("");
+  let [conversation, setConversation] = useState(null);
+  let [feedback, setFeedback] = useState("");
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
-  let [userInput, setUserInput] = useState("");
   //record중인지 check
   let [checkRecording, setCheckRecording] = useState(false);
-  const chatBoxRef = useRef(null);
+  //mic 연결 check
   const [isMicrophoneConnected, setIsMicrophoneConnected] = useState(false);
+  const chatBoxRef = useRef(null);
+
 
   useEffect(() => {
     async function checkMicrophoneConnection() {
@@ -101,6 +105,7 @@ function SpeakChatbot() {
       const data = response.data;
       setTutorMessage([...tutorMessage, data.assistant]);
       getTTS(data.assistant); //받아온 튜터 메세지 음성으로 TTS
+      setConversation(data.conversation); //전체 대화 내용을 update
     } catch (error) {
       console.error(error);
     }
@@ -131,6 +136,22 @@ function SpeakChatbot() {
   }
   messages = messages.concat(userMessage.slice(userIndex)).concat(tutorMessage.slice(tutorIndex));
 
+  const getFeedback = () => {
+    try {
+      const response = axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/getFeedback', {
+        conversation: conversation,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = response.data;
+      setFeedback(data.feedback); //받아온 피드백 set
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
@@ -148,6 +169,7 @@ function SpeakChatbot() {
         <input type="text" placeholder="Type your message here..." value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={handleSendButton}>Send</button>
       </div>
+
       <div>
         {isMicrophoneConnected ? (
           <div>
@@ -163,6 +185,11 @@ function SpeakChatbot() {
           </div>
         )}
       </div>
+
+      <div>
+        <button className="convFinishBtn" onClick={getFeedback}>Finish conversation!</button>
+      </div>
+      <div>{feedback}</div>
     </div>
   );
 }
