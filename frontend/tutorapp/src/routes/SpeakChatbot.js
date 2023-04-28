@@ -74,8 +74,7 @@ function SpeakChatbot() {
   //TTS
   const TTS = async (tutorSpeak) => {
     await EasySpeech.init() // required
-    EasySpeech.voices()
-    console.log(EasySpeech.voices())
+    setTTSVoice(EasySpeech.voices()[10]);
     await EasySpeech.speak({ 
       text: tutorSpeak,
       ...(TTSVoice ? { voice: TTSVoice } : {}),
