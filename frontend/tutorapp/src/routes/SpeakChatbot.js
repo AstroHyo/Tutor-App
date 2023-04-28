@@ -12,7 +12,7 @@ function SpeakChatbot() {
   let [userInput, setUserInput] = useState("");
   let [conversation, setConversation] = useState(null);
   //TTS voice 설정
-  let [TTSvoice, setTTSVoice] = useState("");
+  let [TTSVoice, setTTSVoice] = useState("");
   let [feedback, setFeedback] = useState("");
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
@@ -74,6 +74,8 @@ function SpeakChatbot() {
   //TTS
   const TTS = async (tutorSpeak) => {
     await EasySpeech.init() // required
+    EasySpeech.voices()
+    console.log(EasySpeech.voices())
     await EasySpeech.speak({ 
       text: tutorSpeak,
       ...(TTSVoice ? { voice: TTSVoice } : {}),
