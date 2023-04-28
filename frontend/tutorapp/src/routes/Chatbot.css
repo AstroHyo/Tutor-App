@@ -93,10 +93,12 @@ body {
 }
 
 .Feedback {
-  background-color: #f7f7f7;
+  background-color: #f6f6f6;
+  text-align: left;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding: 20px;
+  margin: 20px;
 }
 
 .Feedback h3, .Feedback h4 {
@@ -107,7 +109,7 @@ body {
 
 .Feedback hr {
   border: none;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #000000;
   margin: 20px 0;
 }
 
@@ -118,6 +120,10 @@ body {
 
 .Feedback ul li {
   margin-bottom: 10px;
+}
+
+.Feedback li:before {
+  content: "✔ ";
 }
 
 .Feedback p {
