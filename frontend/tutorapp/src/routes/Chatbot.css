@@ -91,3 +91,35 @@ body {
   transform: scale(1.05);
   transition-duration: 0.3s;
 }
+
+.Feedback {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.Feedback h3, .Feedback h4 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-top: 0;
+}
+
+.Feedback hr {
+  border: none;
+  border-top: 1px solid #eee;
+  margin: 20px 0;
+}
+
+.Feedback ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.Feedback ul li {
+  margin-bottom: 10px;
+}
+
+.Feedback p {
+  margin: 20px 0;
+}
