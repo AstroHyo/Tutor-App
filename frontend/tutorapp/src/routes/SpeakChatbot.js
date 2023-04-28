@@ -51,9 +51,9 @@ function SpeakChatbot() {
     console.log(OS);
     //만약 IOS면 보이스를 moira로 설정
     if(OS == "iOS") {
-      setTTSVoice("[DEFAULT]Moira - com.apple.voice.com-pact.en-IE.Moira (local)");
+      setTTSVoice("com.apple.ttsbundle.Moira-compact");
     }
-  })
+  }, [])
 
   //STT
   const {
