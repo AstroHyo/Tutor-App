@@ -209,7 +209,9 @@ function SpeakChatbot() {
       <div>
         <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
       </div>
-      {feedback && <div dangerouslySetInnerHTML={{ __html: feedback }} />}
+      {/* {feedback && <div className="Feedback" dangerouslySetInnerHTML={{ __html: feedback }} />} */}
+      {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
+
     </div>
   );
 }
