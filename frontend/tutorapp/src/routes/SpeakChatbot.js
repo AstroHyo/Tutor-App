@@ -13,7 +13,7 @@ function SpeakChatbot() {
   let [conversation, setConversation] = useState(null);
   //TTS voice 설정
   let [TTSVoice, setTTSVoice] = useState("");
-  let [feedback, setFeedback] = useState("");
+  let [feedback, setFeedback] = useState(null);
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
   //record중인지 check
@@ -209,7 +209,7 @@ function SpeakChatbot() {
       <div>
         <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
       </div>
-      <div>{feedback}</div>
+      {feedback && <div dangerouslySetInnerHTML={{ __html: feedback }} />}
     </div>
   );
 }
