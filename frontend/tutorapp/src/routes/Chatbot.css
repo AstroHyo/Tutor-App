@@ -137,24 +137,3 @@ body {
 .Feedback p {
   margin: 20px 0;
 }
-
-.ReactModal__Overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ReactModal__Content {
-  position: relative;
-  top: auto;
-  left: auto;
-  right: auto;
-  bottom: auto;
-  border: none;
-  background-color: white;
-  border-radius: 4px;
-  padding: 20px;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-  outline: none;
-  margin: 0 10px;
-}
