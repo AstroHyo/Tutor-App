@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import DetectOS from './detectOS.js'
 import { useWhisper } from '@chengsokdara/use-whisper'
-import { getTTS }  from './TTS';
 import EasySpeech from 'easy-speech'
 import './Chatbot.css';
 import './audioRecord.css'
@@ -11,6 +11,8 @@ function SpeakChatbot() {
   let [tutorMessage, setTutorMessage] = useState([]);
   let [userInput, setUserInput] = useState("");
   let [conversation, setConversation] = useState(null);
+  //TTS voice 설정
+  let [TTSvoice, setTTSVoice] = useState("");
   let [feedback, setFeedback] = useState("");
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
@@ -21,7 +23,7 @@ function SpeakChatbot() {
   const chatBoxRef = useRef(null);
   const feedbackBtn = "대화 종료하고\n피드백 받기!";
 
-
+  //MIC 설정
   useEffect(() => {
     async function checkMicrophoneConnection() {
       //mic 연결 가능 check
@@ -43,6 +45,16 @@ function SpeakChatbot() {
     checkMicrophoneConnection();
   }, []);
 
+  //OS 확인
+  useEffect(() => {
+    let OS = DetectOS();
+    console.log(OS);
+    //만약 IOS면 보이스를 moira로 설정
+    if(OS == iOS) {
+      setTTSVoice("[DEFAULT]Moira - com.apple.voice.com-pact.en-IE.Moira (local)");
+    }
+  })
+
   //STT
   const {
     recording,
@@ -60,21 +72,11 @@ function SpeakChatbot() {
   })
 
   //TTS
-  //음성 변환 목소리 preload
-  useEffect(() => {
-    window.speechSynthesis.getVoices();
-  }, []);
-
-  //TTS2
-  // useEffect(() => {
-  //   EasySpeech.init()
-  // }, []);
-
-  const TTS2 = async (tutorSpeak) => {
+  const TTS = async (tutorSpeak) => {
     await EasySpeech.init() // required
     await EasySpeech.speak({ 
       text: tutorSpeak,
-      //voice: voice,
+      ...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
       boundary: event => console.debug('word boundary reached', event.charIndex),
@@ -121,7 +123,7 @@ function SpeakChatbot() {
       });
       const data = response.data;
       setTutorMessage([...tutorMessage, data.assistant]);
-      getTTS(data.assistant); //받아온 튜터 메세지 음성으로 TTS
+      TTS(data.assistant); //받아온 튜터 메세지 음성으로 TTS
       setConversation(data.conversation); //전체 대화 내용을 update
     } catch (error) {
       console.error(error);
@@ -207,7 +209,6 @@ function SpeakChatbot() {
         <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
       </div>
       <div>{feedback}</div>
-      <button onClick={() => { TTS2("Good morning"); }}>button</button>
     </div>
   );
 }
