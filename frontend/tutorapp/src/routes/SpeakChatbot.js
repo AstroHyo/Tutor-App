@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useWhisper } from '@chengsokdara/use-whisper'
 import { getTTS }  from './TTS';
+import EasySpeech from 'easy-speech'
 import './Chatbot.css';
 import './audioRecord.css'
 import axios from 'axios';
@@ -63,6 +64,21 @@ function SpeakChatbot() {
   useEffect(() => {
     window.speechSynthesis.getVoices();
   }, []);
+
+  //TTS2
+  // useEffect(() => {
+  //   EasySpeech.init()
+  // }, []);
+
+  const TTS2 = async (tutorSpeak) => {
+    await EasySpeech.init() // required
+    await EasySpeech.speak({ 
+      text: tutorSpeak,
+      //voice: voice,
+      //pitch: 1.2,  // a little bit higher
+      //rate: 1.7, // a little bit faster
+      boundary: event => console.debug('word boundary reached', event.charIndex),
+     })  }
 
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
@@ -191,6 +207,7 @@ function SpeakChatbot() {
         <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
       </div>
       <div>{feedback}</div>
+      <button onClick={() => { TTS2("Good morning"); }}>button</button>
     </div>
   );
 }

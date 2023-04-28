@@ -136,7 +136,6 @@ app.post('/getFeedback', async function (req, res) {
   res.json({"feedback": feedback});
 });
 
-
 //server less 모듈로 export
 module.exports.handler = serverless(app);
 
