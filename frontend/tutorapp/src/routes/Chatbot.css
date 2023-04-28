@@ -137,3 +137,9 @@ body {
 .Feedback p {
   margin: 20px 0;
 }
+
+@media screen and (max-width: 768px){
+  .chat-container {
+    max-width: 90%;
+  }
+}

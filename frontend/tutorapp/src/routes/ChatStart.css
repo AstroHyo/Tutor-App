@@ -34,6 +34,26 @@ Stack{
     margin-bottom: 10px;
 }
 
+.example{
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.exampleBox{
+    width: 200px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    color: white;
+    background-image: linear-gradient(to bottom right, #9bb7cf, #3182f6, #9bb7cf); /*bottom right  , #788ca3, #32415f 3182f6*/
+    /*background: #3182f6;*/
+    border-radius: 30px;
+    border: none;
+} 
+  
+
 .exampleBox:hover{
     background: #4d94f7;
     transform: scale(1.1);
@@ -44,4 +64,13 @@ Stack{
     margin-top: 10px;
     height: 70px;
     border-radius: 30px;
+}
+
+@media screen and (max-width: 768px){
+    .example{
+        width: 330px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: smaller;
+    }
 }
