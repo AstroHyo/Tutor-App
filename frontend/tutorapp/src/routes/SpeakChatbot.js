@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Modal } from 'react';
 import DetectOS from './detectOS.js'
 import { useWhisper } from '@chengsokdara/use-whisper'
 import EasySpeech from 'easy-speech'
@@ -14,6 +14,7 @@ function SpeakChatbot() {
   //TTS voice 설정
   let [TTSVoice, setTTSVoice] = useState("");
   let [feedback, setFeedback] = useState(null);
+  let [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
   //record중인지 check
@@ -167,10 +168,21 @@ function SpeakChatbot() {
       });
       const data = response.data;
       setFeedback(data.feedback); //받아온 피드백 set
+      openFeedbackModal();
     } catch (error) {
       console.error(error);
     }
   }
+
+  //Feedback있으면 modal open을 true로
+  const openFeedbackModal = () => {
+    setIsFeedbackOpen(true);
+  };
+
+  const closeFeedbackModal = () => {
+    setIsFeedbackOpen(false);
+    setFeedback(null);
+  };
 
   return (
     <div className="chat-container">
@@ -209,8 +221,9 @@ function SpeakChatbot() {
       <div>
         <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
       </div>
-      {/* {feedback && <div className="Feedback" dangerouslySetInnerHTML={{ __html: feedback }} />} */}
-      {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
+      <Modal isOpen={isFeedbackOpen} onRequestClose={closeFeedbackModal}>
+        {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
+      </Modal>
 
     </div>
   );
