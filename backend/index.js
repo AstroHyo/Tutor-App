@@ -107,9 +107,9 @@ app.post('/getFeedback', async function (req, res) {
   console.log('대화목록 받아오기', conversation);
 
   let messages = [
-    {role: "system", content: "너는 매우 훌륭한 영어 회화 튜터야. 앞으로 내가 너에게 보내줄 대화 내용은 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 양식에 맞게 정리해서 보내줘."},
-    {role: "user", content: "너는 매우 훌륭한 영어 회화 튜터야. 앞으로 내가 너에게 보내줄 대화 내용은 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 양식에 맞게 정리해서 보내줘. 이제 내가 너한테 대화 스크립트를 보내줄게. 기다려봐."},
-    {role: "assistant", content: "네, 알겠습니다. 대화 스크립트를 받으면 문법, 자연스러움, 어휘 사용 등을 체크하고 피드백을 주도록 하겠습니다. 양식에 맞게 정리해서 보내드리도록 하겠습니다. 대화 스크립트를 기다리겠습니다."},
+    {role: "system", content: "너는 매우 훌륭한 영어 회화 튜터야. 앞으로 내가 너에게 보내줄 대화 내용은 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 이 HTML 양식에 맞게 정리해서 보내줘. ```html <h2 id='tutoreal-'>TutoReal 피드백이 도착했어요!</h2>\n<hr>\n<h3 id='1-'>1. 문법 교정</h3>\n<ul>\n<li>[잘못된 문법] : [올바른 문법]</li>\n</ul>\n<h3 id='2-'>2. 자연스럽지 않은 문장</h3>\n<ul>\n<li>[자연스럽지 않은 문장] : [자연스러운 표현]</li>\n</ul>\n<h3 id='3-'>3. 단어 대체 제안</h3>\n<ul>\n<li>[대체 가능한 단어] : [추천하는 단어]</li>\n</ul>\n<hr>\n<h3 id='-'>추가 설명</h3>\n<p>[피드백에 대한 추가 설명 작성]</p>\n```"},
+    {role: "user", content: "너는 매우 훌륭한 영어 회화 튜터야. 앞으로 내가 너에게 보내줄 대화 내용은 너가 나의 영어 회화 튜터로써 나와 대화한 스크립트야. 그 내용에서 내가 틀렸던 문법, 자연스럽지 않은 문장에 대해 피드백을 주고, 내가 너무 많이 쓴 단어가 있으면 그 단어를 대체할 수 있는 좋은 단어를 추천해줘. 이 피드백 내용들을 알아보기 쉽게 이 HTML 양식에 맞게 정리해서 보내줘. ```html <h2 id='tutoreal-'>TutoReal 피드백이 도착했어요!</h2>\n<hr>\n<h3 id='1-'>1. 문법 교정</h3>\n<ul>\n<li>[잘못된 문법] : [올바른 문법]</li>\n</ul>\n<h3 id='2-'>2. 자연스럽지 않은 문장</h3>\n<ul>\n<li>[자연스럽지 않은 문장] : [자연스러운 표현]</li>\n</ul>\n<h3 id='3-'>3. 단어 대체 제안</h3>\n<ul>\n<li>[대체 가능한 단어] : [추천하는 단어]</li>\n</ul>\n<hr>\n<h3 id='-'>추가 설명</h3>\n<p>[피드백에 대한 추가 설명 작성]</p>\n``` 이제 내가 너한테 대화 스크립트를 보내줄게. 기다려봐."},
+    {role: "assistant", content: "네, 알겠습니다. 대화 스크립트를 받으면 문법, 자연스러움, 어휘 사용 등을 체크하고 피드백을 주도록 하겠습니다. 해당 HTML 양식에 맞게 정리해서 보내드리도록 하겠습니다. 대화 스크립트를 기다리겠습니다."},
   ];
 
   // 영어로 피드백을 받기? or 한국어로 받기..? let messages = [
@@ -118,8 +118,13 @@ app.post('/getFeedback', async function (req, res) {
   //   {role: "assistant", content: "얘 대답"},
   // ];
 
-  messages.push(JSON.parse('{"role": "user", "content": "'+String(conversation).replace(/\n/g,"")+'"}'));
+  // messages.push(JSON.parse('{"role": "user", "content": "'+String(conversation).replace(/\n/g,"")+'"}'));
   
+  let conversationSTR = JSON.stringify(conversation)
+  
+  messages.push({role: "user", content: conversationSTR })
+  
+  console.log('messages', messages);
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
@@ -135,6 +140,7 @@ app.post('/getFeedback', async function (req, res) {
 
   res.json({"feedback": feedback});
 });
+
 
 //server less 모듈로 export
 module.exports.handler = serverless(app);
