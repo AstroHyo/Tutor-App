@@ -53,25 +53,6 @@ body {
   white-space: pre-wrap;
 }
 
-.example{
-  width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.exampleBox{
-  width: 200px;
-  height: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-  color: white;
-  background-image: linear-gradient(to bottom right, #9bb7cf, #3182f6, #9bb7cf); /*bottom right  , #788ca3, #32415f 3182f6*/
-  /*background: #3182f6;*/
-  border-radius: 30px;
-  border: none;
-} 
-
 .click{
   background: #313b58;
   margin-top: 30px;

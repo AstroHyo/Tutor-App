@@ -3,7 +3,6 @@ import { Stack, Form, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './ChatStart.css';
 
-
 function ChatStart() {
   const navigate = useNavigate();
 
