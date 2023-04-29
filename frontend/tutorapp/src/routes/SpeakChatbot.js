@@ -45,14 +45,14 @@ function SpeakChatbot() {
   }, []);
 
   //OS 확인
-  //useEffect(() => {
-  //  let OS = DetectOS();
-  //  console.log(OS);
-  //  //만약 IOS면 보이스를 moira로 설정
-  //  if(OS == "iOS") {
-  //    setTTSVoice("com.apple.ttsbundle.Moira-compact");
-  //  }
-  //}, [])
+  useEffect(() => {
+    let OS = DetectOS();
+    console.log(OS);
+    //만약 IOS면 보이스를 moira로 설정
+    if(OS == "iOS") {
+     setTTSVoice("com.apple.speech.synthesis.voice.samantha.premium");
+    }
+  }, [])
 
   //STT
   const {
@@ -77,7 +77,7 @@ function SpeakChatbot() {
     await EasySpeech.speak({ 
       text: tutorSpeak,
       lang: 'en-US',
-      //...(TTSVoice ? { voice: TTSVoice } : {}),
+      ...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
       boundary: event => console.debug('word boundary reached', event.charIndex),
