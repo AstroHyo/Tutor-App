@@ -50,8 +50,8 @@ function SpeakChatbot() {
     let OS = DetectOS();
     console.log(OS);
     //만약 IOS면 보이스를 moira로 설정
-    if(OS == "iOS") {
-     setTTSVoice("com.apple.speech.synthesis.voice.samantha.premium");
+    if(OS === "iOS") {
+     setTTSVoice("com.apple.speech.synthesis.voice.samantha.premium"); //com.apple.ttsbundle.Samantha-compact
     }
   }, [])
 
