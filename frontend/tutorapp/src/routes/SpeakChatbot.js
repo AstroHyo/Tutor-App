@@ -77,6 +77,7 @@ function SpeakChatbot() {
     //setTTSVoice(EasySpeech.voices()[0]);
     await EasySpeech.speak({ 
       text: tutorSpeak,
+      lang: en-uS,
       //...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
@@ -96,7 +97,7 @@ function SpeakChatbot() {
       setUserInput('');
     }
   }
-  
+
   //버튼 클릭시 사용
   function handleSendButton() {
     setUserMessage([...userMessage, userInput]);
