@@ -39,7 +39,7 @@ body {
 }
 
 .logo{
-  width: 80%;
+  width: 50%;
   background-image: url('./img/logo.png');
   background-size: cover;
   background-position: center;
@@ -88,10 +88,14 @@ body {
 
 @media screen and (max-width: 768px){
   .logo{
-    width: 80%;
+    width: 100%;
   }
 
   .title{
-    font-size: large;
+    font-size: 21px;
+  }
+
+  .content{
+    font-size: 18px;
   }
 }

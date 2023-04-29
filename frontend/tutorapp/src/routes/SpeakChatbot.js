@@ -202,7 +202,8 @@ function SpeakChatbot() {
           </div>
         ) : (
           <div>
-            <h5 style="color: white;">카메라나 마이크에 연결할 수 없음</h5>
+            <br/>
+            <h6 style={{color: 'white', fontWeight: 'bold'}}>카메라나 마이크에 연결할 수 없음</h6>
           </div>
         )}
       </div>
