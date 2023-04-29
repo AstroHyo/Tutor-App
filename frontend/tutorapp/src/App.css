@@ -38,6 +38,13 @@ body {
   color: white;
 }
 
+.logo{
+  width: 80%;
+  background-image: url('./img/logo.png');
+  background-size: cover;
+  background-position: center;
+}
+
 .brand{
   font-size: 36px;
   font-weight: bold;

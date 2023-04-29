@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef, Modal } from 'react';
-import DetectOS from './detectOS.js'
+import React, { useState, useEffect, useRef } from 'react';
 import { useWhisper } from '@chengsokdara/use-whisper'
 import EasySpeech from 'easy-speech'
 import './Chatbot.css';
@@ -12,7 +11,7 @@ function SpeakChatbot() {
   let [userInput, setUserInput] = useState("");
   let [conversation, setConversation] = useState(null);
   //TTS voice 설정
-  let [TTSVoice, setTTSVoice] = useState("");
+  let [TTSVoice, setTTSVoice] = useState(null);
   let [feedback, setFeedback] = useState(null);
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
@@ -77,7 +76,7 @@ function SpeakChatbot() {
     //setTTSVoice(EasySpeech.voices()[0]);
     await EasySpeech.speak({ 
       text: tutorSpeak,
-      lang: 'en-uS',
+      lang: 'en-US',
       //...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
@@ -203,7 +202,7 @@ function SpeakChatbot() {
           </div>
         ) : (
           <div>
-            Microphone not connected
+            <h5 style="color: white;">카메라나 마이크에 연결할 수 없음</h5>
           </div>
         )}
       </div>
