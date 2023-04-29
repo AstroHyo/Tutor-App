@@ -74,7 +74,7 @@ function SpeakChatbot() {
   //TTS
   const TTS = async (tutorSpeak) => {
     await EasySpeech.init() // required
-    setTTSVoice(EasySpeech.voices()[0]);
+    //setTTSVoice(EasySpeech.voices()[0]);
     await EasySpeech.speak({ 
       text: tutorSpeak,
       //...(TTSVoice ? { voice: TTSVoice } : {}),
@@ -96,6 +96,7 @@ function SpeakChatbot() {
       setUserInput('');
     }
   }
+  
   //버튼 클릭시 사용
   function handleSendButton() {
     setUserMessage([...userMessage, userInput]);
