@@ -46,14 +46,14 @@ function SpeakChatbot() {
   }, []);
 
   //OS 확인
-  useEffect(() => {
-    let OS = DetectOS();
-    console.log(OS);
-    //만약 IOS면 보이스를 moira로 설정
-    if(OS == "iOS") {
-      setTTSVoice("com.apple.ttsbundle.Moira-compact");
-    }
-  }, [])
+  //useEffect(() => {
+  //  let OS = DetectOS();
+  //  console.log(OS);
+  //  //만약 IOS면 보이스를 moira로 설정
+  //  if(OS == "iOS") {
+  //    setTTSVoice("com.apple.ttsbundle.Moira-compact");
+  //  }
+  //}, [])
 
   //STT
   const {
@@ -74,7 +74,7 @@ function SpeakChatbot() {
   //TTS
   const TTS = async (tutorSpeak) => {
     await EasySpeech.init() // required
-    setTTSVoice(EasySpeech.voices()[10]);
+    setTTSVoice(EasySpeech.voices()[0]);
     await EasySpeech.speak({ 
       text: tutorSpeak,
       ...(TTSVoice ? { voice: TTSVoice } : {}),
