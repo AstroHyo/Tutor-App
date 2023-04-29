@@ -4,6 +4,7 @@ import SpeakChatbot from './routes/SpeakChatbot';
 import ChatStart from './routes/ChatStart'
 import ChatSituation from './routes/ChatSituation';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import logo from './img/logo.png';
 
 function App() {
 
@@ -17,8 +18,7 @@ function App() {
         <Route path="/" element={
           <div className="container">
             <h1 className="title">진짜 같은 인공지능 영어 튜터</h1>
-            <div className="logo"></div>
-            {/*<img src={process.env.PUBLIC_URL + '/logo.png'} alt="Logo" style={{ width: '50%' }} className="logo"/>*/}
+            <img className="logo" src={logo} alt="logoImg"/>
             <p className="content"> {text} </p>
             <div>
               <button className="click" onClick={() =>{ navigate('/chatStart') }}>
