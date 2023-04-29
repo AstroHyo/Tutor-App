@@ -77,7 +77,7 @@ function SpeakChatbot() {
     //setTTSVoice(EasySpeech.voices()[0]);
     await EasySpeech.speak({ 
       text: tutorSpeak,
-      lang: en-uS,
+      lang: 'en-uS',
       //...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
