@@ -77,7 +77,7 @@ function SpeakChatbot() {
     setTTSVoice(EasySpeech.voices()[0]);
     await EasySpeech.speak({ 
       text: tutorSpeak,
-      ...(TTSVoice ? { voice: TTSVoice } : {}),
+      //...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
       boundary: event => console.debug('word boundary reached', event.charIndex),
