@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useWhisper } from '@chengsokdara/use-whisper'
+import DetectOS from './detectOS.js'
 import EasySpeech from 'easy-speech'
 import './Chatbot.css';
 import './audioRecord.css'
