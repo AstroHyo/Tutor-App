@@ -60,13 +60,6 @@ app.post('/tutoringSpeak', async function (req, res) {
   res.set(headers);
     
   let {situNum, userMessage, tutorMessage} = req.body
-
-  // const situation = [
-  //   "small talk with friend",
-  //   "job interview, and you are an interviewer",
-  //   "a movie date",
-  //   "first day of college",
-  // ];
   
   let messages = [
     {role: "system", content: "You are the world's best English conversation tutor. Nothing is impossible for you, and you can answer any question. You teach English very well and help me to have a good conversation in English. You have extensive knowledge in various fields and carry on conversations well. You role-play for situations I present but please don’t give me the full dialogue all at once. Say one sentence and wait for my response. If I use a grammatically incorrect or awkward sentence, you help me make it sound natural in conversation and give me a chance to say it correctly. Please don't give me many sentences at once"},
@@ -84,7 +77,7 @@ app.post('/tutoringSpeak', async function (req, res) {
       {role: "assistant", content: assiSitu[situNum]},
     ];
   }
-
+  
   let lastRole = "assistant"; // assume assistant sent the last message
 
   while (userMessage.length > 0 || tutorMessage.length > 0) {
@@ -147,14 +140,10 @@ app.post('/getFeedback', async function (req, res) {
   //   {role: "assistant", content: "얘 대답"},
   // ];
 
-  // messages.push(JSON.parse('{"role": "user", "content": "'+String(conversation).replace(/\n/g,"")+'"}'));
-  
   let conversationSTR = JSON.stringify(conversation)
   
   messages.push({role: "user", content: conversationSTR })
   
-  console.log('messages', messages);
-
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     temperature: 0.5,
@@ -163,13 +152,9 @@ app.post('/getFeedback', async function (req, res) {
   
   // //대답을 feedback 변수에 저장
   let feedback = completion.data.choices[0].message['content']
-  
-  console.log('받아온 피드백', feedback)
-
 
   res.json({"feedback": feedback});
 });
-
 
 //server less 모듈로 export
 module.exports.handler = serverless(app);
