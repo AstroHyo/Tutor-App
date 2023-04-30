@@ -8,7 +8,7 @@ import './audioRecord.css'
 import axios from 'axios';
 
 function SpeakChatbot() {
-  let chatSitu = useSelector((state) => state.chatSitu )
+  let situNum = useSelector((state) => state.situNum )
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
   let [userInput, setUserInput] = useState("");
@@ -118,7 +118,7 @@ function SpeakChatbot() {
   const sendMessage = async () => {
     try {
       const response = await axios.post('REDACTED_AWS_ENDPOINT', {
-        chatSitu: chatSitu,
+        situNum: situNum,
         userMessage: userMessage,
         tutorMessage: tutorMessage,
       }, {

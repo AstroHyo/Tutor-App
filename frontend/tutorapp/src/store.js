@@ -1,7 +1,7 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
-let chatSitu = createSlice({
-    name : 'chatSitu',
+let situNum = createSlice({
+    name : 'situNum',
     initialState : 0,
     reducers : {
         setSitu(num){
@@ -12,8 +12,8 @@ let chatSitu = createSlice({
   
   export default configureStore({
     reducer: {
-        chatSitu : chatSitu.reducer
+        situNum : situNum.reducer
     }
   })
 
-  export let { setSitu } = chatSitu.actions
+  export let { setSitu } = situNum.actions
