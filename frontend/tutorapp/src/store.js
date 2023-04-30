@@ -2,7 +2,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit'
 
 let situNum = createSlice({
     name : 'situNum',
-    initialState : 0,
+    initialState : 1,
     reducers : {
         setSitu(num){
             return num
