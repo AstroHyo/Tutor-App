@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from "react-redux"
 import { useWhisper } from '@chengsokdara/use-whisper'
 import DetectOS from './detectOS.js'
 import EasySpeech from 'easy-speech'
@@ -7,6 +8,7 @@ import './audioRecord.css'
 import axios from 'axios';
 
 function SpeakChatbot() {
+  let chatSitu = useSelector((state) => state.chatSitu )
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
   let [userInput, setUserInput] = useState("");
@@ -116,6 +118,7 @@ function SpeakChatbot() {
   const sendMessage = async () => {
     try {
       const response = await axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
+        chatSitu: chatSitu,
         userMessage: userMessage,
         tutorMessage: tutorMessage,
       }, {
