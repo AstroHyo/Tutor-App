@@ -35,7 +35,14 @@ let userSitu = [
   "나는 외국계 회사와 비즈니스 미팅을 하게 되었어. 너가 비즈니스 미팅 상대 회사인 것처럼 미팅을 진행해줘. 미팅 주제에 대해서는 내게 먼저 물어봐줘. 미팅은 영어로 진행되고, 실제 비즈니스 미팅을 하듯이 상황극을 해줘."
 ];
 
-let assiSitu = [];
+let assiSitu = [
+  "안녕하세요! OPIc 시험 준비에 대해 이야기하려면 좋은 아이디어입니다. 먼저, 어떤 레벨을 준비하려고 하시나요? 그리고, OPIc 시험에서 어떤 부분이 가장 어려워 보이나요? 이에 대한 대답을 듣고, 그에 맞게 문제를 내어볼게요. 그리고 당신의 대답에 대한 피드백을 제공해 드릴게요. 그렇게 함께 연습하면서 OPIc 시험을 잘 준비할 수 있도록 도와드리겠습니다. 그러면, 첫 번째 질문을 해보겠습니다. 어떤 레벨을 준비하려고 하시나요?",
+  "Hi! It's great to see you again after such a long time. How have you been?",
+  "Sure, I'd be happy to role-play with you! Here's my response: Hey, it's great to see you at work today. How have you been doing lately?",
+  "Sure, I'd be happy to help you prepare for your job interview! Let's start with a common question: 'Can you tell me a little bit about yourself?'",
+  "Sure, I'd be happy to role-play as your potential romantic interest. Let's start the conversation. Hi, it's nice to meet you. How has your day been so far?",
+  "Sure, I'd be happy to help you practice for your business meeting. Can you tell me a little bit more about the meeting and what topics will be discussed? Also, do you have any specific role-play scenarios in mind that you'd like to practice?",
+  ];
 
 app.post('/tutoringSpeak', async function (req, res) {
   //OPTIONS 메소드 관리
@@ -52,7 +59,7 @@ app.post('/tutoringSpeak', async function (req, res) {
 
   res.set(headers);
     
-  let {userMessage, tutorMessage} = req.body
+  let {situNum, userMessage, tutorMessage} = req.body
 
   // const situation = [
   //   "small talk with friend",
@@ -67,6 +74,17 @@ app.post('/tutoringSpeak', async function (req, res) {
     {role: "assistant", content: "Thank you for your kind words! I'll do my best to help you improve your English conversation skills. Please feel free to ask me any questions or present any situations you'd like to practice, and I'll be happy to role-play with you and provide feedback to help you improve.To start, let's have a conversation. You can begin by saying a sentence, and I'll respond and we'll take it from there."},
   ];
   
+  //만약 정해진 situation이 있으면 해당 situation 넣어주기
+  if (situNum != null) {
+    messages = [
+      {role: "system", content: "You are the world's best English conversation tutor. Nothing is impossible for you, and you can answer any question. You teach English very well and help me to have a good conversation in English. You have extensive knowledge in various fields and carry on conversations well. You role-play for situations I present but please don’t give me the full dialogue all at once. Say one sentence and wait for my response. If I use a grammatically incorrect or awkward sentence, you help me make it sound natural in conversation and give me a chance to say it correctly. Please don't give me many sentences at once"},
+      {role: "user", content: "You are the world's best English conversation tutor. Nothing is impossible for you, and you can answer any question. You teach English very well and help me to have a good conversation in English. You have extensive knowledge in various fields and carry on conversations well. You role-play for situations I present but please don’t give me the full dialogue all at once. Say one sentence and wait for my response. If I use a grammatically incorrect or awkward sentence, you help me make it sound natural in conversation and give me a chance to say it correctly. Please don't give me many sentences at once"},
+      {role: "assistant", content: "Thank you for your kind words! I'll do my best to help you improve your English conversation skills. Please feel free to ask me any questions or present any situations you'd like to practice, and I'll be happy to role-play with you and provide feedback to help you improve.To start, let's have a conversation. You can begin by saying a sentence, and I'll respond and we'll take it from there."},
+      {role: "user", content: userSitu[situNum]},
+      {role: "assistant", content: assiSitu[situNum]},
+    ];
+  }
+
   let lastRole = "assistant"; // assume assistant sent the last message
 
   while (userMessage.length > 0 || tutorMessage.length > 0) {
