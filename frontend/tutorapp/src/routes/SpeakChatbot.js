@@ -12,10 +12,9 @@ function SpeakChatbot() {
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
   let [userInput, setUserInput] = useState("");
-  let [conversation, setConversation] = useState(null);
-  //TTS voice 설정
-  let [TTSVoice, setTTSVoice] = useState(null);
-  let [feedback, setFeedback] = useState(null);
+  let [conversation, setConversation] = useState(null); //전체대화 set
+  let [TTSVoice, setTTSVoice] = useState(null); //TTS voice 설정
+  let [feedback, setFeedback] = useState(null); //피드백 set
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
   //record중인지 check
@@ -24,6 +23,14 @@ function SpeakChatbot() {
   const [isMicrophoneConnected, setIsMicrophoneConnected] = useState(false);
   const chatBoxRef = useRef(null);
   const feedbackBtn = "대화 종료하고\n피드백 받기!";
+  const situText = [
+    "반가워요! 먼저, OPIc의 어떤 레벨을 준비하고 계시나요?",
+    "Hi! It's great to see you again after such a long time. How have you been?",
+    "Hey, it's great to see you at work today. How have you been doing lately?",
+    "Hello, nice to meet you. Firstly, can you tell me a little bit about yourself?",
+    "Hi, it's nice to meet you. How has your day been so far?",
+    "Hi, it's nice to meet you. Could you please introduce about the topic of meeting?"
+  ];
 
   //MIC 설정
   useEffect(() => {
@@ -181,7 +188,7 @@ function SpeakChatbot() {
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
         <div className="chat-message tutor">
-          <p>Let's start conversation!</p>
+          { situNum ? <p>{situText[situNum]}</p> : <p>Let's start conversation!</p> }
         </div>
         {messages.map((message, index) => (
           <div className={`chat-message ${index % 2 === 0 ? 'user' : 'tutor'}`} key={index}>
