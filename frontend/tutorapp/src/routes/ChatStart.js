@@ -7,6 +7,8 @@ import './ChatStart.css';
 
 function ChatStart() {
   const navigate = useNavigate();
+  let state = useSelector((state)=> state)
+	let dispatch = useDispatch()
 
   return (
     <div className="ChatStart">
