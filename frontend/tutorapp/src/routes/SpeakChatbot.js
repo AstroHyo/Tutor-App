@@ -32,6 +32,8 @@ function SpeakChatbot() {
     "Hi, it's nice to meet you. Could you please introduce about the topic of meeting?"
   ];
 
+  const num = [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+
   //MIC 설정
   useEffect(() => {
     async function checkMicrophoneConnection() {
@@ -81,17 +83,16 @@ function SpeakChatbot() {
   })
 
   //TTS
-  const TTS = async (tutorSpeak) => {
+  const TTS = async (tutorSpeak, i) => {
     await EasySpeech.init() // required
     //setTTSVoice(EasySpeech.voices()[0]);
     const s = EasySpeech.voices();
-    console.log(s);
     for(var i=0; i<s.length; i++) {
       console.log(i + s[i].name + s[i].lang);
     }
     await EasySpeech.speak({ 
       text: tutorSpeak,
-      voice: EasySpeech.voices()[2],
+      voice: EasySpeech.voices()[i],
       //...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
@@ -189,6 +190,15 @@ function SpeakChatbot() {
     }
   }
 
+  //
+  const buttonElements = num.map((label) => {
+    return (
+      <button key={label} onClick={() => TTS("hello nice to meet you! Can we have a dance tonight?", label)}>
+        {label}
+      </button>
+    );
+  });
+
   return (
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
@@ -230,7 +240,7 @@ function SpeakChatbot() {
       <div>
         {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
       </div>
-      <button onClick={()=>{TTS("hello")}}>buton</button>
+      {buttonElements}
     </div>
   );
 }
