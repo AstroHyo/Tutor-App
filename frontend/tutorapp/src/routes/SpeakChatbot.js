@@ -88,7 +88,8 @@ function SpeakChatbot() {
     await EasySpeech.speak({ 
       text: tutorSpeak,
       lang: 'en-US',
-      ...(TTSVoice ? { voice: TTSVoice } : {}),
+      voice: EasySpeech.voices()[2],
+      //...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
       boundary: event => console.debug('word boundary reached', event.charIndex),
@@ -226,6 +227,7 @@ function SpeakChatbot() {
       <div>
         {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
       </div>
+      <button onClick={()=>{TTS("hello")}}>buton</button>
     </div>
   );
 }
