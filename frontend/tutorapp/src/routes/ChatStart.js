@@ -7,8 +7,9 @@ import './ChatStart.css';
 
 function ChatStart() {
   const navigate = useNavigate();
-  let state = useSelector((state)=> state)
 	let dispatch = useDispatch()
+  let situNum = useSelector((state) => state.situNum ) //채팅 상황 설정
+
 
   return (
     <div className="ChatStart">
@@ -21,7 +22,7 @@ function ChatStart() {
               <p className="formDesc">아래 상황 중 하나를 선택하거나 원하는 상황을 알려주세요!</p>
               <Stack gap={2} className="example">
                 <Stack direction="horizontal" gap={3}>
-                  <button className="exampleBox" onClick={() =>{ dispatch(setSitu(0)); navigate('/chatWithTutor'); }}>📚OPIC 공부 좀 도와줘!</button>
+                  <button className="exampleBox" onClick={() =>{ dispatch(setSitu(0)); console.log(situNum); navigate('/chatWithTutor'); }}>📚OPIC 공부 좀 도와줘!</button>
                   <button className="exampleBox" onClick={() =>{ dispatch(setSitu(1)); navigate('/chatWithTutor'); }}>☕오랜만에 만난 외국인 친구랑</button>
                   <button className="exampleBox" onClick={() =>{ dispatch(setSitu(2)); navigate('/chatWithTutor'); }}>💬회사 동료랑 스몰토크!</button>
                 </Stack>
