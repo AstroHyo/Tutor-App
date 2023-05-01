@@ -85,7 +85,9 @@ function SpeakChatbot() {
     await EasySpeech.init() // required
     //setTTSVoice(EasySpeech.voices()[0]);
     const s = EasySpeech.voices();
-    console.table(s);
+    for(var i=0; i<s.length; i++) {
+      console.log(i + s[i].name);
+    }
     await EasySpeech.speak({ 
       text: tutorSpeak,
       voice: EasySpeech.voices()[2],
