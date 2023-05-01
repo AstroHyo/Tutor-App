@@ -208,7 +208,13 @@ function SpeakChatbot() {
     <div className="chat-container">
       <div className="chat-box" ref={chatBoxRef}>
         <div className="chat-message tutor">
-          { situNum ? <p>{situText[situNum]}</p> : <p>Let's start conversation!</p> }
+          {
+            situNum === null
+              ? <p>Let's start conversation!</p>
+              : situNum >= 0 && situNum <= 5
+                ? <p>{situText[situNum]}</p>
+                : null
+          }
         </div>
         {messages.map((message, index) => (
           <div className={`chat-message ${index % 2 === 0 ? 'user' : 'tutor'}`} key={index}>
