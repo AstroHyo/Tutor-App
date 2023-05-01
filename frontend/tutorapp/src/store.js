@@ -4,16 +4,16 @@ let situNum = createSlice({
     name : 'situNum',
     initialState : null,
     reducers : {
-        setSitu(num){
-            return num
+        setSitu(state, num){
+            state = num.payload
         }
     }
-  })
+})
   
-  export default configureStore({
+export default configureStore({
     reducer: {
         situNum : situNum.reducer
     }
-  })
+})
 
-  export let { setSitu } = situNum.actions
+export let { setSitu } = situNum.actions

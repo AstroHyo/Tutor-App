@@ -8,7 +8,7 @@ import './audioRecord.css'
 import axios from 'axios';
 
 function SpeakChatbot() {
-  let situNum = useSelector((state) => state.situNum )
+  let situNum = useSelector((state) => state.situNum ) //채팅 상황 설정
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
   let [userInput, setUserInput] = useState("");
