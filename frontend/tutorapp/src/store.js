@@ -4,8 +4,8 @@ let situNum = createSlice({
     name : 'situNum',
     initialState : null,
     reducers : {
-        setSitu(state, num){
-            state = num.payload
+        setSitu(state, action){
+            return action.payload
         }
     }
 })
