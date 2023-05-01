@@ -83,16 +83,18 @@ function SpeakChatbot() {
   })
 
   //TTS
-  const TTS = async (tutorSpeak, i) => {
+  const TTS = async (tutorSpeak, k) => {
     await EasySpeech.init() // required
     //setTTSVoice(EasySpeech.voices()[0]);
-    const s = EasySpeech.voices();
-    for(var i=0; i<s.length; i++) {
-      console.log(i + s[i].name + s[i].lang);
-    }
+    // const s = EasySpeech.voices();
+    // for(var i=0; i<s.length; i++) {
+    //   console.log(i + s[i].name + s[i].lang);
+    // }
+    console.log(k)
+    console.log(EasySpeech.voices[k])
     await EasySpeech.speak({ 
       text: tutorSpeak,
-      voice: EasySpeech.voices()[i],
+      voice: EasySpeech.voices()[k],
       //...(TTSVoice ? { voice: TTSVoice } : {}),
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
