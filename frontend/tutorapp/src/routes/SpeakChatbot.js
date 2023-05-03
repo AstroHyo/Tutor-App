@@ -60,7 +60,8 @@ function SpeakChatbot() {
   }, []);
 
   //OS 확인
-  useEffect(() => {
+  useEffect(async () => {
+    await EasySpeech.init()
     let OS = DetectOS();
     console.log(OS);
     console.log(situNum)
@@ -87,8 +88,7 @@ function SpeakChatbot() {
   })
 
   //TTS
-  const TTS = async (tutorSpeak, k) => {
-    await EasySpeech.init() // required
+  const TTS = async (tutorSpeak) => {
     // const s = EasySpeech.voices();
     // for(var i=0; i<s.length; i++) {
     //   console.log(i + s[i].name + s[i].lang);
@@ -194,15 +194,6 @@ function SpeakChatbot() {
       console.error(error);
     }
   }
-
-  //
-  const buttonElements = num.map((label) => {
-    return (
-      <button key={label} onClick={() => TTS("hello nice to meet you! Can we have a dance tonight?", label)}>
-        {label}
-      </button>
-    );
-  });
 
   return (
     <div className="chat-container">
