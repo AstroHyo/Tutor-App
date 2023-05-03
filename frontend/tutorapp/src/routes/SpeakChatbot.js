@@ -35,8 +35,7 @@ function SpeakChatbot() {
     "Hi, it's nice to meet you. Could you please introduce about the topic of meeting?"
   ];
 
-  const num = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
-  //[27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+  const num = [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
 
   //MIC 설정
   useEffect(() => {
@@ -91,10 +90,10 @@ function SpeakChatbot() {
   const TTS = async (tutorSpeak, k) => {
     await EasySpeech.init() // required
     //setTTSVoice(EasySpeech.voices()[0]);
-    // const s = EasySpeech.voices();
-    // for(var i=0; i<s.length; i++) {
-    //   console.log(i + s[i].name + s[i].lang);
-    // }
+    const s = EasySpeech.voices();
+    for(var i=0; i<s.length; i++) {
+      console.log(i + s[i].name + s[i].lang);
+    }
     console.log(EasySpeech.voices())
     console.log(k)
     console.log(EasySpeech.voices()[k])
