@@ -16,7 +16,7 @@ function SpeakChatbot() {
   let [tutorMessage, setTutorMessage] = useState([]);
   let [userInput, setUserInput] = useState("");
   let [conversation, setConversation] = useState(null); //전체대화 set
-  let [TTSVoice, setTTSVoice] = useState(null); //TTS voice 설정
+  let [TTSVoice, setTTSVoice] = useState(EasySpeech.voices()[2]); //TTS voice 설정
   let [feedback, setFeedback] = useState(null); //피드백 set
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
@@ -66,7 +66,7 @@ function SpeakChatbot() {
     console.log(situNum)
     //만약 IOS면 보이스를 moira로 설정
     if(OS === "iOS") {
-     setTTSVoice("com.apple.ttsbundle.Samantha-compact"); 
+     setTTSVoice(EasySpeech.voices()[35]); 
     }
   }, [])
 
@@ -89,18 +89,16 @@ function SpeakChatbot() {
   //TTS
   const TTS = async (tutorSpeak, k) => {
     await EasySpeech.init() // required
-    //setTTSVoice(EasySpeech.voices()[0]);
-    const s = EasySpeech.voices();
-    for(var i=0; i<s.length; i++) {
-      console.log(i + s[i].name + s[i].lang);
-    }
-    console.log(EasySpeech.voices())
-    console.log(k)
-    console.log(EasySpeech.voices()[k])
+    // const s = EasySpeech.voices();
+    // for(var i=0; i<s.length; i++) {
+    //   console.log(i + s[i].name + s[i].lang);
+    // }
+    // console.log(EasySpeech.voices())
+    // console.log(k)
+    // console.log(EasySpeech.voices()[k])
     await EasySpeech.speak({ 
       text: tutorSpeak,
-      voice: EasySpeech.voices()[k],
-      //...(TTSVoice ? { voice: TTSVoice } : {}),
+      voice: TTSVoice,
       //pitch: 1.2,  // a little bit higher
       //rate: 1.7, // a little bit faster
       boundary: event => console.debug('word boundary reached', event.charIndex),
