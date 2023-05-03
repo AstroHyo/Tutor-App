@@ -78,7 +78,7 @@ function SpeakChatbot() {
     startRecording,
     stopRecording,
   } = useWhisper({
-    apiKey: "REDACTED_OPENAI_API_KEY",
+    apiKey: process.env.REACT_APP_OPENAI_KEY,
     // autoStart: true,
     // nonStop: true,
     // stopTimeout: 3000,
