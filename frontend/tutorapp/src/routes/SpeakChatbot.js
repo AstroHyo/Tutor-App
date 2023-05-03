@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from "react-redux"
+import { useNavigate } from 'react-router-dom';
 import { useWhisper } from '@chengsokdara/use-whisper'
 import DetectOS from './detectOS.js'
 import EasySpeech from 'easy-speech'
 import './Chatbot.css';
 import './audioRecord.css'
 import axios from 'axios';
+import logo from './../img/logo.png';
 
 function SpeakChatbot() {
+  const navigate = useNavigate();
   let situNum = useSelector((state) => state.situNum ) //채팅 상황 설정
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
@@ -206,6 +209,8 @@ function SpeakChatbot() {
 
   return (
     <div className="chat-container">
+      <h1 className="chat-title">진짜 같은 인공지능 영어 튜터</h1>
+      <img className="chat-logo" onClick={() => { navigate('/'); }} src={logo} alt="logoImg"/>
       <div className="chat-box" ref={chatBoxRef}>
         <div className="chat-message tutor">
           {

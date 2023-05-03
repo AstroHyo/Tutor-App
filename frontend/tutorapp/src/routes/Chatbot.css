@@ -5,6 +5,14 @@ body {
   font-size: 14px;
 }
 
+.chat-title{
+  font-size: 22px;
+  font-weight: 600;
+  font-family: "TheJamsilLight";
+  color: white;
+  margin: 0px;
+}
+
 .chat-container {
   max-width: 70%;
   margin: 0 auto;
@@ -141,5 +149,13 @@ body {
 @media screen and (max-width: 768px){
   .chat-container {
     max-width: 90%;
+  }
+
+  .chat-logo{
+    width: 100%;
+  }
+
+  .chat-title{
+    font-size: 16px;
   }
 }

@@ -13,7 +13,6 @@ function ChatStart() {
 
   return (
     <div className="ChatStart">
-
       <Form className="userForm">
         <Col>
             <Form.Group as={Row} className="mb-3" controlId="">
@@ -41,6 +40,7 @@ function ChatStart() {
         </Col>
       </Form>
     </div>
+    
   );
 }
 
