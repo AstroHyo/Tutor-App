@@ -1,6 +1,11 @@
 @font-face {
-  font-family: "Product Sans";
-  src: url("./assets/fonts/Product\ Sans\ Regular.ttf");
+  font-family: "TheJamsilLight";
+  src: url("./assets/fonts/TheJamsilLight.ttf");
+} 
+
+@font-face {
+  font-family: "TheJamsilThin";
+  src: url("./assets/fonts/TheJamsilThin.ttf");
 } 
 
 @keyframes fadeInUp {
@@ -34,15 +39,8 @@ body {
 .title{
   font-size: 28px;
   font-weight: 800;
-  font-family: "Product Sans";
+  font-family: "TheJamsilLight";
   color: white;
-}
-
-.logo{
-  width: 50%;
-  background-image: url('./img/logo.png');
-  background-size: cover;
-  background-position: center;
 }
 
 .brand{
@@ -54,7 +52,7 @@ body {
 
 .content{
   color: white;
-  font-family: "Product Sans";
+  font-family: "TheJamsilLight";
   margin-bottom: 30px;
   font-size: 20px;
   white-space: pre-wrap;
