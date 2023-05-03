@@ -16,7 +16,7 @@ function SpeakChatbot() {
   let [tutorMessage, setTutorMessage] = useState([]);
   let [userInput, setUserInput] = useState("");
   let [conversation, setConversation] = useState(null); //전체대화 set
-  let [TTSVoice, setTTSVoice] = useState(EasySpeech.voices()[2]); //TTS voice 설정
+  let [TTSVoice, setTTSVoice] = useState(null); //TTS voice 설정
   let [feedback, setFeedback] = useState(null); //피드백 set
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
@@ -60,15 +60,19 @@ function SpeakChatbot() {
   }, []);
 
   //OS 확인
-  useEffect(async () => {
-    await EasySpeech.init()
-    let OS = DetectOS();
-    console.log(OS);
-    console.log(situNum)
-    //만약 IOS면 보이스를 moira로 설정
-    if(OS === "iOS") {
-     setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
+  useEffect(() => {
+    async function EasySpeechInit() {
+      await EasySpeech.init()
+      setTTSVoice(EasySpeech.voices()[2]); //크롬에 맞게 먼저 set
+      let OS = DetectOS();
+      console.log(OS);
+      console.log(situNum)
+      //만약 IOS면 보이스를 moira로 설정
+      if(OS === "iOS") {
+      setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
+      }
     }
+    EasySpeechInit(); 
   }, [])
 
   //STT
@@ -89,6 +93,7 @@ function SpeakChatbot() {
 
   //TTS
   const TTS = async (tutorSpeak) => {
+    await EasySpeech.init()
     // const s = EasySpeech.voices();
     // for(var i=0; i<s.length; i++) {
     //   console.log(i + s[i].name + s[i].lang);
