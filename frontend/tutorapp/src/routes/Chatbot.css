@@ -76,8 +76,8 @@ body {
 
 .chat-input button:hover {
   background-color: #71e089c5;
-  transform: scale(1.03);
-  transition-duration: 0.3s;
+  /*transform: scale(1.03);
+  transition-duration: 0.3s;*/
 }
 
 .convFinishBtn{
@@ -96,8 +96,8 @@ body {
 
 .convFinishBtn:hover{
   background: #303953;
-  transform: scale(1.05);
-  transition-duration: 0.3s;
+  /*transform: scale(1.05);
+  transition-duration: 0.3s;*/
 }
 
 .Feedback {

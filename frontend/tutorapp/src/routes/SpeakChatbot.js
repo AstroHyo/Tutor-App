@@ -231,9 +231,9 @@ function SpeakChatbot() {
         {isMicrophoneConnected ? (
           <div>
             { checkRecording? (
-              <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop Recording</button>
+              <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop</button>
             ) : (
-              <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Start Recording</button>
+              <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Speak!</button>
             )}
           </div>
         ) : (
