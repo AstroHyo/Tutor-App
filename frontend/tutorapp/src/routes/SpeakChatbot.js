@@ -155,6 +155,7 @@ function SpeakChatbot() {
       });
       const data = response.data;
       setTutorMessage([...tutorMessage, data.assistant]);
+      TTS(data.assistant);
       setConversation(data.conversation); //전체 대화 내용을 update
     } catch (error) {
       console.error(error);
@@ -218,7 +219,7 @@ function SpeakChatbot() {
         </div>
         {messages.map((message, index) => (
           <div className={`chat-message ${index % 2 === 0 ? 'user' : 'tutor'}`} key={index}>
-            <p onload={`${index % 2 === 0 ? '{}' : TTS(message)}`}>{message}</p>
+            <p>{message}</p>
           </div>
         ))}
       </div>
