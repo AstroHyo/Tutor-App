@@ -154,7 +154,6 @@ function SpeakChatbot() {
       });
       const data = response.data;
       setTutorMessage([...tutorMessage, data.assistant]);
-      TTS(data.assistant); //받아온 튜터 메세지 음성으로 TTS
       setConversation(data.conversation); //전체 대화 내용을 update
     } catch (error) {
       console.error(error);
