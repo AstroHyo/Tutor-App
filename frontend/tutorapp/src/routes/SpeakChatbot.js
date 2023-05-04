@@ -218,7 +218,7 @@ function SpeakChatbot() {
         </div>
         {messages.map((message, index) => (
           <div className={`chat-message ${index % 2 === 0 ? 'user' : 'tutor'}`} key={index}>
-            <p>{message}</p>
+            <p onload={`${index % 2 === 0 ? '{}' : TTS(message)}`}>{message}</p>
           </div>
         ))}
       </div>
