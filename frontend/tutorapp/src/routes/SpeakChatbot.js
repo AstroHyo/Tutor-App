@@ -250,6 +250,7 @@ function SpeakChatbot() {
       <div>
         {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
       </div>
+      <button className="eb-form-action" onclick='eh_render_dynamic_form("6430245462212608", "popup")' data-form-id="6430245462212608" style={{"all":"unset","fontFamily":"Helvetica,Arial,sans-serif","display":"inline-block","maxWidth":"100%","whiteSpace":"nowrap","overflow":"hidden","textOverflow":"ellipsis","color":"#FFFFFF","fontWeight":"bold","cursor":"pointer","lineHeight":"auto","textAlign":"center","margin":"0","textDecoration":"none","fontSize":"15px","backgroundColor":"#303953","borderRadius":"41px","paddingLeft":"15px","paddingRight":"15px","paddingTop":"15px","paddingBottom":"15px"}} > 베타서비스가 마음에 드셨나요? </button>
     </div>
 
     
