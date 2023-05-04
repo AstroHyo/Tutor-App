@@ -69,7 +69,8 @@ function SpeakChatbot() {
       console.log(situNum)
       //만약 IOS면 보이스를 moira로 설정
       if(OS === "iOS") {
-      setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
+        setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
+        console.log(TTSVoice);
       }
     }
     EasySpeechInit(); 
@@ -94,6 +95,7 @@ function SpeakChatbot() {
   //TTS
   const TTS = async (tutorSpeak) => {
     await EasySpeech.init()
+    console.log(TTSVoice)
     // const s = EasySpeech.voices();
     // for(var i=0; i<s.length; i++) {
     //   console.log(i + s[i].name + s[i].lang);
@@ -250,6 +252,8 @@ function SpeakChatbot() {
         {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
       </div>
     </div>
+
+    
   );
 }
 
