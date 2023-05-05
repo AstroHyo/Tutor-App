@@ -22,8 +22,8 @@ body {
 .chat-box {
   background-color: #f2f2f2;
   padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
   overflow-y: scroll;
   height: 300px;
   text-align: left;
@@ -53,14 +53,17 @@ body {
 
 .chat-input {
   display: flex;
-  margin-top: 20px;
+  background-color: white;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .chat-input input {
   flex: 1;
   padding: 10px;
   border: none;
-  border-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   margin-right: 10px;
 }
 
