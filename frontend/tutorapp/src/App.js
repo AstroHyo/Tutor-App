@@ -21,13 +21,16 @@ function App() {
             <img className="logo" src={logo} alt="logoImg"/>
             <p className="content"> {text} </p>
             <div>
-              <button className="click" onClick={() =>{ navigate('/chatStart') }}>
+              <button className="mainBtn" onClick={() =>{ navigate('/chatStart') }}>
                 대화 시작하기!
               </button>
             </div>
             <div>
-              <button className="click" onClick={() =>{ navigate('/chatStart') }}>
-                영어 작문 첨삭 받아볼래? (무료임)
+              <button className="subBtn" style={{marginRight: '30px'}} onClick={() =>{ navigate('/chatStart') }}>
+                피드백하기
+              </button>
+              <button className="subBtn" onClick={() =>{ navigate('/chatStart') }}>
+                후원하기
               </button>
             </div>
             <div className="engage-hub-form-embed" id="eh_form_6430245462212608" data-id="6430245462212608"></div>

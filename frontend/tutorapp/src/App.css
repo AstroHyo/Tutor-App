@@ -58,19 +58,40 @@ body {
   white-space: pre-wrap;
 }
 
-.click{
+.mainBtn{
   background: #313b58;
+  width: 300px;
   margin-top: 30px;
   padding: 10px;
   font-size: 15px;
   font-weight: bold;
   color: white;
-  border-radius: 10px;
+  border-radius: 30px;
   border: none;
+  font-family: "TheJamsilLight";
 }
 
-.click:hover {
+.mainBtn:hover {
   background: #4d5e92;
+  transform: scale(1.1);
+  transition-duration: 0.3s;
+}
+
+.subBtn{
+  background: white;
+  width: 130px;
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  color: 313b58;
+  border-radius: 30px;
+  border: none;
+  font-family: "TheJamsilLight";
+}
+
+.subBtn:hover {
+  background: white;
   transform: scale(1.1);
   transition-duration: 0.3s;
 }
