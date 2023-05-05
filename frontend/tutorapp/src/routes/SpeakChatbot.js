@@ -96,7 +96,7 @@ function SpeakChatbot() {
   //TTS
   const TTS = async (tutorSpeak) => {
     await EasySpeech.init()
-    console.log(TTSVoice)
+    console.log(TTSVoice.name)
     // const s = EasySpeech.voices();
     // for(var i=0; i<s.length; i++) {
     //   console.log(i + s[i].name + s[i].lang);
