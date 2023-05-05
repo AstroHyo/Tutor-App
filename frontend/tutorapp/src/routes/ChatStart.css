@@ -79,4 +79,8 @@ Stack{
         margin-right: auto;
         font-size: smaller;
     }
+
+    .exampleBox{
+        font-size: 14px;
+    }
 }
