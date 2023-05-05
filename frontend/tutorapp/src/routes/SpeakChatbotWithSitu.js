@@ -13,8 +13,6 @@ import PreRequest from './ShowPrerequest.js';
 function SpeakChatbot() {
   let userSituation = useSelector((state) => state.userSituation ) //채팅 상황 설정
 
-
-
   const navigate = useNavigate();
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
@@ -30,16 +28,6 @@ function SpeakChatbot() {
   const [isMicrophoneConnected, setIsMicrophoneConnected] = useState(false);
   const chatBoxRef = useRef(null);
   const feedbackBtn = "대화 종료하고\n피드백 받기!";
-  const situText = [
-    "반가워요! 먼저, OPIc의 어떤 레벨을 준비하고 계시나요?",
-    "Hi! It's great to see you again after such a long time. How have you been?",
-    "Hey, it's great to see you at work today. How have you been doing lately?",
-    "Hello, nice to meet you. Firstly, can you tell me a little bit about yourself?",
-    "Hi, it's nice to meet you. How has your day been so far?",
-    "Hi, it's nice to meet you. Could you please introduce about the topic of meeting?"
-  ];
-
-  //const num = [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
 
   //MIC 설정
   useEffect(() => {
@@ -149,36 +137,37 @@ function SpeakChatbot() {
     }
   }, [transcript.text]);
 
-  // const sendMessage = async () => {
-  //   try {
-  //     const response = await axios.post('REDACTED_AWS_ENDPOINT', {
-  //       situNum: situNum,
-  //       userMessage: userMessage,
-  //       tutorMessage: tutorMessage,
-  //     }, {
-  //       headers: {
-  //         //'Access-Control-Allow-Origin': "https://tutoreal.pages.dev/",
-  //         'Content-Type': 'application/json'
-  //       }
-  //     });
-  //     const data = response.data;
-  //     setTutorMessage([...tutorMessage, data.assistant]);
-  //     await TTS(data.assistant);
-  //     setConversation(data.conversation); //전체 대화 내용을 update
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
+///////////////////////////////////////////////////////////////////////////////////
+  const sendMessage = async () => {
+    try {
+      const response = await axios.post('REDACTED_AWS_ENDPOINT', {
+        situation: userSituation,
+        userMessage: userMessage,
+        tutorMessage: tutorMessage,
+      }, {
+        headers: {
+          //'Access-Control-Allow-Origin': "https://tutoreal.pages.dev/",
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = response.data;
+      setTutorMessage([...tutorMessage, data.assistant]);
+      await TTS(data.assistant);
+      setConversation(data.conversation); //전체 대화 내용을 update
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   //useEffect 이용해서 userMessage 업데이트 되고 checkUpdate true로 바뀌면 sendMessage 실행되도록 함
-  // useEffect(() => {
-  //   if (checkUpdate) {
-  //     sendMessage().then(() => {
-  //       setCheckUpdate(false);
-  //       transcript.text = null;
-  //     });
-  //   }
-  // }, [checkUpdate]);
+  useEffect(() => {
+    if (checkUpdate) {
+      sendMessage().then(() => {
+        setCheckUpdate(false);
+        transcript.text = null;
+      });
+    }
+  }, [checkUpdate]);
 
   //채팅 ui에 tutor랑 user 메세지 순서대로 불러올 수 있도록 message로 integrate하는 부분
   let messages = [];
@@ -215,15 +204,14 @@ function SpeakChatbot() {
     <div className="chat-container">
       <h1 className="chat-title">진짜 같은 인공지능 영어 튜터</h1>
       <img className="chat-logo" onClick={() => { navigate('/'); }} src={logo} alt="logoImg"/>
+
+      <div className="userSituBox">
+        <p>🔥 대화 상황: {userSituation} 🔥</p>
+      </div>
+
       <div className="chat-box" ref={chatBoxRef}>
         <div className="chat-message tutor">
-          {/* {
-            situNum === null
-              ? <p>Let's start conversation!</p>
-              : situNum >= 0 && situNum <= 5
-                ? <p>{situText[situNum]}</p>
-                : null
-          } */}
+          <p>Please start the conversation first about what you would like to discuss!</p>
         </div>
         {messages.map((message, index) => (
           <div className={`chat-message ${index % 2 === 0 ? 'user' : 'tutor'}`} key={index}>
