@@ -34,7 +34,7 @@ function ChatStart() {
             </Col>
             </Form.Group>
 
-            <button className="click" onClick={() =>{ navigate('/chatSituation')                }}>
+            <button className="mainBtn" onClick={() =>{ navigate('/chatSituation')                }}>
               내가 원하는 상황은 여기 없는데...
             </button>
         </Col>
