@@ -95,22 +95,27 @@ function SpeakChatbot() {
 
   //TTS
   const TTS = async (tutorSpeak) => {
-    await EasySpeech.init()
-    console.log(TTSVoice.name)
-    const s = EasySpeech.voices();
-    for(var i=0; i<s.length; i++) {
-      console.log(i + s[i].name + s[i].lang);
+    try{
+      await EasySpeech.init()
+      console.log(TTSVoice.name)
+      const s = EasySpeech.voices();
+      for(var i=0; i<s.length; i++) {
+        console.log(i + s[i].name + s[i].lang);
+      }
+      // console.log(EasySpeech.voices())
+      // console.log(k)
+      // console.log(EasySpeech.voices()[k])
+      await EasySpeech.speak({ 
+        text: tutorSpeak,
+        voice: TTSVoice,
+        //pitch: 1.2,  // a little bit higher
+        //rate: 1.7, // a little bit faster
+        boundary: event => console.debug('word boundary reached', event.charIndex),
+      })  
+    } catch(e) {
+      console.log(e)
     }
-    // console.log(EasySpeech.voices())
-    // console.log(k)
-    // console.log(EasySpeech.voices()[k])
-    await EasySpeech.speak({ 
-      text: tutorSpeak,
-      voice: TTSVoice,
-      //pitch: 1.2,  // a little bit higher
-      //rate: 1.7, // a little bit faster
-      boundary: event => console.debug('word boundary reached', event.charIndex),
-     })  }
+  }
 
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
