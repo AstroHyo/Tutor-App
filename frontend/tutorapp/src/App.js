@@ -28,10 +28,10 @@ function App() {
             </div>
             <div>
               <button className="subBtn" style={{marginRight: '30px'}} onClick={() =>{ navigate('/chatStart') }}>
-                피드백하기
+                정식 서비스 사전 신청하기✅
               </button>
               <button className="subBtn" onClick={() =>{ navigate('/chatStart') }}>
-                후원하기
+                피드백 해주세요🙇🏻‍♂️
               </button>
             </div>
             <div className="engage-hub-form-embed" id="eh_form_6430245462212608" data-id="6430245462212608"></div>
