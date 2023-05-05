@@ -3,6 +3,18 @@ body {
   padding: 0;
   font-family: Arial, sans-serif;
   font-size: 14px;
+  /* height: 100vh; */
+}
+
+.chat-container {
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+/* 
+  display: flex;
+  flex-direction: column;
+  flex: 1; 
+  height: 100%; */
 }
 
 .chat-title{
@@ -13,19 +25,13 @@ body {
   margin: 0px;
 }
 
-.chat-container {
-  max-width: 70%;
-  margin: 0 auto;
-  padding: 20px;
-}
-
 .chat-box {
   background-color: #f2f2f2;
   padding: 10px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   overflow-y: scroll;
-  height: 300px;
+  height: 450px;
   text-align: left;
 }
 
@@ -68,11 +74,11 @@ body {
 }
 
 .chat-input button {
-  background-color: #13a83381;
+  background-color: #13a833;
   color: #fff;
   border: none;
   padding: 10px;
-  border-radius: 30px;
+  border-bottom-right-radius: 5px;
   cursor: pointer;
   font-weight: bold;
 }
@@ -162,6 +168,10 @@ body {
   font-family: "TheJamsilLight";
   font-weight: 800;
   font-size: 16px;
+}
+
+.userSituBox p userSituContent{
+  font-size: 14px;
 }
 
 @media screen and (max-width: 768px){
