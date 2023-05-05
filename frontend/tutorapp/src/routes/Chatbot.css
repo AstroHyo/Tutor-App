@@ -146,6 +146,21 @@ body {
   margin: 20px 0;
 }
 
+.userSituBox{
+  background-color: rgb(247, 249, 250);
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.userSituBox p{
+  margin: 0px;
+  font-family: "TheJamsilLight";
+  font-weight: 800;
+  font-size: 16px;
+}
+
 @media screen and (max-width: 768px){
   .chat-container {
     max-width: 90%;
