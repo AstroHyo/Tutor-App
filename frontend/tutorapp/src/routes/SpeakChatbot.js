@@ -71,7 +71,7 @@ function SpeakChatbot() {
       //만약 IOS면 보이스를 moira로 설정
       if(OS === "iOS") {
         setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
-        console.log(TTSVoic.name);
+        console.log(TTSVoice.name);
       }
     }
     EasySpeechInit(); 
