@@ -97,10 +97,10 @@ function SpeakChatbot() {
   const TTS = async (tutorSpeak) => {
     await EasySpeech.init()
     console.log(TTSVoice.name)
-    // const s = EasySpeech.voices();
-    // for(var i=0; i<s.length; i++) {
-    //   console.log(i + s[i].name + s[i].lang);
-    // }
+    const s = EasySpeech.voices();
+    for(var i=0; i<s.length; i++) {
+      console.log(i + s[i].name + s[i].lang);
+    }
     // console.log(EasySpeech.voices())
     // console.log(k)
     // console.log(EasySpeech.voices()[k])
@@ -155,7 +155,7 @@ function SpeakChatbot() {
       });
       const data = response.data;
       setTutorMessage([...tutorMessage, data.assistant]);
-      TTS(data.assistant);
+      await TTS(data.assistant);
       setConversation(data.conversation); //전체 대화 내용을 update
     } catch (error) {
       console.error(error);
