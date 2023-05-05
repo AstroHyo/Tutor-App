@@ -206,7 +206,8 @@ function SpeakChatbot() {
       <img className="chat-logo" onClick={() => { navigate('/'); }} src={logo} alt="logoImg"/>
 
       <div className="userSituBox">
-        <p>🔥 대화 상황: {userSituation} 🔥</p>
+        <p>🔥 대화 상황 🔥</p>
+        <p className="userSituContent">{userSituation}</p>
       </div>
 
       <div className="chat-box" ref={chatBoxRef}>
@@ -248,7 +249,6 @@ function SpeakChatbot() {
       <div>
         {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
       </div>
-      <PreRequest/>
     </div>
   );
 }
