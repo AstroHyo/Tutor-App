@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+import Loading from './Loading.js';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatStart from './routes/ChatStart'
@@ -8,14 +10,18 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import logo from './img/logo.png';
 
 function App() {
-
+  const [loading, setLoading] = useState(true);
   let navigate = useNavigate();
   let text = "틀에서 벗어난 개인화된 \n 회화 튜터링을 제공합니다.";
 
+  useEffect(() => { 
+    setLoading(false); 
+  }, []);
+
   return (
     <div className="App" style={{  }}>
+      { loading && <Loading /> }
       <Routes>
-
         <Route path="/" element={
           <div className="container">
             <h1 className="title">진짜 같은 인공지능 영어 튜터</h1>
