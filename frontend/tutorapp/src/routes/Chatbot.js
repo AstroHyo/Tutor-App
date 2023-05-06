@@ -8,7 +8,6 @@ import './Chatbot.css';
 import './audioRecord.css'
 import axios from 'axios';
 import logo from './../img/logo.png';
-import PreRequest from './ShowPrerequest.js';
 
 function Chatbot() {
   const navigate = useNavigate();
@@ -252,12 +251,17 @@ function Chatbot() {
       </div>
 
       <div>
-        <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
+        <button className="mainBtn" onClick={getFeedback}>{feedbackBtn}</button>
       </div>
       <div>
         {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
       </div>
-      <PreRequest/>
+      <button className="subBtn" style={{marginRight: '30px'}} onClick={() =>{ navigate('/PreRequest')}}>
+        정식 서비스 사전 신청하기✅
+      </button>
+      <button className="subBtn" onClick={() => window.open(`https://tally.so/r/mYPEeN`, "_blank")}>
+        피드백 해주세요🙇🏻‍♂️
+      </button>
     </div>
   );
 }

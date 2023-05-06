@@ -6,6 +6,10 @@ body {
   /* height: 100vh; */
 }
 
+.chat-logo{
+  cursor: pointer;
+}
+
 .chat-container {
   max-width: 70%;
   margin: 0 auto;
