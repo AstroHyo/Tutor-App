@@ -10,7 +10,7 @@ import axios from 'axios';
 import logo from './../img/logo.png';
 import PreRequest from './ShowPrerequest.js';
 
-function SpeakChatbot() {
+function Chatbot() {
   let userSituation = useSelector((state) => state.userSituation ) //채팅 상황 설정
 
   const navigate = useNavigate();
@@ -253,4 +253,4 @@ function SpeakChatbot() {
   );
 }
 
-export default SpeakChatbot;
+export default Chatbot;

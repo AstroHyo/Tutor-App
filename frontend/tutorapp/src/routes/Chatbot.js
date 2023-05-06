@@ -1,19 +1,126 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from "react-redux"
+import { useNavigate } from 'react-router-dom';
+import { useWhisper } from '@chengsokdara/use-whisper'
+import DetectOS from './detectOS.js'
+import EasySpeech from 'easy-speech'
 import './Chatbot.css';
+import './audioRecord.css'
 import axios from 'axios';
+import logo from './../img/logo.png';
+import PreRequest from './ShowPrerequest.js';
 
 function Chatbot() {
+  const navigate = useNavigate();
+  let situNum = useSelector((state) => state.situNum ) //채팅 상황 설정
   let [userMessage, setUserMessage] = useState([]);
   let [tutorMessage, setTutorMessage] = useState([]);
+  let [userInput, setUserInput] = useState("");
+  let [conversation, setConversation] = useState(null); //전체대화 set
+  let [TTSVoice, setTTSVoice] = useState(null); //TTS voice 설정
+  let [feedback, setFeedback] = useState(null); //피드백 set
   //만약 userMessage 값이 업데이트되면 true
   let [checkUpdate, setCheckUpdate] = useState(false);
-  let [userInput, setUserInput] = useState("");
+  //record중인지 check
+  let [checkRecording, setCheckRecording] = useState(false);
+  //mic 연결 check
+  const [isMicrophoneConnected, setIsMicrophoneConnected] = useState(false);
   const chatBoxRef = useRef(null);
-  
+  const feedbackBtn = "대화 종료하고\n피드백 받기!";
+  const situText = [
+    "반가워요! 먼저, OPIc의 어떤 레벨을 준비하고 계시나요?",
+    "Hi! It's great to see you again after such a long time. How have you been?",
+    "Hey, it's great to see you at work today. How have you been doing lately?",
+    "Hello, nice to meet you. Firstly, can you tell me a little bit about yourself?",
+    "Hi, it's nice to meet you. How has your day been so far?",
+    "Hi, it's nice to meet you. Could you please introduce about the topic of meeting?"
+  ];
+
+  //const num = [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53]
+
+  //MIC 설정
+  useEffect(() => {
+    async function checkMicrophoneConnection() {
+      //mic 연결 가능 check
+      const isWebRTCSupported = navigator.mediaDevices && navigator.mediaDevices.getUserMedia;
+      if (!isWebRTCSupported) {
+        return;
+      }
+      //mic 허용 했는지 check
+      const isMicrophoneConnected = await navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          stream.getTracks().forEach(track => track.stop());
+          return true;
+        })
+        .catch(() => {
+          return false;
+        });
+      setIsMicrophoneConnected(isMicrophoneConnected);
+    }
+    checkMicrophoneConnection();
+  }, []);
+
+  //OS 확인
+  useEffect(() => {
+    async function EasySpeechInit() {
+      await EasySpeech.init()
+      setTTSVoice(EasySpeech.voices()[2]); //크롬에 맞게 먼저 set
+      let OS = DetectOS();
+      console.log(OS);
+      console.log(situNum)
+      //만약 IOS면 보이스를 moira로 설정
+      if(OS === "iOS") {
+        setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
+        console.log(TTSVoice.name);
+      }
+    }
+    EasySpeechInit(); 
+  }, [])
+
+  //STT
+  const {
+    recording,
+    speaking,
+    transcribing,
+    transcript,
+    pauseRecording,
+    startRecording,
+    stopRecording,
+  } = useWhisper({
+    apiKey: process.env.REACT_APP_OPENAI_KEY,
+    // autoStart: true,
+    // nonStop: true,
+    // stopTimeout: 3000,
+  })
+
+  //TTS
+  const TTS = async (tutorSpeak) => {
+    try{
+      await EasySpeech.init()
+      console.log(TTSVoice.name)
+      const s = EasySpeech.voices();
+      for(var i=0; i<s.length; i++) {
+        console.log(i + s[i].name + s[i].lang);
+      }
+      // console.log(EasySpeech.voices())
+      // console.log(k)
+      // console.log(EasySpeech.voices()[k])
+      await EasySpeech.speak({ 
+        text: tutorSpeak,
+        //voice: TTSVoice,
+        //pitch: 1.2,  // a little bit higher
+        //rate: 1.7, // a little bit faster
+        boundary: event => console.debug('word boundary reached', event.charIndex),
+      })  
+    } catch(e) {
+      console.log(e)
+    }
+  }
+
   //scroll을 아래로 내려주기 위한 코드
   useEffect(() => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-  }, [tutorMessage]);
+  }, [tutorMessage, userMessage]);
 
   //엔터 입력 시 userMessage 업데이트하고 chechupdate true
   const handleKeyPress = (event) => {
@@ -23,6 +130,7 @@ function Chatbot() {
       setUserInput('');
     }
   }
+
   //버튼 클릭시 사용
   function handleSendButton() {
     setUserMessage([...userMessage, userInput]);
@@ -30,12 +138,18 @@ function Chatbot() {
     setUserInput('');
   }
 
-  const sendMessage = async () => {
-    console.log(userMessage);
-    console.log(userInput);
+  //transcrip.text가 존재하면(즉, 녹음 완료하면) UserMessage 업데이트하고 CheckUpdate(true)로 만들어주는 useEffect
+  useEffect(() => {
+    if (transcript.text) {
+      setUserMessage([...userMessage, transcript.text]);
+      setCheckUpdate(true);
+    }
+  }, [transcript.text]);
 
+  const sendMessage = async () => {
     try {
       const response = await axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/tutoringSpeak', {
+        situNum: situNum,
         userMessage: userMessage,
         tutorMessage: tutorMessage,
       }, {
@@ -45,8 +159,9 @@ function Chatbot() {
         }
       });
       const data = response.data;
-      console.log(data);
       setTutorMessage([...tutorMessage, data.assistant]);
+      await TTS(data.assistant);
+      setConversation(data.conversation); //전체 대화 내용을 update
     } catch (error) {
       console.error(error);
     }
@@ -57,6 +172,7 @@ function Chatbot() {
     if (checkUpdate) {
       sendMessage().then(() => {
         setCheckUpdate(false);
+        transcript.text = null;
       });
     }
   }, [checkUpdate]);
@@ -76,11 +192,35 @@ function Chatbot() {
   }
   messages = messages.concat(userMessage.slice(userIndex)).concat(tutorMessage.slice(tutorIndex));
 
+  const getFeedback = async () => {
+    try {
+      const response = await axios.post('https://329i02an76.execute-api.ap-northeast-2.amazonaws.com/prod/getFeedback', {
+        conversation: conversation,
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data = response.data;
+      setFeedback(data.feedback); //받아온 피드백 set
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div className="chat-container">
+      <h1 className="chat-title">진짜 같은 인공지능 영어 튜터</h1>
+      <img className="chat-logo" onClick={() => { navigate('/'); }} src={logo} alt="logoImg"/>
       <div className="chat-box" ref={chatBoxRef}>
         <div className="chat-message tutor">
-          <p>Let's start conversation!</p>
+          {
+            situNum === null
+              ? <p>Let's start conversation!</p>
+              : situNum >= 0 && situNum <= 5
+                ? <p>{situText[situNum]}</p>
+                : null
+          }
         </div>
         {messages.map((message, index) => (
           <div className={`chat-message ${index % 2 === 0 ? 'user' : 'tutor'}`} key={index}>
@@ -88,10 +228,36 @@ function Chatbot() {
           </div>
         ))}
       </div>
+
       <div className="chat-input">
         <input type="text" placeholder="Type your message here..." value={userInput} onChange={(e) => setUserInput(e.target.value)} onKeyPress={handleKeyPress} />
         <button onClick={handleSendButton}>Send</button>
       </div>
+
+      <div>
+        {isMicrophoneConnected ? (
+          <div>
+            { checkRecording? (
+              <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop</button>
+            ) : (
+              <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Speak!</button>
+            )}
+          </div>
+        ) : (
+          <div>
+            <br/>
+            <h6 style={{color: 'white', fontWeight: 'bold'}}>마이크 연결을 확인해주세요</h6>
+          </div>
+        )}
+      </div>
+
+      <div>
+        <button className="convFinishBtn" onClick={getFeedback}>{feedbackBtn}</button>
+      </div>
+      <div>
+        {feedback && <div className='Feedback' dangerouslySetInnerHTML={{ __html: feedback.replace(/<h3/g, '<h4 class="feedback-h4"').replace(/<h4/g, '<h4 class="feedback-h4"').replace(/<ul/g, '<ul class="feedback-ul"').replace(/<li/g, '<li class="feedback-li"') }} />}
+      </div>
+      <PreRequest/>
     </div>
   );
 }

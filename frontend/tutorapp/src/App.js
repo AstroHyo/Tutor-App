@@ -4,8 +4,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ChatStart from './routes/ChatStart'
 import ChatSituation from './routes/ChatSituation';
-import SpeakChatbot from './routes/SpeakChatbot';
-import SpeakChatbotWithSitu from './routes/SpeakChatbotWithSitu';
+import Chatbot from './routes/Chatbot';
+import ChatbotWithSitu from './routes/ChatbotWithSitu';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import logo from './img/logo.png';
 
@@ -48,9 +48,9 @@ function App() {
 
         <Route path="/chatSituation" element={<ChatSituation/>}/>
 
-        <Route path="/chatWithTutor" element={<SpeakChatbot/>}/>
+        <Route path="/chatWithTutor" element={<Chatbot/>}/>
 
-        <Route path="/chatWithTutorSitu" element={<SpeakChatbotWithSitu/>}/>
+        <Route path="/chatWithTutorSitu" element={<ChatbotWithSitu/>}/>
 
       </Routes>
     </div>
