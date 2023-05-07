@@ -64,14 +64,14 @@ function Chatbot() {
     async function EasySpeechInit() {
       await EasySpeech.init()
       setTTSVoice(EasySpeech.voices()[2]); //크롬에 맞게 먼저 set
-      let OS = DetectOS();
+      //let OS = DetectOS();
       console.log(OS);
       console.log(situNum)
       //만약 IOS면 보이스를 moira로 설정
-      if(OS === "iOS") {
-        setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
-        console.log(TTSVoice.name);
-      }
+      // if(OS === "iOS") {
+      //   setTTSVoice(EasySpeech.voices()[35]); //여: 35 36 27 남: 30
+      //   console.log(TTSVoice.name);
+      // }
     }
     EasySpeechInit(); 
   }, [])
