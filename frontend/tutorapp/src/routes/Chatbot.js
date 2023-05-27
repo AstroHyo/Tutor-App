@@ -159,8 +159,8 @@ function Chatbot() {
       });
       const data = response.data;
       setTutorMessage([...tutorMessage, data.assistant]);
-      await TTS(data.assistant);
       setConversation(data.conversation); //전체 대화 내용을 update
+      await TTS(data.assistant);
     } catch (error) {
       console.error(error);
     }
