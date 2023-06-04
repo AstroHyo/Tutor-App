@@ -14,6 +14,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   let navigate = useNavigate();
   let text = "틀에서 벗어난 개인화된 \n 회화 튜터링을 제공합니다.";
+  let preReqText = "정식 서비스 사전 신청하기!"
 
   useEffect(() => { 
     setLoading(false); 
@@ -34,14 +35,18 @@ function App() {
               </button>
             </div>
             <div>
-              <button className="subBtn" style={{marginRight: '30px'}} onClick={() =>{ navigate('/PreRequest')}}>
+              <button className="subBtn" onClick={() => window.open(`https://tally.so/r/mYPEeN`, "_blank")}>
                 정식 서비스 사전 신청하기✅
               </button>
-              <button className="subBtn" onClick={() => window.open(`https://tally.so/r/mYPEeN`, "_blank")}>
-                피드백 해주세요🙇🏻‍♂️
-              </button>
             </div>
-            <div data-mooform-id="22195778-0b79-46e9-8a15-c89680bc38f3" ></div>
+            {/*
+              <div className="preForm">
+              <div className="preFormContent">
+                <p className="preFormDis"> {preReqText} </p>
+              </div>
+              <div className="preFormBox" data-mooform-id="22195778-0b79-46e9-8a15-c89680bc38f3" ></div>
+              </div>
+            */}
           </div>
         }/>
 
