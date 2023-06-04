@@ -25,7 +25,7 @@ function Chatbot() {
   //mic 연결 check
   const [isMicrophoneConnected, setIsMicrophoneConnected] = useState(false);
   const chatBoxRef = useRef(null);
-  const feedbackBtn = "대화 종료하고\n피드백 받기!";
+  const feedbackBtn = "대화 종료하고 피드백 받기!💯";
   const situText = [
     "반가워요! 먼저, OPIc의 어떤 레벨을 준비하고 계시나요?",
     "Hi! It's great to see you again after such a long time. How have you been?",
