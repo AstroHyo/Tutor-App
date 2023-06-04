@@ -66,7 +66,7 @@ body {
   width: 300px;
   margin-top: 30px;
   padding: 10px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   color: white;
   border-radius: 30px;
@@ -82,10 +82,10 @@ body {
 
 .subBtn{
   background: white;
-  width: 130px;
+  width: 300px;
   margin-top: 15px;
   padding: 10px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   color: #313b58;
   border-radius: 30px;
@@ -97,6 +97,32 @@ body {
   background: white;
   transform: scale(1.1);
   transition-duration: 0.3s;
+}
+
+.preForm{
+  margin-top: 30px;
+  color: white;
+}
+
+.preFormContent {
+  margin: 0px;
+}
+
+.preFormTitle{
+  font-size: 24px;
+  font-weight: 400;
+  margin-bottom: 0px;
+  font-family: "TheJamsilLight";
+}
+
+.preFormDis{
+  font-size: 20px;
+  margin-bottom: 0px;
+  font-family: "TheJamsilThin";
+}
+
+.preFormBox{
+  padding: 0px;
 }
 
 @keyframes App-logo-spin {
