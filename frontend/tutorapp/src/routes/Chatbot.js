@@ -64,6 +64,7 @@ function Chatbot() {
     async function EasySpeechInit() {
       await EasySpeech.init()
       setTTSVoice(EasySpeech.voices()[2]); //크롬에 맞게 먼저 set
+      console.log(TTSVoice.name);
       //let OS = DetectOS();
       //console.log(OS);
       console.log(situNum)
@@ -109,6 +110,7 @@ function Chatbot() {
         voice: TTSVoice,
         //pitch: 1.2,  // a little bit higher
         //rate: 1.7, // a little bit faster
+        //volume: 1,
         boundary: event => console.debug('word boundary reached', event.charIndex),
       })  
     } catch(e) {
@@ -245,7 +247,7 @@ function Chatbot() {
         ) : (
           <div>
             <br/>
-            <h6 style={{color: 'white', fontWeight: 'bold'}}>마이크 연결을 확인해주세요</h6>
+            <h6 style={{color: 'white', fontWeight: 'bold'}}>AI에게 말하기 위해서는 마이크 연결이 필요해요!</h6>
           </div>
         )}
       </div>
