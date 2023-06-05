@@ -18,7 +18,7 @@ function Chatbot() {
   let [conversation, setConversation] = useState(null); //전체대화 set
   let [TTSVoice, setTTSVoice] = useState(null); //TTS voice 설정
   let [feedback, setFeedback] = useState(null); //피드백 set
-  //만약 userMessage 값이 업데이트되면 true
+  //만약 userMessage 값이 업데이트되면 true = sendMessage 실행 중에는 true, 아니면 false
   let [checkUpdate, setCheckUpdate] = useState(false);
   //record중인지 check
   let [checkRecording, setCheckRecording] = useState(false);
@@ -250,6 +250,7 @@ function Chatbot() {
         { isMicrophoneConnected ? (
                 checkUpdate ? (
                   <div className="recordBtnBox">
+                    <p>말하지 말라고 AI가 얘기할 땐 좀</p>
                     <button className="recordStartBtn" disabled="disabled" onClick={() => { setCheckRecording(true); startRecording();  }}>Speak!</button>
                   </div>
                 ) : (
