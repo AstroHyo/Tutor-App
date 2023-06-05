@@ -106,7 +106,7 @@ function Chatbot() {
       // console.log(EasySpeech.voices()[k])
       await EasySpeech.speak({ 
         text: tutorSpeak,
-        //voice: TTSVoice,
+        voice: TTSVoice,
         //pitch: 1.2,  // a little bit higher
         //rate: 1.7, // a little bit faster
         boundary: event => console.debug('word boundary reached', event.charIndex),
