@@ -241,13 +241,54 @@ function Chatbot() {
         )
       }
 
+      {/*
+        1) isMicrophoneConnected: 마이크 연결되어 있으면 버튼 표시,
+        2) checkUpdate: sendMessage가 실행 중이면 비활성화, 끝났으면 활성화 -> TTS가 나오고 있는데 녹음을 하는 경우를 방지하기 위한 장치,
+        3) checkRecording: 녹음 시작 전이면 Speak!, 녹음 중이면 stop 버튼 표시
+      */}
       <div>
+        { isMicrophoneConnected ? (
+                checkUpdate ? (
+                  <div className="recordBtnBox">
+                    <button className="recordStartBtn" disabled="disabled" onClick={() => { setCheckRecording(true); startRecording();  }}>Speak!</button>
+                  </div>
+                ) : (
+                  <div>
+                    { checkRecording ? (
+                        <div className="recordBtnBox">
+                          <button  className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop</button>
+                        </div>
+                    ) : (
+                      <div className="recordBtnBox">
+                        <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Speak!</button>
+                      </div>
+                    )}
+                  </div>
+                )
+          ) : (
+                <div>
+                  <br/>
+                  <h6 style={{color: 'white', fontWeight: 'bold'}}>AI에게 말하기 위해서는 마이크 연결이 필요해요!</h6>
+                </div>
+            )
+        }
+      </div>
+
+
+        {/*
+
         {isMicrophoneConnected ? (
           <div>
-            { checkRecording? (
-              <div className="recordBtnBox">
-                <button className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop</button>
-              </div>
+            { checkRecording ? (
+                 checkUpdate ? (
+                  <div className="recordBtnBox">
+                      <button disabled="disabled" className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop</button>
+                    </div>
+                  ) : (
+                    <div className="recordBtnBox">
+                      <button  className="recordStopBtn" onClick={() => { stopRecording(); setCheckRecording(false); }}>Stop</button>
+                    </div>
+                  )
             ) : (
               <div className="recordBtnBox">
                 <button className="recordStartBtn" onClick={() => { setCheckRecording(true); startRecording();  }}>Speak!</button>
@@ -261,6 +302,7 @@ function Chatbot() {
           </div>
         )}
       </div>
+      */}
 
       <div>
         <button className="mainBtn" onClick={getFeedback}>{feedbackBtn}</button>
@@ -273,6 +315,7 @@ function Chatbot() {
           정식 서비스 사전 신청하기✅
         </button>
       </div>
+
     </div>
   );
 }
