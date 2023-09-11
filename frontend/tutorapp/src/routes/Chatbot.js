@@ -250,7 +250,7 @@ function Chatbot() {
         { isMicrophoneConnected ? (
                 checkUpdate ? (
                   <div className="recordBtnBox">
-                    <p>말하지 말라고 AI가 얘기할 땐 좀</p>
+                    <p>AI 튜터가 대답하는 중이에요!</p>
                     <button className="recordStartBtn" disabled="disabled" onClick={() => { setCheckRecording(true); startRecording();  }}>Speak!</button>
                   </div>
                 ) : (
