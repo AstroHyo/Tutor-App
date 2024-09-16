@@ -4,11 +4,15 @@
 - Developed to replace costly English tutoring services, making it easy for anyone to access tutoring learning without the concern of price
 - Utilized React for frontend development, and developed the backend on AWS Lambda using ChatGPT API and Whisper API
 
-<p align="center">
+<p>
   1. Main page
-  <img width="70%" src="https://github.com/AstroHyo/Tutor-App/blob/main/TutoReal_1.jpeg">
-  
-  2. Tutoring page
-  <img width="70%" src="https://github.com/AstroHyo/Tutor-App/blob/main/TutoReal_2.jpeg">
+  <div align="center">
+    <img width="70%" src="https://github.com/AstroHyo/Tutor-App/blob/main/TutoReal_1.jpeg">
+  </div>
 </p>
-
+<p>
+  2. Tutoring page
+  <div align="center">
+    <img width="70%" src="https://github.com/AstroHyo/Tutor-App/blob/main/TutoReal_2.jpeg">
+  </div>
+</p>
