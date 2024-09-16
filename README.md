@@ -7,4 +7,4 @@
 <p align="center">
 <img width="70%" src"=https://github.com/AstroHyo/Tutor-App/blob/main/TutoReal_1.jpeg">
 <img width="70%" src"=https://github.com/AstroHyo/Tutor-App/blob/main/TutoReal_2.jpeg">
-</p>>
+</p>
