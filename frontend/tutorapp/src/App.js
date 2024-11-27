@@ -34,11 +34,6 @@ function App() {
                 대화 시작하기!
               </button>
             </div>
-            <div>
-              <button className="subBtn" onClick={() => window.open(`https://tally.so/r/mYPEeN`, "_blank")}>
-                정식 서비스 사전 신청하기✅
-              </button>
-            </div>
             {/*
               <div className="preForm">
               <div className="preFormContent">

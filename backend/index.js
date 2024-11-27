@@ -1,4 +1,5 @@
-const apiKey = "REDACTED_OPENAI_API_KEY";
+// Delete API Key
+const apiKey = "";
 const serverless = require('serverless-http');
 const { Configuration, OpenAIApi } = require("openai");
 //express를 불러와서 이걸 app으로 만든다.
